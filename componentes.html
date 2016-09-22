@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <title>Todo PC - Estamos cerca tuyo</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/panels.css">
+  <link rel="stylesheet" href="css/toastr.min.css">
+  <body class="pace-done">
+
+    <aside class="navigation">
+      <img src="images/logo.png" alt="Logo TODO-PC" class="img-thumbnail"/>
+
+      <nav>
+        <ul class="nav luna-nav">
+          <li class="nav-category"><strong>Principal</strong></li>
+          <li><a href="index.html">Listado de componentes</a></li>
+          <li class="nav-category"><strong>Administracion</strong></li>
+          <li class="active"><a href="componentes.html">Componentes</a></li>
+          <li><a href="categorias.html">Categorías</a></li>
+          <li><a href="consultas.html">Ver consultas</a></li>
+          <li class="nav-category"><strong>Contacto</strong></li>
+          <li><a href="contacto.html">Contactanos</a></li>
+          <li class="nav-info"><div class="m-t-xs">Web II - 2016</div></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- EMPIEZA CÓDIGO DINÁMICO -->
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="view-header">
+              <div class="pull-right text-right" style="line-height: 14px">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target=".newComp">Agregar nuevo</button>
+              </div>
+
+
+              <div class="modal fade newComp"  tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header text-center">
+                      <h4 class="modal-title">Nuevo componente</h4>
+                    </div>
+                    <form>
+                      <div class="modal-body">
+                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="componente" placeholder="ej. ASUS Q87M-E"></div>
+                        <div class="form-group"><label for="componente">Categoría</label>
+                          <select name="categoria" class="form-control">
+                            <option name="motherboards">Motherboards</option>
+                            <option name="motherboards">Tarjetas gráficas</option>
+                            <option name="motherboards">Almacenamiento</option>
+                          </select>
+                        </div>
+                        <div class="form-group"><label>Subir imagenes: </label><input type="file" name="imagenes[]" required value="" multiple=""></div>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-accent">Guardar</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="modal fade editComp" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header text-center">
+                      <h4 class="modal-title">Editar componente</h4>
+                    </div>
+                    <form>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-lg-6 col-xs-6">
+                            <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="componente" value="ASUS X99-DELUXE II"></div>
+                            <div class="form-group"><label for="componente">Categoría</label>
+                              <select name="categoria" class="form-control">
+                                <option name="motherboards">Motherboards</option> <!-- Auto seleccionada, se carga desde la DB -->
+                                <option name="motherboards">Tarjetas gráficas</option>
+                                <option name="motherboards">Almacenamiento</option>
+                              </select>
+                            </div>
+                            <div class="form-group"><label>Subir imagenes: </label><input type="file" name="imagenes[]" value="" multiple=""></div>
+                          </div>
+
+                          <div class="col-lg-6 col-xs-6">
+                            <div class="form-group"><label for="componente">Eliminar imágenes <small>(Seleccionar)</small></label></div>
+                            <div class="row">
+                              <div class="col-lg-6 col-xs-6">
+                                <label><img src="images\X99-DELUXE\1.png" alt="..." class="img-thumbnail"><input type="checkbox" name="img_1" class="hidden"></label>
+                              </div>
+                              <div class="col-lg-6 col-xs-6">
+                                <label><img src="images\X99-DELUXE\2.png" alt="..." class="img-thumbnail"><input type="checkbox" name="img_1" class="hidden"></label>
+                              </div>
+                              <div class="col-lg-6 col-xs-6">
+                                <label><img src="images\X99-DELUXE\3.png" alt="..." class="img-thumbnail"><input type="checkbox" name="img_1" class="hidden"></label>
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-accent">Guardar</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <div class="header-title">
+                <h3 class="m-b-xs">Administración de componentes de PC</h3>
+                <small>Administra diferentes componentes editandolos, eliminando y agregando nuevos.</small>
+              </div>
+            </div>
+            <hr>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-xs-6">
+            <ul class="list-group">
+              <li class="list-group-item active-custom"><strong class="color-white">Motherboards</strong></a>
+                <li class="list-group-item">ASUS X99-DELUXE II <a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a><a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+                <li class="list-group-item">ASUS Z170-A <a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a><a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+                <li class="list-group-item">MSI Z170A M6 <a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a><a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+                <li class="list-group-item">Q87M-E <a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a><a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+                <li class="list-group-item">Z170-WS <a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a><a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+              </ul>
+
+            </div>
+            <div class="col-lg-6 col-xs-6">
+              <ul class="list-group">
+                <li class="list-group-item active-custom"><strong class="color-white">Tarjetas Gráficas</strong></a>
+
+                  <li class="list-group-item">AMD Radeon R7 360<a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a><a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+                  <li class="list-group-item">Nvidia GeForce GTX 1080 <a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a><a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+                  <li class="list-group-item">AMD Radeon RX 480 <a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a><a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+                  <li class="list-group-item">Nvidia GeForce GTX 950<a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a> <a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+                  <li class="list-group-item">Nvidia Titan X <a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a><a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-xs-6">
+                <ul class="list-group">
+                  <li class="list-group-item active-custom"><strong class="color-white">Almacenamiento</strong></a>
+                    <li class="list-group-item">Samsung 850 EVO <a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a><a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+                    <li class="list-group-item">Seagate Barracuda<a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a><a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+                    <li class="list-group-item">WD Caviar Black<a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a> <a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+                    <li class="list-group-item">Kingston SSDNow V300<a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a><a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+                    <li class="list-group-item">WD Caviar Green<a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp"></a><a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <button class="compEnvio btn btn-success">Enviado</button>
+          </section>
+
+          <!-- FIN CÓDIGO DINÁMICO -->
+
+          <script src="js/jquery.min.js"></script>
+          <script src="js/bootstrap.min.js"></script>
+          <script src="js/toastr.js"></script>
+          <script src="js/test.js"></script>
+        </body>
+        </html>

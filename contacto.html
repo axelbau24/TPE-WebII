@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <title>Todo PC - Estamos cerca tuyo</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/panels.css">
+  <link rel="stylesheet" href="css/toastr.min.css">
+  <body class="pace-done">
+
+    <aside class="navigation">
+      <img src="images/logo.png" alt="Logo TODO-PC" class="img-thumbnail"/>
+
+      <nav>
+        <ul class="nav luna-nav">
+          <li class="nav-category"><strong>Principal</strong></li>
+          <li><a href="index.html">Listado de componentes</a></li>
+          <li class="nav-category"><strong>Administracion</strong></li>
+          <li><a href="componentes.html">Componentes</a></li>
+          <li><a href="categorias.html">Categorías</a></li>
+          <li><a href="consultas.html">Ver consultas</a></li>
+          <li class="nav-category"><strong>Contacto</strong></li>
+          <li class="active"><a href="contacto.html">Contactanos</a></li>
+          <li class="nav-info"><div class="m-t-xs">Web II - 2016</div></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- EMPIEZA CÓDIGO DINÁMICO -->
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="view-header">
+              <div class="pull-right text-right" style="line-height: 14px">
+                <small>Diseñado por:<br><i>Axel Bautista</i><br><i>Ezequiel Fazio</i></small>
+              </div>
+
+              <div class="header-title">
+                <h3 class="m-b-xs">Contactanos</h3>
+                <small>No te quedes con dudas..</small>
+              </div>
+            </div>
+            <hr>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="panel panel-filled">
+              <div class="panel-heading">
+                Formulario de contacto
+              </div>
+              <div class="panel-body">
+                <form method="post">
+                  <div class="form-group"><label for="name">Nombre</label> <input type="name" required class="form-control" name="name" placeholder="Nombre"></div>
+                    <div class="form-group"><label for="email">Email</label> <input type="email" class="form-control" name="email" placeholder="mail@ejemplo.com" required></div>
+                  <div class="form-group"><label for="consulta">Su consulta</label> <textarea name="consulta" class="form-control" rows="3" placeholder="Escriba su consulta aqui..." required></textarea></div>
+                    <div class="checkbox"><label> <input type="checkbox" name="notificaciones"> Recibir notificaciones </label></div>
+                    <button type="submit" class="btn btn-default">Enviar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- FIN CÓDIGO DINÁMICO -->
+
+      <script src="js/jquery.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+    </body>
+    </html>

@@ -1,0 +1,29 @@
+.list-group-item{
+  background-color: #3a3d45;
+  border-color: black;
+}
+li.list-group-item, button.list-group-item {
+    color: #f5f5f5;
+}
+li.list-group-item:hover{
+    background-color: #434752;
+    color: white;
+}
+.color-white{
+  color: white;
+}
+li.active-custom:hover, .active-custom{
+  background-color: #24262d;
+  border-color: black;
+  color: white;
+}
+
+.color-transparent{
+  background-color: transparent;
+}
+.space-right{
+  margin-right: 5px;
+}
+.check{
+    background-color: rgba(255, 255, 255, 0.25);
+}
