@@ -10,9 +10,9 @@ class ModelComponentes
 
   function getComponentes()
   {
-    $this->db->getDB()->prepare("SELECT * FROM componente");
-    $this->db->getDB()->execute();
-    return $this->db->getDB()->fetchAll(PDO::FETCH_ASSOC);
+    $componentes = $this->db->getDB()->prepare("SELECT * FROM componente");
+    $componentes->execute();
+    return $componentes->fetchAll(PDO::FETCH_ASSOC);
   }
 }
 

@@ -1,6 +1,7 @@
 <?php
 include_once("view/ViewComponentes.php");
-include_once("view/ModelComponentes.php");
+include_once("models/ModelComponentes.php");
+//include_once("models/ModelCategorias.php");
 
 class ComponentesController
 {
@@ -14,8 +15,8 @@ class ComponentesController
 
   function mostrar()
   {
-    
-    $this->vista->mostrarComponentes();
+    $componentes = $this->model->getComponentes();
+    $this->vista->mostrarComponentes($componentes);
   }
 }
 

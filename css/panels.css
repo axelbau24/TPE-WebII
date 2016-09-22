@@ -27,3 +27,6 @@ li.active-custom:hover, .active-custom{
 .check{
     background-color: rgba(255, 255, 255, 0.25);
 }
+.destacado{
+  color: #ff9900;
+}
