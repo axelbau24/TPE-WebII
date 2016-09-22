@@ -1,3 +1,3 @@
 {include file="header.tpl"}
-<h1>asdasdasdasdasdas</h1>
+<h1>asdasdaas</h1>
 {include file="footer.tpl"}
