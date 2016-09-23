@@ -14,6 +14,13 @@ class ModelComponentes
     $componentes->execute();
     return $componentes->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  function getComponentesByCategoria($id_categoria)
+  {
+    $componentes = $this->db->getDB()->prepare("SELECT * FROM componente WHERE fk_id_categoria = ?");
+    $componentes->execute(array($id_categoria));
+    return $componentes->fetchAll(PDO::FETCH_ASSOC);
+  }
 }
 
  ?>

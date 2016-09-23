@@ -10,7 +10,7 @@ class ViewComponentes
 
   function mostrarComponentes($componentes)
   {
-    $this->smarty->assign("componentes", $componentes);
+    $this->smarty->assign("componentes_cat", $componentes);
     $this->smarty->display("componentes.tpl");
 
   }

@@ -12,7 +12,7 @@ if (!array_key_exists(ConfigApp::$ACTION,$_REQUEST)){
 }
 
 switch ($_REQUEST[ConfigApp::$ACTION]) {
-  case ConfigApp::$ACTION_MOSTRAR_COMPONENTES:
+  case ConfigApp::$ACTION_MOSTRAR_COMPONENTE:
     $controller->mostrar();
     break;
     case ConfigApp::$ACTION_MOSTRAR_CATEGORIAS:
