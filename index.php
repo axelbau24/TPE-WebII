@@ -13,13 +13,13 @@ if (!array_key_exists(ConfigApp::$ACTION,$_REQUEST)){
 
 switch ($_REQUEST[ConfigApp::$ACTION]) {
   case ConfigApp::$ACTION_MOSTRAR_COMPONENTE:
-    $controller->mostrar();
+    $controllerComponentes->mostrarComponente($_GET["id"]);
     break;
-    case ConfigApp::$ACTION_MOSTRAR_CATEGORIAS:
-      $controllerCategorias->mostrar();
-      break;
+  case ConfigApp::$ACTION_MOSTRAR_CATEGORIAS:
+    $controllerCategorias->mostrar();
+    break;
   default:
-  $controllerComponentes->mostrar();
+    $controllerComponentes->mostrar();
     break;
 }
 

@@ -35,6 +35,19 @@ class ComponentesController
     $this->vista->mostrarComponentes($componentes);
 
   }
+
+  function mostrarComponente($id_componente)
+  {
+    $categoria = $this->model->getCategoriaComponente($id_componente);
+    $componente = $this->model->getComponentes();
+    $imagenes = $this->model->getImagenes($id_componente);
+    foreach ($componente as $comp) {
+      if($comp["id_componente"] == $id_componente) $componente = $comp;
+    }
+    $componente["imagenes"] = $imagenes;
+  
+    $this->vista->mostrarComponente($categoria, $componente);
+  }
 }
 
  ?>

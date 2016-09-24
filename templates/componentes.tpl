@@ -23,7 +23,7 @@
         <ul class="list-group">
           <li class="list-group-item active-custom"><strong class="color-white">{$categoria}</strong></a>
           {foreach from=$componentes item=componente}
-          <li class="list-group-item">{if $componente["destacado"]}<div class="glyphicon glyphicon-ok-sign destacado"></div> {/if}{$componente["nombre"]}<a href="verItem.html"><button type="button" class="btn btn-default btn-xs pull-right">Ver mas</button></a></li>
+          <li class="list-group-item">{if $componente["destacado"]}<div class="glyphicon glyphicon-ok-sign destacado"></div> {/if}{$componente["nombre"]}<a href="index.php?action=mostrar_componente&id={$componente["id_componente"]}"><button type="button" class="btn btn-default btn-xs pull-right">Ver mas</button></a></li>
           {/foreach}
         </ul>
     </div>

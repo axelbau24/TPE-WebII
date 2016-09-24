@@ -16,7 +16,7 @@
       <nav>
         <ul class="nav luna-nav">
           <li class="nav-category"><strong>Principal</strong></li>
-          <li class="active"><a href="">Listado de componentes</a></li>
+          <li class="active"><a href="index.php">Listado de componentes</a></li>
           <li class="nav-category"><strong>Administracion</strong></li>
           <li><a href="componentes.html">Componentes</a></li>
           <li><a href="categorias.html">Categorías</a></li>
