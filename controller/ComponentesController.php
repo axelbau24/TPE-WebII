@@ -18,21 +18,8 @@ class ComponentesController
   function mostrar()
   {
     $categorias = $this->modelCategorias->getCategorias();
-    $componentes = [];
-  /* Otra posible solución
-    foreach ($categorias as $key => $categoria) {
-      $categorias[$key]["componentes"] = [];
-      foreach ($componentes as $componente) {
-        if($componente["fk_id_categoria"] == $categoria["id_categoria"]){
-          array_push($categorias[$key]["componentes"], $componente);
-        }
-      }
-    }*/
-    foreach ($categorias as $categoria) {
-      $componentes[$categoria["nombre"]] = $this->model->getComponentesByCategoria($categoria["id_categoria"]);
-    }
-
-    $this->vista->mostrarComponentes($componentes);
+    $componentes = $this->model->getComponentes();
+    $this->vista->mostrarComponentes($componentes, $categorias);
 
   }
 
@@ -45,7 +32,7 @@ class ComponentesController
       if($comp["id_componente"] == $id_componente) $componente = $comp;
     }
     $componente["imagenes"] = $imagenes;
-  
+
     $this->vista->mostrarComponente($categoria, $componente);
   }
 }

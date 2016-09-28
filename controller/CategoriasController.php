@@ -17,7 +17,7 @@ class CategoriasController
     $this->vista->mostrar($this->modelo->getCategorias());
   }
 
-  }
+
 
   function eliminar(){
     $key = $_GET['id'];
