@@ -16,9 +16,9 @@
                     <div class="modal-header text-center">
                       <h4 class="modal-title">Nueva categoría</h4>
                     </div>
-                    <form>
+                    <form action="index.php?action=agregar_categoria" method="post">
                       <div class="modal-body">
-                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="componente" placeholder="ej. Motherboards"></div>
+                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="nombre" placeholder="ej. Motherboards"></div>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -29,16 +29,16 @@
                 </div>
               </div>
 
-
-              <div class="modal fade editCat" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+  {foreach from=$categorias key=index item=categoria}
+              <div class="modal fade editCat-{$categoria['id_categoria']}" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
                 <div class="modal-dialog modal-sm">
                   <div class="modal-content">
                     <div class="modal-header text-center">
                       <h4 class="modal-title">Editar categoria</h4>
                     </div>
-                    <form>
+                    <form action="index.php?action=editar_categoria&id={$categoria['id_categoria']}" method="post">
                       <div class="modal-body">
-                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="componente" value="Motherboards"></div>
+                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="nuevo-nombre" value="{$categoria['nombre']}"></div>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -49,22 +49,24 @@
                 </div>
               </div>
 
-              {foreach from=$categorias key=index item=categoria}
+
               <div class="modal fade eliminarCat-{$categoria['id_categoria']}" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header text-center">
-                      <h4 class="modal-title">Eliminar categoria</h4>
+                      <h4 class="modal-title">Eliminar categoria <br><i>{$categoria['nombre']}</i></h4>
                     </div>
                     <form action="index.php?action=eliminar_categoria&id={$categoria['id_categoria']}" method="post">
                       <div class="modal-body">
 
-
+                        {if {$categoria['cantidad']} != 0}
                     <div class="panel panel-filled panel-c-danger">
                         <div class="panel-heading">
-                            Al eliminar esta categoría, se eliminaran los componentes que contiene ( {$categoria['cantidad']} ). <br><i>¿Seguro que desea eliminarla?</i>
+                            Al eliminar esta categoría, se perderán todos los componentes que contiene ( {$categoria['cantidad']} ).
                         </div>
                     </div>
+                    {/if}
+                    <br><i>¿Seguro que desea eliminarla?</i>
                 </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -90,7 +92,7 @@
                    {foreach from=$categorias key=index item=categoria}
 
 
-            <li class="list-group-item">{$categoria['nombre']}<a class="glyphicon glyphicon-trash pull-right color-white" data-toggle="modal" data-target=".eliminarCat-{$categoria['id_categoria']}"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editCat"></a><span class="badge pull-right space-right"><strong>Cantidad: </strong>{$categoria['cantidad']}</span></li>
+            <li class="list-group-item">{$categoria['nombre']}<a class="glyphicon glyphicon-trash pull-right color-white" data-toggle="modal" data-target=".eliminarCat-{$categoria['id_categoria']}"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editCat-{$categoria['id_categoria']}"></a><span class="badge pull-right space-right"><strong>Cantidad: </strong>{$categoria['cantidad']}</span></li>
               {/foreach}
               </ul>
           </div>

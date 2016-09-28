@@ -2,7 +2,6 @@
 include_once ("models/db.php");
 class ModelCategorias
 {
-  private $tareas;
   private $db;
 
   function __construct()
@@ -31,6 +30,14 @@ class ModelCategorias
 
     $sentencia = $this->db->getDB()->prepare("delete from categoria where id_categoria=?");
     $sentencia->execute(array($id_categoria));
+  }
+  function agregarCategoria($nombre){
+    $categoria = $this->db->getDB()->prepare("insert into categoria(nombre) values(?)");
+    $categoria->execute(array($nombre));
+  }
+  function editarCategoria($newName,$id_categoria){
+    $categoria = $this->db->getDB()->prepare("update categoria SET nombre=? where id_categoria=?");
+    $categoria->execute(array($newName,$id_categoria));
   }
 
 }

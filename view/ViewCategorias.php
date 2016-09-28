@@ -24,10 +24,6 @@ class ViewCategorias
     $this->smarty->display('categorias.tpl');
   }
 
-  function getLista($tareas){
-    $this->smarty->assign('tareas',$tareas);
-    $this->smarty->display('lista.tpl');
-  }
 
 }
 

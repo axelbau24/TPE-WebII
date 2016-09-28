@@ -19,9 +19,14 @@ switch ($_REQUEST[ConfigApp::$ACTION]) {
     $controllerCategorias->mostrar();
     break;
   case ConfigApp::$ACTION_ELIMINAR_CATEGORIA:
-  echo "hola llegue aca";
-      $controllerCategorias->eliminar();
-      break;
+    $controllerCategorias->eliminar();
+    break;
+  case ConfigApp::$ACTION_AGREGAR_CATEGORIA:
+    $controllerCategorias->agregar();
+    break;
+  case ConfigApp::$ACTION_EDITAR_CATEGORIA:
+    $controllerCategorias->editar();
+    break;
   default:
     $controllerComponentes->mostrar();
     break;
