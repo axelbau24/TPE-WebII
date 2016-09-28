@@ -25,21 +25,7 @@ class ModelCategorias
     $cantidad = $cantidad->fetch(PDO::FETCH_NUM)[0];
     return $cantidad;
   }
-  function crearTarea($tarea, $imagenes){
-    //Agrega en la ultima posicion del arreglo
-    $sentencia = $this->db->prepare("INSERT INTO tarea(nombre) VALUES(?)");
-    $sentencia->execute(array($tarea));
-    $id_tarea = $this->db->lastInsertId();
 
-    //Copiarla del lugar temporal al definitivo.
-    foreach ($imagenes as $key => $imagen) {
-      $path="images/".uniqid()."_".$imagen["name"];
-      move_uploaded_file($imagen["tmp_name"], $path);
-      $insertImagen = $this->db->prepare("INSERT INTO imagen(path,fk_id_tarea) VALUES(?,?)");
-      $insertImagen->execute(array($path,$id_tarea));
-    }
-    //$this->tareas[] = $tarea;
-  }
 
   function eliminarCategoria($id_categoria){
 
