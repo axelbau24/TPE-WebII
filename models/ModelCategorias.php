@@ -43,23 +43,9 @@ class ModelCategorias
 
   function eliminarCategoria($id_categoria){
 
-    $sentencia = $this->db->prepare("delete from categoria where id_categoria=?");
+    $sentencia = $this->db->getDB()->prepare("delete from categoria where id_categoria=?");
     $sentencia->execute(array($id_categoria));
   }
-
-    function toogleTarea($id_tarea){
-      $tarea = $this->getTarea($id_tarea);
-      $sentencia = $this->db->prepare("update tarea set finalizada=? where id_tarea=?");
-      $sentencia->execute(array(!$tarea['finalizada'],$id_tarea));
-    }
-
-    function getTarea($id_tarea){
-      $sentencia = $this->db->prepare( "select * from tarea where id_tarea=?");
-      $sentencia->execute(array($id_tarea));
-      return $sentencia->fetch(PDO::FETCH_ASSOC);
-    }
-
-
 
 }
 

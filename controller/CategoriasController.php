@@ -53,11 +53,11 @@ class CategoriasController
   }
 
   function eliminar(){
-    $key = $_GET['id_categoria'];
+    echo "pase a eliminarrr";
+    $key = $_GET['id'];
     $this->modelo->eliminarCategoria($key);
-    $categorias = $this->modelo->getCategorias();
-    $this->vista->getLista($categorias);
-  }
+    $this->mostrar();
+}
 
   function realizar(){
     $key = $_GET['id_tarea'];

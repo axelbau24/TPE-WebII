@@ -56,19 +56,19 @@
                     <div class="modal-header text-center">
                       <h4 class="modal-title">Eliminar categoria</h4>
                     </div>
-                    <form>
+                    <form action="index.php?action=eliminar_categoria&id={$categoria['id_categoria']}" method="post">
                       <div class="modal-body">
 
 
                     <div class="panel panel-filled panel-c-danger">
                         <div class="panel-heading">
-                            Al eliminar esta categoría, se eliminaran los 5 componentes que contiene. <br><i>¿Seguro que quiere eliminarla?</i>
+                            Al eliminar esta categoría, se eliminaran los componentes que contiene ( {$categoria['cantidad']} ). <br><i>¿Seguro que desea eliminarla?</i>
                         </div>
                     </div>
                 </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-accent">Confirmar</button>
+                        <button type="submit"  class="btn btn-accent">Confirmar</button>
                       </div>
                     </form>
                   </div>
