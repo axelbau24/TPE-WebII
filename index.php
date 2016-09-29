@@ -17,6 +17,9 @@ switch ($_REQUEST[ConfigApp::$ACTION]) {
   case ConfigApp::$ACTION_MOSTRAR_COMPONENTE:
     $controllerComponentes->mostrarComponente($_GET["id"]);
     break;
+  case ConfigApp::$ACTION_MOSTRAR_COMPONENTES:
+    $controllerComponentes->mostrarAdmin();
+    break;
   case ConfigApp::$ACTION_MOSTRAR_CATEGORIAS:
     $controllerCategorias->mostrar();
     break;

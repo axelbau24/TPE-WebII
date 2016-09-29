@@ -23,6 +23,14 @@ class ComponentesController
 
   }
 
+  function mostrarAdmin()
+  {
+    $categorias = $this->modelCategorias->getCategorias();
+    $componentes = $this->model->getComponentes();
+    $this->vista->mostrarAdmin($componentes, $categorias);
+
+  }
+
   function mostrarComponente($id_componente)
   {
     $categoria = $this->model->getCategoriaComponente($id_componente);

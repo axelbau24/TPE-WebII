@@ -18,7 +18,7 @@
           <li class="nav-category"><strong>Principal</strong></li>
           <li class="active"><a href="index.php">Listado de componentes</a></li>
           <li class="nav-category"><strong>Administracion</strong></li>
-          <li><a href="componentes.html">Componentes</a></li>
+          <li><a href="index.php?action=mostrar_componentes">Componentes</a></li>
           <li><a href="index.php?action=mostrar_categorias">Categorías</a></li>
           <li><a href="consultas.html">Ver consultas</a></li>
           <li class="nav-category"><strong>Contacto</strong></li>

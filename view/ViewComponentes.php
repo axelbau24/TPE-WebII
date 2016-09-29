@@ -8,13 +8,25 @@ class ViewComponentes
     $this->smarty = new Smarty();
   }
 
-  function mostrarComponentes($componentes, $categorias)
+
+  function asignarDatos($componentes, $categorias)
   {
     $this->smarty->assign("categorias", $categorias);
     $this->smarty->assign("componentes", $componentes);
+  }
+  function mostrarComponentes($componentes, $categorias)
+  {
+    $this->asignarDatos($componentes, $categorias);
     $this->smarty->display("componentes.tpl");
 
   }
+
+  function mostrarAdmin($componentes, $categorias)
+  {
+    $this->asignarDatos($componentes, $categorias);
+    $this->smarty->display("adminComponentes.tpl");
+  }
+
 
   function mostrarComponente($categoria, $componente)
   {
