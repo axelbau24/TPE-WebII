@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-09-2016 a las 18:28:18
+-- Tiempo de generación: 29-09-2016 a las 04:36:39
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -101,22 +101,22 @@ INSERT INTO `componente` (`id_componente`, `nombre`, `destacado`, `fk_id_categor
 
 CREATE TABLE `consulta` (
   `id_consulta` int(11) NOT NULL,
-  `nombre` varchar(25) COLLATE utf8_spanish_ci NOT NULL,
-  `mail` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `consulta` varchar(1500) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(25) NOT NULL,
+  `mail` varchar(50) NOT NULL,
+  `consulta` text NOT NULL,
   `notificacion` tinyint(1) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `consulta`
 --
 
 INSERT INTO `consulta` (`id_consulta`, `nombre`, `mail`, `consulta`, `notificacion`, `fecha`) VALUES
-(1, 'Ezequiel ', 'ezfs@gmail.com', 'Hola, si, muy, buena, la pág. Gracias!', 1, '2016-09-28 22:05:02'),
-(2, 'Juan', 'pacopedro@delamar.es', 'Mi nombre así, y cuando yo \r\nme voy, me dicen al pasar,\r\nJuan paco pedro de la mar\r\nlalalalalaa..', 0, '2016-09-28 22:08:59'),
-(9, 'Sean', 'elmaildeSean@gmail.com', 'Muy buenos productos, entro todos los días a su página para chequear las novedades! Es genial!', 0, '2016-09-28 23:50:11'),
-(10, 'Fiona', 'Fionas@mail.com', 'Acá estámos con Shrek viendo su página, muy buena, muchas gracias!', 1, '2016-09-28 23:52:50');
+(2, 'Ezequiel ', 'ezfs@gmail.com', 'Hola, si, muy, buena, la pág. Gracias!', 1, '2016-09-29 01:05:02'),
+(3, 'Juan', 'pacopedro@delamar.es', 'Mi nombre así, y cuando yo \r\nme voy, me dicen al pasar,\r\nJuan paco pedro de la mar\r\nlalalalalaa..', 0, '2016-09-29 01:08:59'),
+(4, 'Sean', 'elmaildeSean@gmail.com', 'Muy buenos productos, entro todos los días a su página para chequear las novedades! Es genial!', 0, '2016-09-29 02:50:11'),
+(5, 'Fiona', 'Fionas@mail.com', 'Acá estámos con Shrek viendo su página, muy buena, muchas gracias!', 1, '2016-09-29 02:52:50');
 
 -- --------------------------------------------------------
 
@@ -159,6 +159,12 @@ ALTER TABLE `componente`
   ADD KEY `fk_id_categoria` (`fk_id_categoria`);
 
 --
+-- Indices de la tabla `consulta`
+--
+ALTER TABLE `consulta`
+  ADD PRIMARY KEY (`id_consulta`);
+
+--
 -- Indices de la tabla `imagen`
 --
 ALTER TABLE `imagen`
@@ -172,12 +178,17 @@ ALTER TABLE `imagen`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `componente`
 --
 ALTER TABLE `componente`
-  MODIFY `id_componente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_componente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+--
+-- AUTO_INCREMENT de la tabla `consulta`
+--
+ALTER TABLE `consulta`
+  MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `imagen`
 --
