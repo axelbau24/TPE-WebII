@@ -14,7 +14,6 @@ class ContactoController
   }
 
   function agregar(){
-    print_r ($_POST);
     $name = $_POST['name'];
     $mail = $_POST['mail'];
     $consulta = $_POST['consulta'];
