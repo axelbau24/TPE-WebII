@@ -2,10 +2,9 @@
 
 include '../libs/Smarty.class.php';
 $smarty = new Smarty();
+      //  $smarty->display("errores.tpl");
 
 if(count($_REQUEST) > 0){
-try {
-
   $conexionValida = @mysql_connect($_POST["host"], $_POST["user"], $_POST["db-pw"]);
   if($conexionValida){
     $config = fopen("config.txt", "w+");
@@ -26,13 +25,12 @@ try {
     }
 
     mysql_close($conexionValida);
+
   } else $smarty->assign("asignados", false);
-} catch (Exception $e) {
-  echo "error";
-}
-
+  $smarty->display("errores.tpl");
 
 }
+else $smarty->display("instalar.tpl");
 
 
 function getSQL(){
@@ -49,6 +47,6 @@ function getSQL(){
   return $querys;
 }
 
-$smarty->display("instalar.tpl");
+
 
  ?>

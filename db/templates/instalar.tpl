@@ -18,16 +18,15 @@
 
             <div class="panel panel-filled">
                 <div class="panel-body">
-
-                    <form action="install.php" method="post">
+                    <form class="database" action="install.php" method="post">
                         <div class="row">
                             <div class="form-group col-lg-6">
                                 <label>Host</label>
-                                <input type="name" value="" class="form-control" name="host">
+                                <input type="name" value="" class="form-control" name="host" required>
                             </div>
                             <div class="form-group col-lg-6">
                                 <label>Usuario</label>
-                                <input type="name" value="" class="form-control" name="user">
+                                <input type="name" value="" class="form-control" name="user" required>
                             </div>
                             <div class="form-group col-lg-6">
                                 <label>Contraseña</label>
@@ -35,7 +34,7 @@
                             </div>
                             <div class="form-group col-lg-6">
                                 <label>Nombre base de datos</label>
-                                <input type="name" value="" class="form-control" name="dbname">
+                                <input type="name" value="" class="form-control" name="dbname" required>
                             </div>
                             <div class="form-group col-lg-12">
                               <div class="checkbox"><label> <input type="checkbox" name="add" value=""> Agregar datos a la base de datos</label></div>
@@ -45,36 +44,7 @@
                             <button type="submit" class="btn btn-default">Confirmar</button>
                         </div>
                     </form>
-                    {if isset($asignados)}
-                    {if $asignados}
-                    <div class="panel panel-filled panel-c-info">
-                        <div class="panel-heading">
-                            La conexion fue establecida correctamente.
-                        </div>
-                    </div>
-                    {elseif !$asignados}
-                    <div class="panel panel-filled panel-c-danger">
-                        <div class="panel-heading">
-                            Hubo un error al conectarse.
-                        </div>
-                    </div>
-                    {/if}
-                    {/if}
-                    {if isset($db_correcto)}
-                    {if $db_correcto > 0}
-                    <div class="panel panel-filled panel-c-info">
-                        <div class="panel-heading">
-                            Se agregaron datos a la base de datos correctamente.
-                        </div>
-                    </div>
-                    {else}
-                    <div class="panel panel-filled panel-c-danger">
-                        <div class="panel-heading">
-                            Hubo un problema al agregar los datos ({$db_correcto})
-                        </div>
-                    </div>
-                    {/if}
-                    {/if}
+                    <div class="errors"> </div>
                 </div>
             </div>
 
@@ -85,7 +55,7 @@
 
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
-
+<script src="js/ajax.js"></script>
 
 
 </body>
