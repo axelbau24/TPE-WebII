@@ -14,7 +14,17 @@ class ModelContacto
     $query->execute(array("$nombre","$mail","$consulta","$notificacion"));
 
   }
+  function getConsultas()
+  {
+    $consulta = $this->db->getDB()->prepare("SELECT * FROM consulta");
+    $consulta->execute();
+    return $consulta->fetchAll(PDO::FETCH_ASSOC);
+  }
+  function eliminarConsulta($id_consulta){
 
+    $sentencia = $this->db->getDB()->prepare("delete from consulta where id_consulta=?");
+    $sentencia->execute(array($id_consulta));
+  }
 }
 
 ?>

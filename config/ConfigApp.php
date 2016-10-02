@@ -10,6 +10,8 @@ class ConfigApp{
   public static $ACTION_EDITAR_CATEGORIA = 'editar_categoria';
   public static $ACTION_AGREGAR_CONSULTA = 'agregar_consulta';
   public static $ACTION_MOSTRAR_FORMULARIO_CONSULTA = 'mostrar_formulario_consulta';
+  public static $ACTION_MOSTRAR_CONSULTAS = 'mostrar_consultas';
+  public static $ACTION_ELIMINAR_CONSULTA = 'eliminar_consulta';
 }
 
 

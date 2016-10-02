@@ -20,7 +20,7 @@
           <li class="nav-category"><strong>Administracion</strong></li>
           <li><a href="index.php?action=mostrar_componentes">Componentes</a></li>
           <li><a href="index.php?action=mostrar_categorias">Categorías</a></li>
-          <li><a href="consultas.html">Ver consultas</a></li>
+          <li><a href="index.php?action=mostrar_consultas">Ver consultas</a></li>
           <li class="nav-category"><strong>Contacto</strong></li>
           <li><a href="index.php?action=mostrar_formulario_consulta">Contactanos</a></li>
           <li class="nav-info"><div class="m-t-xs">Web II - 2016</div></li>

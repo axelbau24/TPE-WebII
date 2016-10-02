@@ -25,6 +25,16 @@ class ContactoController
   function mostrarFormulario(){
     $this->vista->mostrarFormulario();
   }
+  function mostrar()
+  {
+    $consultas = $this->modelo->getConsultas();
+    $this->vista->mostrarConsultas($consultas);
+  }
+  function eliminarConsulta(){
+    $key = $_GET['id'];
+    $this->modelo->eliminarConsulta($key);
+    $this->mostrar();
+}
 }
 
  ?>

@@ -38,6 +38,12 @@ switch ($_REQUEST[ConfigApp::$ACTION]) {
   case ConfigApp::$ACTION_MOSTRAR_FORMULARIO_CONSULTA:
     $controllerContacto->mostrarFormulario();
     break;
+  case ConfigApp::$ACTION_MOSTRAR_CONSULTAS:
+    $controllerContacto->mostrar();
+    break;
+  case ConfigApp::$ACTION_ELIMINAR_CONSULTA:
+    $controllerContacto->eliminarConsulta();
+    break;
   default:
     $controllerComponentes->mostrar();
     break;
