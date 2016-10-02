@@ -35,6 +35,19 @@ class ModelComponentes
     $imagenes->execute(array($id_componente));
     return $imagenes->fetchAll(PDO::FETCH_ASSOC);
   }
+  function eliminarComponente($id_componente){
+
+    $sentencia = $this->db->getDB()->prepare("delete from componente where id_componente=?");
+    $sentencia->execute(array($id_componente));
+  }
+  function agregarComponente($nombre){
+    $componente = $this->db->getDB()->prepare("insert into componente(nombre) values(?)");
+    $componente->execute(array($nombre));
+  }
+  function editarComponente($newName,$newDestacado,$new,$key){
+    $componente = $this->db->getDB()->prepare("UPDATE componente SET nombre=?,destacado=?,fk_id_categoria=? WHERE  id_componente=?");
+    $componente->execute(array($newName,$id_componente));
+  }
 }
 
  ?>

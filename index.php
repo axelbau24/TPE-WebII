@@ -20,6 +20,12 @@ switch ($_REQUEST[ConfigApp::$ACTION]) {
   case ConfigApp::$ACTION_MOSTRAR_COMPONENTES:
     $controllerComponentes->mostrarAdmin();
     break;
+  case ConfigApp::$ACTION_ELIMINAR_COMPONENTE:
+    $controllerComponentes->eliminar();
+    break;
+  case ConfigApp::$ACTION_AGREGAR_COMPONENTE:
+    $controllerComponentes->agregar();
+    break;
   case ConfigApp::$ACTION_MOSTRAR_CATEGORIAS:
     $controllerCategorias->mostrar();
     break;

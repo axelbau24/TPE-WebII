@@ -19,6 +19,8 @@ class ComponentesController
   {
     $categorias = $this->modelCategorias->getCategorias();
     $componentes = $this->model->getComponentes();
+
+
     $this->vista->mostrarComponentes($componentes, $categorias);
 
   }
@@ -27,6 +29,9 @@ class ComponentesController
   {
     $categorias = $this->modelCategorias->getCategorias();
     $componentes = $this->model->getComponentes();
+    foreach ($componentes as $key => $componente) {
+      $componentes[$key]["imagenes"] = $this->model->getImagenes($componente["id_componente"]);
+    }
     $this->vista->mostrarAdmin($componentes, $categorias);
 
   }
@@ -42,6 +47,27 @@ class ComponentesController
     $componente["imagenes"] = $imagenes;
 
     $this->vista->mostrarComponente($categoria, $componente);
+  }
+  function eliminar(){
+    $key = $_GET['id'];
+    $this->modelo->eliminarComponente($key);
+    $this->mostrar();
+}
+  function agregar(){
+    $name = $_POST['nombre'];
+    $destacado = $_POST['destacado'];
+    $categoria = $_POST['categoria'];
+    $this->modelo->agregarComponente($name,$destacado,$categoria);
+    $this->mostrar();
+  }
+  function editar(){
+    $key = $_GET['id'];
+    $newNombre = $_POST['nuevo-nombre'];
+    $newDestacado = $_POST['nuevo-destacado'];
+    $newCategoria = $_POST['nueva-categoria'];
+    //$newFoto = $_POST['nueva-foto'];
+    $this->modelo->editarComponente($newName,$newDestacado,$newCategoria,$key);
+    $this->mostrar();
   }
 }
 

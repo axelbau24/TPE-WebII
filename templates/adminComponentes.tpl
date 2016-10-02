@@ -64,15 +64,11 @@
                       <div class="col-lg-6 col-xs-6">
                         <div class="form-group"><label for="componente">Eliminar imágenes <small>(Seleccionar)</small></label></div>
                         <div class="row">
+                          {foreach from=$componente["imagenes"] item=imagen}
                           <div class="col-lg-6 col-xs-6">
-                            <label><img src="images\57e5e1af2d082_2_1.png" alt="..." class="img-thumbnail"><input type="checkbox" name="img_1" class="hidden"></label>
+                            <label><img src="{$imagen["ruta"]}" alt="..." class="img-thumbnail"><input type="checkbox" name="img_1" class="hidden"></label>
                           </div>
-                          <div class="col-lg-6 col-xs-6">
-                            <label><img src="images\57e5e1bb0e48a_3_1.png" alt="..." class="img-thumbnail"><input type="checkbox" name="img_1" class="hidden"></label>
-                          </div>
-                          <div class="col-lg-6 col-xs-6">
-                            <label><img src="images\57e5e19615eba_1_1.png" alt="..." class="img-thumbnail"><input type="checkbox" name="img_1" class="hidden"></label>
-                          </div>
+                          {/foreach}
                         </div>
                       </div>
 
