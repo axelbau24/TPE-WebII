@@ -9,7 +9,7 @@ $controllerCategorias = new CategoriasController();
 $controllerContacto = new ContactoController();
 
 if (!array_key_exists(ConfigApp::$ACTION,$_REQUEST)){
-  $controllerComponentes->iniciar();
+  $controllerComponentes->iniciar(0);
   die();
 }
 
@@ -54,9 +54,7 @@ switch ($_REQUEST[ConfigApp::$ACTION]) {
     $controllerComponentes->filtrar();
     break;
   default:
-
-
-    $controllerComponentes->iniciar();
+    $controllerComponentes->iniciar(0);
     break;
 }
 
