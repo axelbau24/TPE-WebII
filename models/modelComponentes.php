@@ -3,8 +3,8 @@ include ("models/db.php");
 class ModelComponentes
 {
   private $db;
-  function __construct()
-  {
+  function __construct(){
+
     $this->db = new Database();
   }
 
