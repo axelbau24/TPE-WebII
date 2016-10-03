@@ -12,6 +12,9 @@ li.list-group-item:hover{
 .color-white{
   color: white;
 }
+.oculto {
+  display: none;
+}
 li.active-custom:hover, .active-custom{
   background-color: #24262d;
   border-color: black;

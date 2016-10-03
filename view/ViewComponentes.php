@@ -18,7 +18,18 @@ class ViewComponentes
   {
     $this->asignarDatos($componentes, $categorias);
     $this->smarty->display("componentes.tpl");
+  }
+  function filtrar($componentes, $categoria)
+  {
+    $this->asignarDatos($componentes, $categoria);
+    $this->smarty->assign("filtro", true);
+    $this->smarty->display("componentesCategoria.tpl");
+  }
 
+  function mostrarComponentesCategoria($componentes)
+  {
+    $this->smarty->assign("componentes", $componentes);
+    $this->smarty->display("listaComponentes.tpl");
   }
 
   function mostrarAdmin($componentes, $categorias)
@@ -27,14 +38,11 @@ class ViewComponentes
     $this->smarty->display("adminComponentes.tpl");
   }
 
-
   function mostrarComponente($categoria, $componente)
   {
-
     $this->smarty->assign("categoria", $categoria);
     $this->smarty->assign("componente", $componente);
     $this->smarty->display("componente.tpl");
-
   }
 }
 

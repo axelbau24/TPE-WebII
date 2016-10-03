@@ -88,9 +88,16 @@
               <ul class="list-group">
                 <li class="list-group-item active-custom"><strong class="color-white">Categorías</strong></a>
                    {foreach from=$categorias key=index item=categoria}
+            <li class="list-group-item categoria"><span data-id="{$categoria['id_categoria']}" class="categorias">{$categoria['nombre']}</span>
+              <a data-id="{$categoria['id_categoria']}" class="glyphicon glyphicon-list pull-right color-white categorias"></a>
+              <a class="glyphicon glyphicon-trash pull-right color-white space-right" data-toggle="modal" data-target=".eliminarCat-{$categoria['id_categoria']}"></a>
+              <a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editCat-{$categoria['id_categoria']}"></a>
+              <span class="badge btn-info pull-right space-right"><strong>Cantidad: </strong>{$categoria['cantidad']}</span>
 
-
-            <li class="list-group-item">{$categoria['nombre']}<a class="glyphicon glyphicon-trash pull-right color-white" data-toggle="modal" data-target=".eliminarCat-{$categoria['id_categoria']}"></a><a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editCat-{$categoria['id_categoria']}"></a><span class="badge pull-right space-right"><strong>Cantidad: </strong>{$categoria['cantidad']}</span></li>
+              <div class="oculto componentes cat-{$categoria['id_categoria']}" style="display:none;">
+                  {include file="listaComponentes.tpl"}
+              </div>
+            </li>
               {/foreach}
               </ul>
           </div>

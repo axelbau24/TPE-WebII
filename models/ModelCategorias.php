@@ -17,6 +17,13 @@ class ModelCategorias
     }
     return $categorias;
   }
+  function getCategoria($id_categoria){
+    $sentencia = $this->db->getDB()->prepare( "select * from categoria WHERE id_categoria = ?");
+    $sentencia->execute(array($id_categoria));
+    $categoria = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+    return $categoria;
+  }
+
   function getCantidadCategoria($id_categoria)
   {
     $cantidad = $this->db->getDB()->prepare( "SELECT COUNT(*) AS cantidad FROM componente WHERE fk_id_categoria = ?");

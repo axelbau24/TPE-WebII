@@ -23,7 +23,7 @@
           <li><a href="index.php?action=mostrar_consultas">Ver consultas</a></li>
           <li class="nav-category"><strong>Contacto</strong></li>
           <li><a href="index.php?action=mostrar_formulario_consulta">Contactanos</a></li>
-          <li class="nav-info"><div class="m-t-xs">Web II - 2016</div></li>
+          <li class="nav-info"><div class="m-t-xs">Web II - 2016 <br><strong>Diseñado por:</strong> Axel Bautista, Ezequiel Fazio</div></li>
         </ul>
       </nav>
     </aside>

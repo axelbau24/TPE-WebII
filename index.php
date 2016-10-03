@@ -9,7 +9,7 @@ $controllerCategorias = new CategoriasController();
 $controllerContacto = new ContactoController();
 
 if (!array_key_exists(ConfigApp::$ACTION,$_REQUEST)){
-  $controllerComponentes->mostrar();
+  $controllerComponentes->iniciar();
   die();
 }
 
@@ -18,7 +18,7 @@ switch ($_REQUEST[ConfigApp::$ACTION]) {
     $controllerComponentes->mostrarComponente($_GET["id"]);
     break;
   case ConfigApp::$ACTION_MOSTRAR_COMPONENTES:
-    $controllerComponentes->mostrarAdmin();
+    $controllerComponentes->administracion();
     break;
   case ConfigApp::$ACTION_ELIMINAR_COMPONENTE:
     $controllerComponentes->eliminar();
@@ -50,8 +50,13 @@ switch ($_REQUEST[ConfigApp::$ACTION]) {
   case ConfigApp::$ACTION_ELIMINAR_CONSULTA:
     $controllerContacto->eliminarConsulta();
     break;
+  case ConfigApp::$ACTION_FILTRAR_CATEGORIA:
+    $controllerComponentes->filtrar();
+    break;
   default:
-    $controllerComponentes->mostrar();
+
+
+    $controllerComponentes->iniciar();
     break;
 }
 
