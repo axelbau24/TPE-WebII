@@ -18,6 +18,11 @@ class ViewContacto
     $this->smarty->assign("consultas", $consultas);
     $this->smarty->display('consultas.tpl');
   }
+
+  function listarConsultas($consultas){
+    $this->smarty->assign("consultas", $consultas);
+    $this->smarty->display('listaConsultas.tpl');
+  }
 }
 
  ?>

@@ -33,7 +33,7 @@ class ContactoController
   function eliminarConsulta(){
     $key = $_GET['id'];
     $this->modelo->eliminarConsulta($key);
-    $this->mostrar();
+    $this->vista->listarConsultas($this->modelo->getConsultas());
 }
 }
 
