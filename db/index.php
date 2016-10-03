@@ -2,16 +2,15 @@
 
 include '../libs/Smarty.class.php';
 $smarty = new Smarty();
-      //  $smarty->display("errores.tpl");
 
-if(count($_REQUEST) > 0){
+if(isset($_POST["host"]) && isset($_POST["user"]) && isset($_POST["db-pw"]) && isset($_POST["dbname"])){
   $conexionValida = @mysql_connect($_POST["host"], $_POST["user"], $_POST["db-pw"]);
   if($conexionValida){
     $config = fopen("config.txt", "w+");
     fwrite($config, $_POST["host"]."#".$_POST["user"]."#".$_POST["db-pw"]."#".$_POST["dbname"]);
     fclose($config);
     $smarty->assign("asignados", true);
-    $querys = getSQL();
+    $querys = getSQL("todopc.sql");
     $dbname = $_POST["dbname"];
     mysql_query('CREATE DATABASE IF NOT EXISTS '.$dbname);
     mysql_query('DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci');
@@ -19,8 +18,8 @@ if(count($_REQUEST) > 0){
 
     if(isset($_POST['add'])){
       $i = 0;
-      while ($i < count(getSQL()) && mysql_query($querys[$i])) $i++;
-      if($i == count(getSQL())) $smarty->assign("db_correcto", 1);
+      while ($i < count($querys) && mysql_query($querys[$i])) $i++;
+      if($i == count($querys)) $smarty->assign("db_correcto", 1);
       else $smarty->assign("db_correcto", mysql_error());
     }
 
@@ -32,9 +31,8 @@ if(count($_REQUEST) > 0){
 }
 else $smarty->display("instalar.tpl");
 
-
-function getSQL(){
-  $querys = fopen("todopc.sql", "r+");
+function getSQL($nombre){
+  $querys = fopen($nombre, "r+");
   $sql = "";
   while (!feof($querys)) {
     $linea = fgets($querys);
@@ -46,7 +44,5 @@ function getSQL(){
   unset($querys[count($querys)-1]);
   return $querys;
 }
-
-
 
  ?>
