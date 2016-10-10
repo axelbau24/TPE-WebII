@@ -17,7 +17,7 @@ class ViewComponentes
   function mostrarComponentes($componentes, $categorias)
   {
     $this->asignarDatos($componentes, $categorias);
-    $this->smarty->display("componentesCategoria.tpl");
+    $this->smarty->display("componentes.tpl");
   }
 
   function mostrarComponentesCategoria($componentes)

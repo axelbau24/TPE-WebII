@@ -1,6 +1,6 @@
 
 {foreach from=$categorias item=categoria key=index}
-<div class="no-row">
+<div>
   <div class="categoria col-lg-6 col-xs-6">
       <ul class="list-group">
         <li class="list-group-item active-custom"><strong class="color-white">{$categoria["nombre"]}</strong></a>
