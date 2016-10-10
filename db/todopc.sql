@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-09-2016 a las 04:36:39
+-- Tiempo de generación: 04-10-2016 a las 02:39:49
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `todopc`
+-- Base de datos: `test2`
 --
 
 -- --------------------------------------------------------
@@ -168,7 +168,8 @@ ALTER TABLE `consulta`
 -- Indices de la tabla `imagen`
 --
 ALTER TABLE `imagen`
-  ADD PRIMARY KEY (`id_imagen`);
+  ADD PRIMARY KEY (`id_imagen`),
+  ADD KEY `imagen_ibfk_1` (`fk_id_componente`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -194,6 +195,22 @@ ALTER TABLE `consulta`
 --
 ALTER TABLE `imagen`
   MODIFY `id_imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `componente`
+--
+ALTER TABLE `componente`
+  ADD CONSTRAINT `componente_ibfk_1` FOREIGN KEY (`fk_id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `imagen`
+--
+ALTER TABLE `imagen`
+  ADD CONSTRAINT `imagen_ibfk_1` FOREIGN KEY (`fk_id_componente`) REFERENCES `componente` (`id_componente`) ON DELETE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

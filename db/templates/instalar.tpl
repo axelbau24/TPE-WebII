@@ -37,6 +37,7 @@
                                 <input type="name" value="" class="form-control" name="dbname" required>
                             </div>
                             <div class="form-group col-lg-12">
+                              <div class="checkbox"><label> <input type="checkbox" name="vaciar" value=""> Vaciar base de datos</label></div>
                               <div class="checkbox"><label> <input type="checkbox" name="add" value=""> Agregar datos a la base de datos</label></div>
                             </div>
                         </div>
