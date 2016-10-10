@@ -10,7 +10,7 @@
             <select name="categoria" class="categorias form-control">
               <option value="0">Todos</option>
               {foreach from=$categorias item=categoria}
-              <option value="{$categoria['id_categoria']}">{$categoria["nombre"]}</option>
+              <option value="{$categoria['nombre']}">{$categoria["nombre"]}</option>
               {/foreach}
             </select>
           </div>

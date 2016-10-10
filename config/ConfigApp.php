@@ -14,7 +14,6 @@ class ConfigApp{
   public static $ACTION_MOSTRAR_FORMULARIO_CONSULTA = 'mostrar_formulario_consulta';
   public static $ACTION_MOSTRAR_CONSULTAS = 'mostrar_consultas';
   public static $ACTION_ELIMINAR_CONSULTA = 'eliminar_consulta';
-  public static $ACTION_FILTRAR_CATEGORIA = 'filtrar_categoria';
 }
 
 

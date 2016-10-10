@@ -9,7 +9,7 @@ $controllerCategorias = new CategoriasController();
 $controllerContacto = new ContactoController();
 
 if (!array_key_exists(ConfigApp::$ACTION,$_REQUEST)){
-  $controllerComponentes->iniciar(0);
+  $controllerComponentes->iniciar();
   die();
 }
 
@@ -50,11 +50,8 @@ switch ($_REQUEST[ConfigApp::$ACTION]) {
   case ConfigApp::$ACTION_ELIMINAR_CONSULTA:
     $controllerContacto->eliminarConsulta();
     break;
-  case ConfigApp::$ACTION_FILTRAR_CATEGORIA:
-    $controllerComponentes->filtrar();
-    break;
   default:
-    $controllerComponentes->iniciar(0);
+    $controllerComponentes->iniciar();
     break;
 }
 

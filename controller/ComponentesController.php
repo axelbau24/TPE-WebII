@@ -15,11 +15,11 @@ class ComponentesController
     $this->modelCategorias = new ModelCategorias();
   }
 
-  function iniciar($filtro)
+  function iniciar()
   {
     $categorias = $this->modelCategorias->getCategorias();
     $componentes = $this->model->getComponentes();
-    $this->vista->mostrarComponentes($componentes, $categorias, $filtro);
+    $this->vista->mostrarComponentes($componentes, $categorias);
   }
 
   function administracion(){
@@ -71,14 +71,6 @@ class ComponentesController
     //$newFoto = $_POST['nueva-foto'];
     $this->modelo->editarComponente($newName,$newDestacado,$newCategoria,$key);
     $this->iniciar();
-  }
-  function filtrar()
-  {
-    if (isset($_GET["id"])) {
-    //  $categoria = $this->modelCategorias->getCategoria($_GET["id"]);
-    //  $componentes = $this->model->getComponentesByCategoria($_GET["id"]);
-      $this->iniciar($_GET["id"]);
-    }
   }
 }
 

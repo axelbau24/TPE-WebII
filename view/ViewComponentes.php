@@ -14,11 +14,10 @@ class ViewComponentes
     $this->smarty->assign("categorias", $categorias);
     $this->smarty->assign("componentes", $componentes);
   }
-  function mostrarComponentes($componentes, $categorias, $filtroCategoria)
+  function mostrarComponentes($componentes, $categorias)
   {
     $this->asignarDatos($componentes, $categorias);
-    $this->smarty->assign("filtroCategoria", $filtroCategoria);
-    $this->smarty->display(($filtroCategoria == 0) ? "componentes.tpl" : "componentesCategoria.tpl");
+    $this->smarty->display("componentesCategoria.tpl");
   }
 
   function mostrarComponentesCategoria($componentes)

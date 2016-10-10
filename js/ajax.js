@@ -11,16 +11,35 @@ $(document).ready(function(e){
   });
   addAjax(".eliminarConsulta", "eliminar_consulta&id=", ".listado", "La consulta se eliminó correctamente");
 
-
+  // TODO Modularizar
   $('.categorias').on('change', function() {
-    var valor = $(this).val();
-    var url = "index.php?action=filtrar_categoria&id=" + valor;
-    if(valor == 0) url = "index.php";
-    $.post(url, function(data) {
-      if(valor == 0) $("body").html(data)
-      else $(".contenido-componentes").html(data);
+    var selected = $(this).val();
+    var clasePanel = ".categoria";
+    $(".color-white").each(function() {
+
+      $(this).parents(clasePanel).removeClass("hidden").addClass("col-lg-6").addClass("col-xs-6");
+      if(selected != 0){
+        if(selected == $(this).html()){
+          $(this).parents(".no-row").addClass("row");
+          $(this).parents(clasePanel).toggleClass("col-lg-6").toggleClass("col-xs-6");
+
+        }
+        else $(this).parents(clasePanel).toggleClass("hidden");
+      }
+      else {
+        updateRows(clasePanel);
+      }
+
     });
+
   });
+
+    updateRows(".categoria");
+    function updateRows(clase) {
+          $(clase).parent("div").removeClass("row")
+          $(clase + ":odd").parent("div").addClass("row");
+    }
+
 
   function addAjax(form, action, aCargar, msgSuccess, id, extra) {
     $(document).on((($(form).prop("tagName") == "FORM") ? "submit" : "click"), form, function() {
