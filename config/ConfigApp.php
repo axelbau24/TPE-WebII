@@ -6,6 +6,7 @@ class ConfigApp{
   public static $ACTION_MOSTRAR_COMPONENTES = "mostrar_componentes";
   public static $ACTION_ELIMINAR_COMPONENTE = 'eliminar_componente';
   public static $ACTION_AGREGAR_COMPONENTE = 'agregar_componente';
+  public static $ACTION_EDITAR_COMPONENTE = 'editar_componente';
   public static $ACTION_MOSTRAR_CATEGORIAS = "mostrar_categorias";
   public static $ACTION_ELIMINAR_CATEGORIA = 'eliminar_categoria';
   public static $ACTION_AGREGAR_CATEGORIA = 'agregar_categoria';

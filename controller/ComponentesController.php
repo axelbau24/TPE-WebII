@@ -15,7 +15,7 @@ class ComponentesController
     $this->modelCategorias = new ModelCategorias();
   }
 
-  function iniciar()
+  function iniciar()//esto se debe llamar mostrar
   {
     $categorias = $this->modelCategorias->getCategorias();
     $componentes = $this->model->getComponentes();
@@ -66,10 +66,14 @@ class ComponentesController
   function editar(){
     $key = $_GET['id'];
     $newNombre = $_POST['nuevo-nombre'];
-    $newDestacado = $_POST['nuevo-destacado'];
+    $newDestacado = isset($_POST['nuevo-recomendado']);
     $newCategoria = $_POST['nueva-categoria'];
-    //$newFoto = $_POST['nueva-foto'];
-    $this->modelo->editarComponente($newName,$newDestacado,$newCategoria,$key);
+    //$newFoto = isset($_POST['nueva-foto']);
+echo $newNombre;
+echo $newDestacado;
+echo $newCategoria;
+echo $key;
+    $this->model->editarComponente($newNombre,$newDestacado,$newCategoria,$key);
     $this->iniciar();
   }
   function filtrar()

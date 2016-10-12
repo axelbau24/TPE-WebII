@@ -44,9 +44,9 @@ class ModelComponentes
     $componente = $this->db->getDB()->prepare("insert into componente(nombre) values(?)");
     $componente->execute(array($nombre));
   }
-  function editarComponente($newName,$newDestacado,$new,$key){
+  function editarComponente($newNombre,$newDestacado,$newCategoria,$key){
     $componente = $this->db->getDB()->prepare("UPDATE componente SET nombre=?,destacado=?,fk_id_categoria=? WHERE  id_componente=?");
-    $componente->execute(array($newName,$id_componente));
+    $componente->execute(array($newNombre,$newDestacado,$newCategoria,$key));
   }
 }
 

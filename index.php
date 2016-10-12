@@ -53,6 +53,9 @@ switch ($_REQUEST[ConfigApp::$ACTION]) {
   case ConfigApp::$ACTION_FILTRAR_CATEGORIA:
     $controllerComponentes->filtrar();
     break;
+  case ConfigApp::$ACTION_EDITAR_COMPONENTE:
+    $controllerComponentes->editar();
+    break;
   default:
 
 

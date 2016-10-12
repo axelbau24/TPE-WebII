@@ -27,7 +27,7 @@
                       </select>
                     </div>
                     <div class="form-group"><label> <input type="checkbox"> Recomendado</label></div>
-                    <div class="form-group"><label>Subir imagenes: </label><input type="file" name="imagenes[]" required value="" multiple=""></div>
+                    <div class="form-group"><label>Subir imagenes: </label><input type="file" name="imagenes[]"  value="" multiple=""></div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -45,20 +45,23 @@
                 <div class="modal-header text-center">
                   <h4 class="modal-title">Editar componente</h4>
                 </div>
-                <form>
+                <form data-id="{$componente['id_componente']}" class="editarComponente" action="index.php?action=editar_componente&id={$componente['id_componente']}" method="post" >
                   <div class="modal-body">
                     <div class="row">
                       <div class="col-lg-6 col-xs-6">
-                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="componente" value="ASUS X99-DELUXE II"></div>
+                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="nuevo-nombre" require value="{$componente["nombre"]}"></div>
+
                         <div class="form-group"><label for="componente">Categoría</label>
-                          <select name="categoria" class="form-control">
-                            <option name="motherboards">Motherboards</option> <!-- Auto seleccionada, se carga desde la DB -->
-                            <option name="motherboards">Tarjetas gráficas</option>
-                            <option name="motherboards">Almacenamiento</option>
-                          </select>
+                          <select name="nueva-categoria" class="form-control">
+                            {foreach from=$categorias key=index item=categoria}
+                            <div class="col-lg-6 col-xs-6">
+                              <option value="{$categoria["id_categoria"]}" >{$categoria["nombre"]}</option>
+                              </div>
+                            {/foreach}
+
                         </div>
                         <div class="form-group"><label>Subir imagenes: </label><input type="file" name="imagenes[]" value="" multiple=""></div>
-                        <div class="form-group"><label> <input type="checkbox"> Recomendado</label></div>
+                        <div class="form-group"><label> <input type="checkbox" name="nuevo-recomendado"> Recomendado</label></div>
                       </div>
 
                       <div class="col-lg-6 col-xs-6">
