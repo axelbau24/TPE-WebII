@@ -2,7 +2,7 @@
 class ConfigApp{
 
   public static $ACTION = "action";
-  public static $ACTIONS = array(
+  public static $ACTIONS = [
     'mostrar_componente' =>  "Componentes",
     'mostrar_componentes' =>  "Componentes",
     'eliminar_componente' =>  "Componentes",
@@ -15,7 +15,7 @@ class ConfigApp{
     'mostrar_formulario_consulta' =>  "Contacto",
     'agregar_consulta' =>  "Contacto",
     'mostrar_consultas' =>  "Contacto",
-    'eliminar_consulta' =>  "Contacto");
+    'eliminar_consulta' =>  "Contacto"];
 
 }
 
