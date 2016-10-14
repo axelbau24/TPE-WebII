@@ -15,14 +15,14 @@ class ComponentesController
     $this->modelCategorias = new ModelCategorias();
   }
 
-  function iniciar()//esto se debe llamar mostrar
+  function mostrarInicio()//esto se debe llamar mostrar
   {
     $categorias = $this->modelCategorias->getCategorias();
     $componentes = $this->model->getComponentes();
     $this->vista->mostrarComponentes($componentes, $categorias);
   }
 
-  function administracion(){
+  function mostrar_componentes(){
 
     if(isset($_GET["categoria"])){
       $this->vista->mostrarComponentesCategoria($this->model->getComponentesByCategoria($_GET["categoria"]));
@@ -37,8 +37,8 @@ class ComponentesController
     }
   }
 
-  function mostrarComponente($id_componente)
-  {
+  function mostrar_componente() {
+    $id_componente = $_GET["id"];
     $categoria = $this->model->getCategoriaComponente($id_componente);
     $componente = $this->model->getComponentes();
     $imagenes = $this->model->getImagenes($id_componente);
@@ -49,40 +49,27 @@ class ComponentesController
 
     $this->vista->mostrarComponente($categoria, $componente);
   }
-  function eliminar(){
+  function eliminar_componente(){
     $key = $_GET['id'];
     $this->modelo->eliminarComponente($key);
-    $this->iniciar();
+    $this->mostrar_componentes();
   }
 
-  function agregar(){
+  function agregar_componente(){
     $name = $_POST['nombre'];
     $destacado = $_POST['destacado'];
     $categoria = $_POST['categoria'];
     $this->modelo->agregarComponente($name,$destacado,$categoria);
-    $this->iniciar();
+    $this->mostrar_componentes();
   }
 
-  function editar(){
+  function editar_componente(){
     $key = $_GET['id'];
     $newNombre = $_POST['nuevo-nombre'];
     $newDestacado = isset($_POST['nuevo-recomendado']);
     $newCategoria = $_POST['nueva-categoria'];
-    //$newFoto = isset($_POST['nueva-foto']);
-echo $newNombre;
-echo $newDestacado;
-echo $newCategoria;
-echo $key;
     $this->model->editarComponente($newNombre,$newDestacado,$newCategoria,$key);
-    $this->iniciar();
-  }
-  function filtrar()
-  {
-    if (isset($_GET["id"])) {
-      $categoria = $this->modelCategorias->getCategoria($_GET["id"]);
-      $componentes = $this->model->getComponentesByCategoria($_GET["id"]);
-      $this->vista->filtrar($componentes, $categoria);
-    }
+    $this->mostrar_componentes();
   }
 }
 

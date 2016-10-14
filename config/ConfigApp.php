@@ -2,21 +2,21 @@
 class ConfigApp{
 
   public static $ACTION = "action";
-  public static $ACTION_MOSTRAR_COMPONENTE = "mostrar_componente";
-  public static $ACTION_MOSTRAR_COMPONENTES = "mostrar_componentes";
-  public static $ACTION_ELIMINAR_COMPONENTE = 'eliminar_componente';
-  public static $ACTION_AGREGAR_COMPONENTE = 'agregar_componente';
-  public static $ACTION_EDITAR_COMPONENTE = 'editar_componente';
-  public static $ACTION_MOSTRAR_CATEGORIAS = "mostrar_categorias";
-  public static $ACTION_ELIMINAR_CATEGORIA = 'eliminar_categoria';
-  public static $ACTION_AGREGAR_CATEGORIA = 'agregar_categoria';
-  public static $ACTION_EDITAR_CATEGORIA = 'editar_categoria';
-  public static $ACTION_AGREGAR_CONSULTA = 'agregar_consulta';
-  public static $ACTION_MOSTRAR_FORMULARIO_CONSULTA = 'mostrar_formulario_consulta';
-  public static $ACTION_MOSTRAR_CONSULTAS = 'mostrar_consultas';
-  public static $ACTION_ELIMINAR_CONSULTA = 'eliminar_consulta';
-  public static $ACTION_FILTRAR_CATEGORIA = 'filtrar_categoria';
-}
+  public static $ACTIONS = array(
+    'mostrar_componente' =>  "Componentes",
+    'mostrar_componentes' =>  "Componentes",
+    'eliminar_componente' =>  "Componentes",
+    'agregar_componente' =>  "Componentes",
+    'editar_componente' =>  "Componentes",
+    'mostrar_categorias' =>  "Categorias",
+    'eliminar_categoria' =>  "Categorias",
+    'agregar_categoria' =>  "Categorias",
+    'editar_categoria' =>  "Categorias",
+    'mostrar_formulario_consulta' =>  "Contacto",
+    'agregar_consulta' =>  "Contacto",
+    'mostrar_consultas' =>  "Contacto",
+    'eliminar_consulta' =>  "Contacto");
 
+}
 
  ?>

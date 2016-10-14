@@ -19,13 +19,6 @@ class ViewComponentes
     $this->asignarDatos($componentes, $categorias);
     $this->smarty->display("componentes.tpl");
   }
-  function filtrar($componentes, $categoria)
-  {
-    $this->asignarDatos($componentes, $categoria);
-    $this->smarty->assign("filtro", true);
-    $this->smarty->display("componentesCategoria.tpl");
-  }
-
   function mostrarComponentesCategoria($componentes)
   {
     $this->smarty->assign("componentes", $componentes);

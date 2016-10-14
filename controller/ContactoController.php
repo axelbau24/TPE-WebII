@@ -13,24 +13,24 @@ class ContactoController
     $this->vista = new ViewContacto();
   }
 
-  function agregar(){
+  function agregar_consulta(){
     $name = $_POST['name'];
     $mail = $_POST['mail'];
     $consulta = $_POST['consulta'];
     $notificacion = isset($_POST['notificacion']);
     $this->modelo->agregarConsulta($name,$mail,$consulta,$notificacion);
-    $this->mostrarFormulario();
+    $this->mostrar_formulario_consulta();
   }
 
-  function mostrarFormulario(){
+  function mostrar_formulario_consulta(){
     $this->vista->mostrarFormulario();
   }
-  function mostrar()
+  function mostrar_consultas()
   {
     $consultas = $this->modelo->getConsultas();
     $this->vista->mostrarConsultas($consultas);
   }
-  function eliminarConsulta(){
+  function eliminar_consulta(){
     $key = $_GET['id'];
     $this->modelo->eliminarConsulta($key);
     $this->vista->listarConsultas($this->modelo->getConsultas());
