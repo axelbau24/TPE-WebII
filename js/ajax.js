@@ -23,8 +23,8 @@ $(document).ready(function(e){
   });
 
   function addAjax(form, action, aCargar, msgSuccess, id, extra) {
-    $(document).on((($(form).prop("tagName") == "FORM") ? "submit" : "click"), form, function() {
-      event.preventDefault();
+    $(document).on((($(form).prop("tagName") == "FORM") ? "submit" : "click"), form, function(ev) {
+      ev.preventDefault();
       id = (id == 0) ? "" : $(this).attr("data-id");
       $.post( "index.php?action="+ action + id, $(this).serialize(), function(data) {
         if(aCargar.indexOf("-") >= 0) $(aCargar + id).html(data);

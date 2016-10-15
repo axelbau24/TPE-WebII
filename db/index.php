@@ -22,7 +22,6 @@ if(isset($_POST["host"]) && isset($_POST["user"]) && isset($_POST["db-pw"]) && i
 
     if(isset($_POST['vaciar'])) $conexionValida->exec('DROP DATABASE IF EXISTS '.$dbname);
     $conexionValida->exec('CREATE DATABASE IF NOT EXISTS '.$dbname);
-    $conexionValida->exec('DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci');
     $conexionValida->exec('USE '.$dbname);
 
     if(isset($_POST['add'])){
