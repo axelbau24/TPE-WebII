@@ -17,36 +17,24 @@ class ComponentesController
 
   function iniciar()//esto se debe llamar mostrar
   {
-    $categorias = $this->modelCategorias->getCategorias();
-    $componentes = $this->model->getComponentes();
-    $this->vista->mostrarComponentes($componentes, $categorias);
+    $this->updateData();
+    $this->vista->mostrarComponentes();
   }
 
   function administracion(){
-
-    if(isset($_GET["categoria"])){
+    if(isset($_GET["categoria"])) // Usado para el filtro de categorias
       $this->vista->mostrarComponentesCategoria($this->model->getComponentesByCategoria($_GET["categoria"]));
-    }
     else {
-      $categorias = $this->modelCategorias->getCategorias();
-      $componentes = $this->model->getComponentes();
-      foreach ($componentes as $key => $componente) {
-        $componentes[$key]["imagenes"] = $this->model->getImagenes($componente["id_componente"]);
-      }
-      $this->vista->mostrarAdmin($componentes, $categorias);
+      $this->updateData();
+      $this->vista->mostrarAdmin();
     }
   }
 
-  function mostrarComponente($id_componente)
-  {
+  function mostrarComponente($id_componente){
     $categoria = $this->model->getCategoriaComponente($id_componente);
-    $componente = $this->model->getComponentes();
+    $componente = $this->model->getComponente($id_componente);
     $imagenes = $this->model->getImagenes($id_componente);
-    foreach ($componente as $comp) {
-      if($comp["id_componente"] == $id_componente) $componente = $comp;
-    }
     $componente["imagenes"] = $imagenes;
-
     $this->vista->mostrarComponente($categoria, $componente);
   }
   function eliminar(){
@@ -63,21 +51,54 @@ class ComponentesController
     $this->iniciar();
   }
 
-  function editar(){
-    $key = $_GET['id'];
-    $newNombre = $_POST['nuevo-nombre'];
-    $newDestacado = isset($_POST['nuevo-recomendado']);
-    $newCategoria = $_POST['nueva-categoria'];
-    //$newFoto = isset($_POST['nueva-foto']);
-echo $newNombre;
-echo $newDestacado;
-echo $newCategoria;
-echo $key;
-    $this->model->editarComponente($newNombre,$newDestacado,$newCategoria,$key);
-    $this->iniciar();
+  function verificarImagenes($imagenes){
+    $nuevasImagenes = [];
+    for ($i=0; $i < count($imagenes["size"]) ; $i++) {
+      $extension = $imagenes["type"][$i];
+      if($extension == "image/jpeg" || $extension == "image/png"){
+          $nuevaImagen["ext"] = "." . explode("/", $extension)[1];
+          $nuevaImagen["tmp_name"] = $imagenes["tmp_name"][$i];
+          $nuevasImagenes[] = $nuevaImagen;
+      }
+    }
+    return $nuevasImagenes;
   }
-  function filtrar()
-  {
+
+  function editar(){
+    $newComponente["id"] = $_GET['id'];
+    $newComponente["nombre"] = $_POST['nuevo-nombre'];
+    $newComponente["destacado"] = isset($_POST['nuevo-recomendado']);
+    $newComponente["id_categoria"] = $_POST['nueva-categoria'];
+
+    $imagenes = $this->verificarImagenes($_FILES["imagenes"]);
+    $this->model->addImages($imagenes, $newComponente["id"]);
+
+    $this->eliminarImagenes($this->model->getImagenes($newComponente["id"]));
+    $this->model->editarComponente($newComponente);
+
+    $this->updateData();
+    $this->vista->listaAdmin();
+  }
+
+
+  function eliminarImagenes($imagenes){
+    foreach ($imagenes as $imagen) {
+      if(isset($_POST["img_".$imagen["id_imagen"]]))
+        $this->model->eliminarImagen($imagen);
+    }
+  }
+
+  function updateData(){
+    $categorias = $this->modelCategorias->getCategorias();
+    $componentes = $this->model->getComponentes();
+    foreach ($componentes as $key => $componente) {
+      $componentes[$key]["imagenes"] = $this->model->getImagenes($componente["id_componente"]);
+    }
+    $data = ["componentes" => $componentes, "categorias" =>  $categorias];
+    $this->vista->asignarDatos($data);
+  }
+
+  function filtrar() {
     if (isset($_GET["id"])) {
       $categoria = $this->modelCategorias->getCategoria($_GET["id"]);
       $componentes = $this->model->getComponentesByCategoria($_GET["id"]);

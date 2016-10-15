@@ -3,6 +3,7 @@ $(document).ready(function(e){
   addAjax(".categorias", "mostrar_componentes&categoria=", ".cat-");
   addAjax(".borrarCategoria", "eliminar_categoria&id=", ".listado", "La categoría se eliminó correctamente");
   addAjax(".editarCategoria", "editar_categoria&id=", ".listado", "La categoría se editó correctamente");
+  addAjax(".editarComponente", "editar_componente&id=", ".listado", "El componente se editó correctamente");
   addAjax(".addCategoria", "agregar_categoria", ".listado", "La categoría se agregó correctamente", 0);
   addAjax(".contacto", "agregar_consulta", "", "La consulta se envió correctamente", 0, function() {
     $("input, textarea").each(function() {
@@ -24,15 +25,24 @@ $(document).ready(function(e){
 
   function addAjax(form, action, aCargar, msgSuccess, id, extra) {
     $(document).on((($(form).prop("tagName") == "FORM") ? "submit" : "click"), form, function(ev) {
+      var formData = new FormData(this);
       ev.preventDefault();
       id = (id == 0) ? "" : $(this).attr("data-id");
-      $.post( "index.php?action="+ action + id, $(this).serialize(), function(data) {
-        if(aCargar.indexOf("-") >= 0) $(aCargar + id).html(data);
-        else $(aCargar).html(data);
-        $(".modal-backdrop").remove();
-        if(extra != undefined) extra();
-        if(msgSuccess != undefined) toastr.success(msgSuccess);
-      }).fail(function() { toastr.error('Hubo un error'); });
+      $.ajax({
+         method: "POST",
+         url: "index.php?action="+ action + id,
+         data: formData,
+         contentType: false,
+         cache: false,
+         processData:false,
+         success: function(data) {
+           if(aCargar.indexOf("-") >= 0) $(aCargar + id).html(data);
+           else $(aCargar).html(data);
+           $(".modal-backdrop").remove();
+           if(extra != undefined) extra();
+           if(msgSuccess != undefined) toastr.success(msgSuccess);
+         }
+       })
     });
   }
 
@@ -44,7 +54,7 @@ $(document).ready(function(e){
     "timeOut": "1600"
   };
 
-  $(".img-thumbnail").click(function(){
+  $(document).on("click", ".img-thumbnail", function(){
     $(this).toggleClass("check");
   });
 

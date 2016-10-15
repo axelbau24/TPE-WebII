@@ -13,6 +13,13 @@ class ModelComponentes extends Database{
     return $componentes->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  function getComponente($id)
+  {
+    $componentes = $this->db->prepare("SELECT * FROM componente WHERE id_componente = ?");
+    $componentes->execute(array($id));
+    return $componentes->fetch(PDO::FETCH_ASSOC);
+  }
+
   function getComponentesByCategoria($id_categoria)
   {
     $componentes = $this->db->prepare("SELECT * FROM componente WHERE fk_id_categoria = ?");
@@ -34,17 +41,33 @@ class ModelComponentes extends Database{
     return $imagenes->fetchAll(PDO::FETCH_ASSOC);
   }
   function eliminarComponente($id_componente){
-
     $sentencia = $this->db->prepare("delete from componente where id_componente=?");
     $sentencia->execute(array($id_componente));
   }
+
+  function eliminarImagen($imagen){
+    unlink($imagen["ruta"]);
+    $sentencia = $this->db->prepare("DELETE FROM imagen WHERE id_imagen=?");
+    $sentencia->execute(array($imagen["id_imagen"]));
+  }
+
   function agregarComponente($nombre){
     $componente = $this->db->prepare("insert into componente(nombre) values(?)");
     $componente->execute(array($nombre));
   }
-  function editarComponente($newNombre,$newDestacado,$newCategoria,$key){
+
+  function addImages($imagenes, $id_componente){
+      foreach ($imagenes as $imagen) {
+        $ruta = "images/" . uniqid() . "_" . $id_componente . $imagen["ext"];
+        move_uploaded_file($imagen["tmp_name"], $ruta);
+        $img = $this->db->prepare("INSERT INTO imagen(ruta, fk_id_componente) VALUES(?,?)");
+        $img->execute(array($ruta, $id_componente));
+      }
+  }
+
+  function editarComponente($cmp){
     $componente = $this->db->prepare("UPDATE componente SET nombre=?,destacado=?,fk_id_categoria=? WHERE  id_componente=?");
-    $componente->execute(array($newNombre,$newDestacado,$newCategoria,$key));
+    $componente->execute(array($cmp["nombre"], $cmp["destacado"], $cmp["id_categoria"], $cmp["id"]));
   }
 }
 

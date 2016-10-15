@@ -33,3 +33,7 @@ li.active-custom:hover, .active-custom{
 .destacado{
   color: #ff9900;
 }
+
+.modal-open {
+ overflow: auto;
+}

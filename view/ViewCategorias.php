@@ -10,15 +10,6 @@ class ViewCategorias
     $this->smarty = new Smarty();
   }
 
-  function agregarError($error){
-    $this->smarty->assign('error',$error);
-  }
-
-  function mostrarMensaje($mensaje, $tipo){
-    $this->smarty->assign('mensaje',$mensaje);
-    $this->smarty->assign('tipoMensaje',$tipo);
-  }
-
   function mostrar($categorias){
     $this->smarty->assign('categorias',$categorias);
     $this->smarty->display('categorias.tpl');

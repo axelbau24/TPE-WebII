@@ -3,25 +3,26 @@ include_once("libs/Smarty.class.php");
 class ViewComponentes
 {
   private $smarty;
+
   function __construct()
   {
     $this->smarty = new Smarty();
   }
 
-
-  function asignarDatos($componentes, $categorias)
+  function asignarDatos($datos)
   {
-    $this->smarty->assign("categorias", $categorias);
-    $this->smarty->assign("componentes", $componentes);
+    $this->smarty->assign("categorias", $datos["categorias"]);
+    $this->smarty->assign("componentes", $datos["componentes"]);
   }
-  function mostrarComponentes($componentes, $categorias)
+
+  function mostrarComponentes()
   {
-    $this->asignarDatos($componentes, $categorias);
     $this->smarty->display("componentes.tpl");
   }
   function filtrar($componentes, $categoria)
   {
-    $this->asignarDatos($componentes, $categoria);
+    $this->smarty->assign("categorias", $categoria);
+    $this->smarty->assign("componentes", $componentes);
     $this->smarty->assign("filtro", true);
     $this->smarty->display("componentesCategoria.tpl");
   }
@@ -29,13 +30,16 @@ class ViewComponentes
   function mostrarComponentesCategoria($componentes)
   {
     $this->smarty->assign("componentes", $componentes);
-    $this->smarty->display("listaComponentes.tpl");
+    $this->smarty->display("filtroComponentes.tpl");
   }
 
-  function mostrarAdmin($componentes, $categorias)
+  function mostrarAdmin()
   {
-    $this->asignarDatos($componentes, $categorias);
     $this->smarty->display("adminComponentes.tpl");
+  }
+
+  function listaAdmin(){
+    $this->smarty->display("listaComponentes.tpl");
   }
 
   function mostrarComponente($categoria, $componente)
