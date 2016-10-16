@@ -6,7 +6,7 @@
       <li class="list-group-item active-custom"><strong class="color-white">{$categoria["nombre"]}</strong></a>
       {foreach from=$componentes item=componente}
       {if $componente["fk_id_categoria"] == $categoria["id_categoria"]}
-      <li class="list-group-item">{if $componente["destacado"]}<div class="glyphicon glyphicon-ok-sign destacado"></div> {/if}{$componente["nombre"]}<a href="index.php?action=mostrar_componente&id={$componente["id_componente"]}"><button type="button" class="btn btn-default btn-xs pull-right">Ver mas</button></a></li>
+        <li class="list-group-item">{if $componente["destacado"]}<div class="glyphicon glyphicon-ok-sign destacado"></div> {/if}{$componente["nombre"]}<button type="button" class="mostrarComponente btn btn-default btn-xs pull-right space-right" data-id={$componente["id_componente"]}>Ver mas</button></li>
       {/if}
       {/foreach}
     </ul>
@@ -16,7 +16,8 @@
       <ul class="list-group">
         <li class="list-group-item active-custom"><strong class="color-white">{$categoria["nombre"]}</strong></a>
         {foreach from=$componentes item=componente}
-        <li class="list-group-item">{if $componente["destacado"]}<div class="glyphicon glyphicon-ok-sign destacado"></div> {/if}{$componente["nombre"]}<a href="index.php?action=mostrar_componente&id={$componente["id_componente"]}"><button type="button" class="btn btn-default btn-xs pull-right">Ver mas</button></a></li>
+        <li class="list-group-item">{if $componente["destacado"]}<div class="glyphicon glyphicon-ok-sign destacado"></div> {/if}{$componente["nombre"]}<button type="button" class="mostrarComponente btn btn-default btn-xs pull-right space-right" data-id={$componente["id_componente"]}>Ver mas</button></li>
+
         {/foreach}
       </ul>
     </div>

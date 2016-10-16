@@ -51,9 +51,11 @@ class ModelComponentes extends Database{
     $sentencia->execute(array($imagen["id_imagen"]));
   }
 
-  function agregarComponente($nombre){
-    $componente = $this->db->prepare("insert into componente(nombre) values(?)");
-    $componente->execute(array($nombre));
+  function agregarComponente($cmp){
+    $componente = $this->db->prepare("insert into componente(nombre,destacado,fk_id_categoria) values(?,?,?) ");
+    $componente->execute(array($cmp["nombre"],$cmp["destacado"],$cmp["id_categoria"]));
+    $lastId = $this->db->lastInsertId();
+    $this->addImages($cmp["imagenes"], $lastId);
   }
 
   function addImages($imagenes, $id_componente){
@@ -68,6 +70,7 @@ class ModelComponentes extends Database{
   function editarComponente($cmp){
     $componente = $this->db->prepare("UPDATE componente SET nombre=?,destacado=?,fk_id_categoria=? WHERE  id_componente=?");
     $componente->execute(array($cmp["nombre"], $cmp["destacado"], $cmp["id_categoria"], $cmp["id"]));
+    $this->addImages($cmp["imagenes"], $cmp["id"]);
   }
 }
 

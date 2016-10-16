@@ -39,18 +39,25 @@ class ComponentesController
   }
   function eliminar(){
     $key = $_GET['id'];
-    $this->modelo->eliminarComponente($key);
-    $this->iniciar();
-  }
+    $this->model->eliminarComponente($key);
+    $this->listar();
 
+  }
+  function listar(){
+    $this->updateData();
+    $this->vista->listaAdmin();
+  }
   function agregar(){
-    $name = $_POST['nombre'];
-    $destacado = $_POST['destacado'];
-    $categoria = $_POST['categoria'];
-    $this->modelo->agregarComponente($name,$destacado,$categoria);
-    $this->iniciar();
-  }
-
+    $this->model->agregarComponente($this->crearComponente());
+    $this->listar();
+    }
+function crearComponente(){
+  $newComponente["nombre"] = $_POST['nombre'];
+  $newComponente["destacado"] = isset($_POST['recomendado']);
+  $newComponente["id_categoria"] = $_POST['categoria'];
+  $newComponente["imagenes"] = $this->verificarImagenes($_FILES["imagenes"]);
+  return $newComponente;
+}
   function verificarImagenes($imagenes){
     $nuevasImagenes = [];
     for ($i=0; $i < count($imagenes["size"]) ; $i++) {
@@ -65,19 +72,12 @@ class ComponentesController
   }
 
   function editar(){
+    $newComponente = $this->crearComponente();
     $newComponente["id"] = $_GET['id'];
-    $newComponente["nombre"] = $_POST['nuevo-nombre'];
-    $newComponente["destacado"] = isset($_POST['nuevo-recomendado']);
-    $newComponente["id_categoria"] = $_POST['nueva-categoria'];
-
-    $imagenes = $this->verificarImagenes($_FILES["imagenes"]);
-    $this->model->addImages($imagenes, $newComponente["id"]);
 
     $this->eliminarImagenes($this->model->getImagenes($newComponente["id"]));
     $this->model->editarComponente($newComponente);
-
-    $this->updateData();
-    $this->vista->listaAdmin();
+    $this->listar();
   }
 
 

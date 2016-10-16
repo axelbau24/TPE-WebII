@@ -1,10 +1,18 @@
 $(document).ready(function(e){
 
+  addAjax("#home", "", ".listado");
+  addAjax("#componentes", "mostrar_componentes", ".listado", undefined, 0);
+  addAjax("#categorias", "mostrar_categorias", ".listado", undefined, 0);
+  addAjax("#consultas", "mostrar_consultas", ".listado", undefined, 0);
+  addAjax("#contacto", "mostrar_formulario_consulta", ".listado", undefined, 0);
   addAjax(".categorias", "mostrar_componentes&categoria=", ".cat-");
   addAjax(".borrarCategoria", "eliminar_categoria&id=", ".listado", "La categoría se eliminó correctamente");
   addAjax(".editarCategoria", "editar_categoria&id=", ".listado", "La categoría se editó correctamente");
   addAjax(".editarComponente", "editar_componente&id=", ".listado", "El componente se editó correctamente");
+  addAjax(".mostrarComponente", "mostrar_componente&id=", ".listado");
+  addAjax(".eliminarComponente", "eliminar_componente&id=", ".listado", "El componente se eliminó correctamente");
   addAjax(".addCategoria", "agregar_categoria", ".listado", "La categoría se agregó correctamente", 0);
+  addAjax(".addComponente", "agregar_componente", ".listado", "El componente se agregó correctamente", 0);
   addAjax(".contacto", "agregar_consulta", "", "La consulta se envió correctamente", 0, function() {
     $("input, textarea").each(function() {
       $("input, textarea").val("");
@@ -28,6 +36,7 @@ $(document).ready(function(e){
       var formData = new FormData(this);
       ev.preventDefault();
       id = (id == 0) ? "" : $(this).attr("data-id");
+
       $.ajax({
          method: "POST",
          url: "index.php?action="+ action + id,

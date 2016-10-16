@@ -1,5 +1,3 @@
-{include file="header.tpl"}
-
 <section class="content">
   <div class="container-fluid">
     <div class="row">
@@ -59,5 +57,3 @@
     {/if}
   </div>
 </section>
-
-{include file="footer.tpl"}

@@ -15,17 +15,19 @@
                 <div class="modal-header text-center">
                   <h4 class="modal-title">Nuevo componente</h4>
                 </div>
-                <form>
+                <form class="addComponente" method="post" enctype="multipart/form-data">
                   <div class="modal-body">
-                    <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="componente" placeholder="ej. ASUS Q87M-E"></div>
+                    <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="nombre" placeholder="ej. ASUS Q87M-E"></div>
                     <div class="form-group"><label for="componente">Categoría</label>
                       <select name="categoria" class="form-control">
-                        <option name="motherboards">Motherboards</option>
-                        <option name="motherboards">Tarjetas gráficas</option>
-                        <option name="motherboards">Almacenamiento</option>
+                        {foreach from=$categorias key=index item=categoria}
+
+                          <option value="{$categoria["id_categoria"]}">{$categoria["nombre"]}</option>
+
+                        {/foreach}
                       </select>
                     </div>
-                    <div class="form-group"><label> <input type="checkbox"> Recomendado</label></div>
+                    <div class="form-group"><label> <input type="checkbox" name="recomendado"> Recomendado</label></div>
                     <div class="form-group"><label>Subir imagenes: </label><input type="file" name="imagenes[]"  value="" multiple=""></div>
                   </div>
                   <div class="modal-footer">
@@ -48,9 +50,9 @@
                   <div class="modal-body">
                     <div class="row">
                       {if count($componente["imagenes"]) > 0}<div class="col-lg-6 col-xs-6"> {else} <div class="col-lg-12 col-xs-12"> {/if}
-                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="nuevo-nombre" require value="{$componente["nombre"]}"></div>
+                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="nombre" require value="{$componente["nombre"]}"></div>
                         <div class="form-group"><label for="componente">Categoría</label>
-                          <select name="nueva-categoria" class="form-control">
+                          <select name="categoria" class="form-control">
                             {foreach from=$categorias key=index item=categoria}
                             <div class="col-lg-6 col-xs-6">
                               <option value="{$categoria["id_categoria"]}" {if $categoria["id_categoria"] == $componente["fk_id_categoria"]} selected {/if}>{$categoria["nombre"]}</option>
@@ -59,7 +61,7 @@
                           </select>
                         </div>
                         <div class="form-group"><label>Subir imagenes: </label><input type="file" name="imagenes[]" value="" multiple=""></div>
-                        <div class="form-group"><label> <input type="checkbox" name="nuevo-recomendado" {if $componente["destacado"]} checked {/if}> Recomendado</label></div>
+                        <div class="form-group"><label> <input type="checkbox" name="recomendado" {if $componente["destacado"]} checked {/if}> Recomendado</label></div>
                       </div>
                       {if count($componente["imagenes"]) > 0}
                       <div class="col-lg-6 col-xs-6">
@@ -103,11 +105,10 @@
               {foreach from=$componentes item=componente}
               {if $componente["fk_id_categoria"] == $categoria["id_categoria"]}
               <li class="list-group-item">{if $componente["destacado"]}<div class="glyphicon glyphicon-ok-sign destacado"></div> {/if}{$componente["nombre"]}
-                <a class="glyphicon glyphicon-trash pull-right color-white" href="#"></a> <!--Boton eliminar -->
+                <a class="eliminarComponente glyphicon glyphicon-trash pull-right color-white" data-id={$componente["id_componente"]}></a> <!--Boton eliminar -->
                 <a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp-{$componente["id_componente"]}"></a> <!--Boton editar -->
-                <a href="index.php?action=mostrar_componente&id={$componente["id_componente"]}">
-                  <button type="button" class="btn btn-default btn-xs pull-right space-right">Ver mas</button>
-                </a></li>
+                <button type="button" class="mostrarComponente btn btn-default btn-xs pull-right space-right" data-id={$componente["id_componente"]}>Ver mas</button>
+              </li>
               {/if}
               {/foreach}
             </ul>
