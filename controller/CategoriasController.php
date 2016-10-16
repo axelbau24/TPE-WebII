@@ -21,19 +21,25 @@ class CategoriasController
   }
 
   function eliminar_categoria(){
+    if(isset($_GET['id'])){
     $key = $_GET['id'];
     $this->modelo->eliminarCategoria($key);
+    }
     $this->listar();
 }
   function agregar_categoria(){
+    if(isset($_POST['nombre'])){
     $name = $_POST['nombre'];
     $this->modelo->agregarCategoria($name);
-    $this->listar();
+  }
+  $this->listar();
   }
   function editar_categoria(){
+    if(isset($_GET['id'])){
     $key = $_GET['id'];
     $newName = $_POST['nuevo-nombre'];
     $this->modelo->editarCategoria($newName,$key);
+    }
     $this->listar();
   }
 

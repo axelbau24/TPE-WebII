@@ -16,7 +16,7 @@
                     </div>
                     <form class="addCategoria" action="index.php?action=agregar_categoria" method="post">
                       <div class="modal-body">
-                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="nombre" placeholder="ej. Motherboards"></div>
+                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" required name="nombre" placeholder="ej. Motherboards"></div>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -36,7 +36,7 @@
                     </div>
                     <form data-id="{$categoria['id_categoria']}" class="editarCategoria" action="index.php?action=editar_categoria&id={$categoria['id_categoria']}" method="post">
                       <div class="modal-body">
-                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="nuevo-nombre" value="{$categoria['nombre']}"></div>
+                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" required name="nuevo-nombre" value="{$categoria['nombre']}"></div>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

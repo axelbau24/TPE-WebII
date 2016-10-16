@@ -50,7 +50,7 @@
                   <div class="modal-body">
                     <div class="row">
                       {if count($componente["imagenes"]) > 0}<div class="col-lg-6 col-xs-6"> {else} <div class="col-lg-12 col-xs-12"> {/if}
-                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="nombre" require value="{$componente["nombre"]}"></div>
+                        <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="nombre" required value="{$componente["nombre"]}"></div>
                         <div class="form-group"><label for="componente">Categoría</label>
                           <select name="categoria" class="form-control">
                             {foreach from=$categorias key=index item=categoria}

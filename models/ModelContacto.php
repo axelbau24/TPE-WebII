@@ -6,9 +6,9 @@ class ModelContacto extends Database{
     parent::__construct();
   }
 
-  function agregarConsulta($nombre,$mail,$consulta,$notificacion){
+  function agregarConsulta($consulta){
     $query = $this->db->prepare("insert into consulta(nombre, mail, consulta, notificacion) values (?,?,?,?)");
-    $query->execute(array("$nombre","$mail","$consulta","$notificacion"));
+    $query->execute(array($consulta["nombre"],$consulta["mail"],$consulta["consulta"],$consulta["notificacion"]));
 
   }
   function getConsultas()

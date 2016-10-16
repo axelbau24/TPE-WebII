@@ -33,16 +33,20 @@ class ComponentesController
   }
 
   function mostrar_componente() {
-    $id_componente = $_GET["id"];
-    $categoria = $this->model->getCategoriaComponente($id_componente);
-    $componente = $this->model->getComponente($id_componente);
-    $imagenes = $this->model->getImagenes($id_componente);
-    $componente["imagenes"] = $imagenes;
-    $this->vista->mostrarComponente($categoria, $componente);
+    if(isset($_GET["id"])){
+      $id_componente = $_GET["id"];
+      $categoria = $this->model->getCategoriaComponente($id_componente);
+      $componente = $this->model->getComponente($id_componente);
+      $imagenes = $this->model->getImagenes($id_componente);
+      $componente["imagenes"] = $imagenes;
+      $this->vista->mostrarComponente($categoria, $componente);
+    }else $this->mostrarInicio();
   }
   function eliminar_componente(){
-    $key = $_GET['id'];
-    $this->model->eliminarComponente($key);
+    if(isset($_GET["id"])){
+      $key = $_GET['id'];
+      $this->model->eliminarComponente($key);
+    }
     $this->listar();
 
   }
@@ -53,22 +57,26 @@ class ComponentesController
   function agregar_componente(){
     $this->model->agregarComponente($this->crearComponente());
     $this->listar();
-    }
-function crearComponente(){
-  $newComponente["nombre"] = $_POST['nombre'];
-  $newComponente["destacado"] = isset($_POST['recomendado']);
-  $newComponente["id_categoria"] = $_POST['categoria'];
-  $newComponente["imagenes"] = $this->verificarImagenes($_FILES["imagenes"]);
-  return $newComponente;
-}
+  }
+  function crearComponente(){
+    $newComponente = [];
+    if( (isset($_POST['nombre'])) && (isset($_POST['categoria'])) ){
+    $newComponente["nombre"] = $_POST['nombre'];
+    $newComponente["destacado"] = isset($_POST['recomendado']);
+    $newComponente["id_categoria"] = $_POST['categoria'];
+    $newComponente["imagenes"] = $this->verificarImagenes($_FILES["imagenes"]);
+  }
+    return $newComponente;
+
+  }
   function verificarImagenes($imagenes){
     $nuevasImagenes = [];
     for ($i=0; $i < count($imagenes["size"]) ; $i++) {
       $extension = $imagenes["type"][$i];
       if($extension == "image/jpeg" || $extension == "image/png"){
-          $nuevaImagen["ext"] = "." . explode("/", $extension)[1];
-          $nuevaImagen["tmp_name"] = $imagenes["tmp_name"][$i];
-          $nuevasImagenes[] = $nuevaImagen;
+        $nuevaImagen["ext"] = "." . explode("/", $extension)[1];
+        $nuevaImagen["tmp_name"] = $imagenes["tmp_name"][$i];
+        $nuevasImagenes[] = $nuevaImagen;
       }
     }
     return $nuevasImagenes;
@@ -76,10 +84,11 @@ function crearComponente(){
 
   function editar_componente(){
     $newComponente = $this->crearComponente();
-    $newComponente["id"] = $_GET['id'];
-
-    $this->eliminarImagenes($this->model->getImagenes($newComponente["id"]));
-    $this->model->editarComponente($newComponente);
+    if(isset($_GET['id'])){
+      $newComponente["id"] = $_GET['id'];
+      $this->eliminarImagenes($this->model->getImagenes($newComponente["id"]));
+      $this->model->editarComponente($newComponente);
+    }
     $this->listar();
   }
 
@@ -87,7 +96,7 @@ function crearComponente(){
   function eliminarImagenes($imagenes){
     foreach ($imagenes as $imagen) {
       if(isset($_POST["img_".$imagen["id_imagen"]]))
-        $this->model->eliminarImagen($imagen);
+      $this->model->eliminarImagen($imagen);
     }
   }
 
@@ -115,4 +124,4 @@ function crearComponente(){
 
 }
 
- ?>
+?>
