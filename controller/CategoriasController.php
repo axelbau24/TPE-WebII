@@ -13,24 +13,24 @@ class CategoriasController
     $this->vista = new ViewCategorias();
   }
 
-  function mostrar(){
+  function mostrar_categorias(){
     $this->vista->mostrar($this->modelo->getCategorias());
   }
   function listar(){
     $this->vista->mostrarLista($this->modelo->getCategorias());
   }
 
-  function eliminar(){
+  function eliminar_categoria(){
     $key = $_GET['id'];
     $this->modelo->eliminarCategoria($key);
     $this->listar();
 }
-  function agregar(){
+  function agregar_categoria(){
     $name = $_POST['nombre'];
     $this->modelo->agregarCategoria($name);
     $this->listar();
   }
-  function editar(){
+  function editar_categoria(){
     $key = $_GET['id'];
     $newName = $_POST['nuevo-nombre'];
     $this->modelo->editarCategoria($newName,$key);

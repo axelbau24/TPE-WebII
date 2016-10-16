@@ -27,6 +27,7 @@ class ViewComponentes
     $this->smarty->display("componentesCategoria.tpl");
   }
 
+
   function mostrarComponentesCategoria($componentes)
   {
     $this->smarty->assign("componentes", $componentes);

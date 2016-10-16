@@ -15,29 +15,32 @@ class ComponentesController
     $this->modelCategorias = new ModelCategorias();
   }
 
-  function iniciar()//esto se debe llamar mostrar
+  function mostrarInicio()//esto se debe llamar mostrar
   {
     $this->updateData();
     $this->vista->mostrarComponentes();
   }
 
-  function administracion(){
-    if(isset($_GET["categoria"])) // Usado para el filtro de categorias
+  function mostrar_componentes(){// Usado para el filtro de categorias
+
+    if(isset($_GET["categoria"])){
       $this->vista->mostrarComponentesCategoria($this->model->getComponentesByCategoria($_GET["categoria"]));
+    }
     else {
       $this->updateData();
       $this->vista->mostrarAdmin();
     }
   }
 
-  function mostrarComponente($id_componente){
+  function mostrar_componente() {
+    $id_componente = $_GET["id"];
     $categoria = $this->model->getCategoriaComponente($id_componente);
     $componente = $this->model->getComponente($id_componente);
     $imagenes = $this->model->getImagenes($id_componente);
     $componente["imagenes"] = $imagenes;
     $this->vista->mostrarComponente($categoria, $componente);
   }
-  function eliminar(){
+  function eliminar_componente(){
     $key = $_GET['id'];
     $this->model->eliminarComponente($key);
     $this->listar();
@@ -47,7 +50,7 @@ class ComponentesController
     $this->updateData();
     $this->vista->listaAdmin();
   }
-  function agregar(){
+  function agregar_componente(){
     $this->model->agregarComponente($this->crearComponente());
     $this->listar();
     }
@@ -71,7 +74,7 @@ function crearComponente(){
     return $nuevasImagenes;
   }
 
-  function editar(){
+  function editar_componente(){
     $newComponente = $this->crearComponente();
     $newComponente["id"] = $_GET['id'];
 
@@ -104,7 +107,12 @@ function crearComponente(){
       $componentes = $this->model->getComponentesByCategoria($_GET["id"]);
       $this->vista->filtrar($componentes, $categoria);
     }
+
+    $this->mostrar_componentes();
   }
+
+
+
 }
 
  ?>
