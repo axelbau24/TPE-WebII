@@ -18,7 +18,7 @@
 
             <div class="panel panel-filled">
                 <div class="panel-body">
-                    <form class="database" action="install.php" method="post">
+                    <form class="database" method="post">
                         <div class="row">
                             <div class="form-group col-lg-6">
                                 <label>Host</label>
