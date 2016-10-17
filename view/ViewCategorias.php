@@ -12,13 +12,8 @@ class ViewCategorias
 
   function mostrar($categorias){
     $this->smarty->assign('categorias',$categorias);
-    $this->smarty->display('categorias.tpl');
-  }
-  function mostrarLista($categorias){
-    $this->smarty->assign('categorias',$categorias);
     $this->smarty->display('listaCategorias.tpl');
   }
-
 
 }
 

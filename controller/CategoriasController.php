@@ -16,23 +16,21 @@ class CategoriasController
   function mostrar_categorias(){
     $this->vista->mostrar($this->modelo->getCategorias());
   }
-  function listar(){
-    $this->vista->mostrarLista($this->modelo->getCategorias());
-  }
+
 
   function eliminar_categoria(){
     if(isset($_GET['id'])){
     $key = $_GET['id'];
     $this->modelo->eliminarCategoria($key);
     }
-    $this->listar();
+    $this->mostrar_categorias();
 }
   function agregar_categoria(){
     if(isset($_POST['nombre'])){
     $name = $_POST['nombre'];
     $this->modelo->agregarCategoria($name);
   }
-  $this->listar();
+  $this->mostrar_categorias();
   }
   function editar_categoria(){
     if(isset($_GET['id'])){
@@ -40,7 +38,7 @@ class CategoriasController
     $newName = $_POST['nuevo-nombre'];
     $this->modelo->editarCategoria($newName,$key);
     }
-    $this->listar();
+    $this->mostrar_categorias();
   }
 
 }

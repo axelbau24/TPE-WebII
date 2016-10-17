@@ -36,15 +36,14 @@ class ViewComponentes
 
   function mostrarAdmin()
   {
-    $this->smarty->display("adminComponentes.tpl");
-  }
-
-  function listaAdmin(){
     $this->smarty->display("listaComponentes.tpl");
   }
 
-  function mostrarComponente($categoria, $componente)
-  {
+  function mostrarHome(){
+    $this->smarty->display("home.tpl");
+  }
+
+  function mostrarComponente($categoria, $componente) {
     $this->smarty->assign("categoria", $categoria);
     $this->smarty->assign("componente", $componente);
     $this->smarty->display("componente.tpl");

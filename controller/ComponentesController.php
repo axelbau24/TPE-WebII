@@ -15,10 +15,13 @@ class ComponentesController
     $this->modelCategorias = new ModelCategorias();
   }
 
-  function mostrarInicio()//esto se debe llamar mostrar
+  function home()
   {
     $this->updateData();
     $this->vista->mostrarComponentes();
+  }
+  function mostrarInicio() {
+    $this->vista->mostrarHome();
   }
 
   function mostrar_componentes(){// Usado para el filtro de categorias
@@ -47,16 +50,13 @@ class ComponentesController
       $key = $_GET['id'];
       $this->model->eliminarComponente($key);
     }
-    $this->listar();
+    $this->mostrar_componentes();
 
   }
-  function listar(){
-    $this->updateData();
-    $this->vista->listaAdmin();
-  }
+
   function agregar_componente(){
     $this->model->agregarComponente($this->crearComponente());
-    $this->listar();
+    $this->mostrar_componentes();
   }
   function crearComponente(){
     $newComponente = [];
@@ -89,7 +89,7 @@ class ComponentesController
       $this->eliminarImagenes($this->model->getImagenes($newComponente["id"]));
       $this->model->editarComponente($newComponente);
     }
-    $this->listar();
+    $this->mostrar_componentes();
   }
 
 
@@ -110,14 +110,12 @@ class ComponentesController
     $this->vista->asignarDatos($data);
   }
 
-  function filtrar() {
+  function filtrar_categoria() {
     if (isset($_GET["id"])) {
       $categoria = $this->modelCategorias->getCategoria($_GET["id"]);
       $componentes = $this->model->getComponentesByCategoria($_GET["id"]);
       $this->vista->filtrar($componentes, $categoria);
     }
-
-    $this->mostrar_componentes();
   }
 
 

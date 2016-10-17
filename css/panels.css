@@ -34,6 +34,11 @@ li.active-custom:hover, .active-custom{
   color: #ff9900;
 }
 
+.modal {
+ overflow-y: auto;
+}
+
 .modal-open {
- overflow: auto;
+  padding-right: 0px !important;
+  overflow: auto;
 }

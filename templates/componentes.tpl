@@ -1,4 +1,3 @@
-{include file="header.tpl"}
 
 <section class="content">
   <div class="container-fluid">
@@ -28,5 +27,3 @@
     </div>
 
 </section>
-
-{include file="footer.tpl"}

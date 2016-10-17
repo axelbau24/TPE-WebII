@@ -15,7 +15,7 @@ class ContactoController
 
   function agregar_consulta(){
     if((isset($_POST['name'])) && (isset($_POST['mail'])) && (isset($_POST['consulta']) )){
-    $consulta["name"] = $_POST['name'];
+    $consulta["nombre"] = $_POST['name'];
     $consulta["mail"] = $_POST['mail'];
     $consulta["consulta"] = $_POST['consulta'];
     $consulta["notificacion"] = isset($_POST['notificacion']);
@@ -37,7 +37,7 @@ class ContactoController
       $key = $_GET['id'];
       $this->modelo->eliminarConsulta($key);
     }
-    $this->vista->listarConsultas($this->modelo->getConsultas());
+    $this->mostrar_consultas();
   }
 }
 
