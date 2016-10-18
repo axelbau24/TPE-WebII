@@ -92,7 +92,6 @@ class ComponentesController
     $this->mostrar_componentes();
   }
 
-
   function eliminarImagenes($imagenes){
     foreach ($imagenes as $imagen) {
       if(isset($_POST["img_".$imagen["id_imagen"]]))
@@ -117,7 +116,6 @@ class ComponentesController
       $this->vista->filtrar($componentes, $categoria);
     }
   }
-
 
 
 }

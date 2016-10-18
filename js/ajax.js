@@ -23,6 +23,7 @@ $(document).ready(function(e){
     });
   });
 
+
   // Función genérica para ajax
   function addAjax(selector, action, aCargar, msgSuccess, id, extra) {
     var datos = selector.split("/");
@@ -84,9 +85,36 @@ $(document).ready(function(e){
     var valor = $(this).val();
     var url = "index.php?action=filtrar_categoria&id=" + valor;
     if(valor == 0) url = "index.php?action=home";
-    $.post(url, function(data) {
+    $.get(url, function(data) {
       if(valor == 0) $(".listado").html(data)
       else $(".contenido-componentes").html(data);
     });
   });
+
+  // Filtro de categorias obtenido por javascript
+  /*
+  $(document).on('change', '.categorias', function() {
+    var selected = $(this).val();
+    var clasePanel = ".categoria";
+    var columnas = "col-lg-6 col-xs-6";
+    var columna = "col-lg-12 col-xs-12";
+    $(".color-white").each(function() {
+      $(this).parents(clasePanel).removeClass("hidden").addClass(columnas).removeClass(columna);
+      if(selected != 0){
+        if(selected == $(this).attr("data-id")){
+          $(this).parents("div div").removeClass("row");
+          $(this).parents(clasePanel).addClass(columna).removeClass(columnas);
+        }
+        else $(this).parents(clasePanel).toggleClass("hidden");
+      }
+      else updateRows(clasePanel);
+    });
+  });
+
+
+  function updateRows(clase) {
+        $(clase).parent("div").removeClass("row")
+        $(clase + ":odd").parent("div").addClass("row");
+  }
+*/
 });

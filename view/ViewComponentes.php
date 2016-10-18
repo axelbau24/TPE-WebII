@@ -19,6 +19,7 @@ class ViewComponentes
   {
     $this->smarty->display("componentes.tpl");
   }
+
   function filtrar($componentes, $categoria)
   {
     $this->smarty->assign("categorias", $categoria);
@@ -26,7 +27,6 @@ class ViewComponentes
     $this->smarty->assign("filtro", true);
     $this->smarty->display("componentesCategoria.tpl");
   }
-
 
   function mostrarComponentesCategoria($componentes)
   {
