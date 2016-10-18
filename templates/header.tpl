@@ -23,9 +23,11 @@
           <li id="consultas"><a href="#">Ver consultas</a></li>
           <li class="nav-category"><strong>Contacto</strong></li>
           <li id="contacto"><a href="#">Contactanos</a></li>
-          <li class="nav-info"><div class="m-t-xs">Web II - 2016 <br><strong>Diseñado por:</strong> Axel Bautista, Ezequiel Fazio</div></li>
+          <li class="nav-info"><div class="hidden carga"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Cargando datos...</div><div class="m-t-xs">Web II - 2016 <br><strong>Diseñado por:</strong> Axel Bautista, Ezequiel Fazio</div></li>
         </ul>
       </nav>
     </aside>
 
     <div class="listado">
+
+{include file="footer.tpl"}

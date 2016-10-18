@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-10-2016 a las 02:39:49
+-- Tiempo de generación: 18-10-2016 a las 03:14:16
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `test2`
+-- Base de datos: `todopc`
 --
 
 -- --------------------------------------------------------
@@ -135,11 +135,15 @@ CREATE TABLE `imagen` (
 --
 
 INSERT INTO `imagen` (`id_imagen`, `ruta`, `fk_id_componente`) VALUES
-(1, 'images/57e5e19615eba_1_1.png', 1),
-(2, 'images/57e5e1af2d082_2_1.png', 1),
-(3, 'images/57e5e1bb0e48a_3_1.png', 1),
-(4, 'images/57e5e38ad00f6_4_5.png', 5),
-(5, 'images/57e5e3461561c_5_5.png', 5);
+(6, 'images/580573c8876ac_1.png', 1),
+(7, 'images/580573c8882ee_1.png', 1),
+(8, 'images/580573c888d60_1.png', 1),
+(9, 'images/580573d9d5c76_5.png', 5),
+(10, 'images/580573d9d6962_5.png', 5),
+(11, 'images/580575340b088_3.png', 3),
+(12, 'images/580575340baae_3.png', 3),
+(13, 'images/580575d7366ec_30.png', 30),
+(15, 'images/58057741edb6d_17.png', 17);
 
 --
 -- Índices para tablas volcadas
@@ -194,7 +198,7 @@ ALTER TABLE `consulta`
 -- AUTO_INCREMENT de la tabla `imagen`
 --
 ALTER TABLE `imagen`
-  MODIFY `id_imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- Restricciones para tablas volcadas
 --

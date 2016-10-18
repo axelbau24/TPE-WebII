@@ -40,7 +40,7 @@ class ViewComponentes
   }
 
   function mostrarHome(){
-    $this->smarty->display("home.tpl");
+    $this->smarty->display("header.tpl");
   }
 
   function mostrarComponente($categoria, $componente) {

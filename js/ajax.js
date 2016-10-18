@@ -30,6 +30,7 @@ $(document).ready(function(e){
     var tipo = datos[1];
     selector = datos[0];
     $(document).on(tipo, selector, function(ev) {
+      $(".carga").toggleClass("hidden");
       var formData = null;
       var method = "GET";
       if (tipo == "submit") {
@@ -51,6 +52,7 @@ $(document).ready(function(e){
            $(".modal-backdrop").remove();
            if(extra != undefined) extra();
            if(msgSuccess != undefined && msgSuccess != 0) toastr.success(msgSuccess);
+           $(".carga").toggleClass("hidden");
          }
        })
     });

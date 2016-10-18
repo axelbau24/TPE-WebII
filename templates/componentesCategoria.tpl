@@ -26,7 +26,7 @@
 {if $index % 2 != 0}</div>{/if}
 
 
-<!--
+<!-- FILTRO DE CATEGORIAS POR JAVASCRIPT
 <div>
   <div class="categoria col-lg-6 col-xs-6">
       <ul class="list-group">
