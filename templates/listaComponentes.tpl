@@ -17,7 +17,7 @@
                 </div>
                 <form class="addComponente" method="post" enctype="multipart/form-data">
                   <div class="modal-body">
-                    <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="nombre" placeholder="ej. ASUS Q87M-E"></div>
+                    <div class="form-group"><label for="componente">Nombre </label> <input type="name" required class="form-control" name="nombre" placeholder="ej. ASUS Q87M-E"></div>
                     <div class="form-group"><label for="componente">Categoría</label>
                       <select name="categoria" class="form-control">
                         {foreach from=$categorias key=index item=categoria}
@@ -98,8 +98,8 @@
     </div>
       <div class="row">
         {foreach from=$categorias item=categoria key=index}
-        {if $index % 2 != 0}<div class="row">{/if}
-        <div class="col-lg-6 col-xs-6">
+        {if $index % 2 == 0}<div class="row">{/if}
+        <div class="col-lg-6 col-xs-12">
             <ul class="list-group">
               <li class="list-group-item active-custom"><strong class="color-white">{$categoria["nombre"]}</strong></a>
               {foreach from=$componentes item=componente}

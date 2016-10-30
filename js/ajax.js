@@ -3,11 +3,11 @@ $(document).ready(function(e){
   $.get( "index.php?action=home", function(data) {$(".listado").html(data);});
 
   // Se agrega /click o /submit para arreglar carga del selector despues de partial render
-  addAjax("#home/click", "home", ".listado", 0, 0);
-  addAjax("#componentes/click", "mostrar_componentes", ".listado", 0, 0);
-  addAjax("#categorias/click", "mostrar_categorias", ".listado", 0, 0);
-  addAjax("#consultas/click", "mostrar_consultas", ".listado", 0, 0);
-  addAjax("#contacto/click", "mostrar_formulario_consulta", ".listado", 0, 0);
+  addAjax(".nav-home/click", "home", ".listado", 0, 0);
+  addAjax(".nav-componentes/click", "mostrar_componentes", ".listado", 0, 0);
+  addAjax(".nav-categorias/click", "mostrar_categorias", ".listado", 0, 0);
+  addAjax(".nav-consultas/click", "mostrar_consultas", ".listado", 0, 0);
+  addAjax(".nav-contacto/click", "mostrar_formulario_consulta", ".listado", 0, 0);
   addAjax(".categorias/click", "mostrar_componentes&categoria=", ".cat-");
   addAjax(".borrarCategoria/submit", "eliminar_categoria&id=", ".listado", "La categoría se eliminó correctamente");
   addAjax(".editarCategoria/submit", "editar_categoria&id=", ".listado", "La categoría se editó correctamente");

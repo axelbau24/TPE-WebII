@@ -1,7 +1,7 @@
 {foreach from=$categorias item=categoria key=index}
-{if $index % 2 != 0}<div class="row">{/if}
+{if $index % 2 == 0}<div class="row">{/if}
 {if !isset($filtro)}
-<div class="col-lg-6 col-xs-6">
+<div class="col-lg-6 col-xs-12">
     <ul class="list-group">
       <li class="list-group-item active-custom"><strong class="color-white">{$categoria["nombre"]}</strong></a>
       {foreach from=$componentes item=componente}
@@ -28,7 +28,7 @@
 
 <!-- FILTRO DE CATEGORIAS POR JAVASCRIPT
 <div>
-  <div class="categoria col-lg-6 col-xs-6">
+  <div class="categoria col-lg-6 col-xs-12">
       <ul class="list-group">
         <li class="list-group-item active-custom"><strong class="color-white" data-id="{$categoria['id_categoria']}">{$categoria["nombre"]}</strong></a>
         {foreach from=$componentes item=componente}
@@ -38,6 +38,6 @@
         {/foreach}
       </ul>
   </div>
-</div>
--->
+</div> -->
+
 {/foreach}

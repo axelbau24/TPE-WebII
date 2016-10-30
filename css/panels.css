@@ -57,3 +57,35 @@ li.active-custom:hover, .active-custom{
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
 }
+
+.navbar-toggle{
+  position: fixed;
+  float: none;
+  padding: 0px 30px ;
+  margin-top: 0px;
+  margin-right: 0px;
+}
+
+.navbar-inverse {
+    background-color: #2a2d35;
+    border-color: #080808;
+}
+.navbar-brand {
+   float: none;
+   padding: 0px 0px;
+}
+.nav > li {
+
+    display: inline-block;
+}
+.empty{
+  height: 2px;
+  padding: 0 0 0 10px !important;
+}
+.separator-pad{
+  padding-left: 1px;
+  padding-right: 1px;
+}
+.navbar-fixed-top{
+  margin-bottom: 200px;
+}
