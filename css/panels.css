@@ -27,6 +27,9 @@ li.active-custom:hover, .active-custom{
 .space-right{
   margin-right: 5px;
 }
+.space-left{
+  margin-left: 25px;
+}
 .check{
     background-color: rgba(255, 255, 255, 0.25);
 }

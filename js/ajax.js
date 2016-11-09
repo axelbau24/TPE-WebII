@@ -8,7 +8,7 @@ $(document).ready(function(e){
   addAjax(".nav-categorias/click", "mostrar_categorias", ".listado", 0, 0);
   addAjax(".nav-consultas/click", "mostrar_consultas", ".listado", 0, 0);
   addAjax(".nav-contacto/click", "mostrar_formulario_consulta", ".listado", 0, 0);
-  addAjax(".categorias/click", "mostrar_componentes&categoria=", ".cat-");
+  addAjax(".categorias/click", "filtrar_categoria&categoria=", ".cat-");
   addAjax(".borrarCategoria/submit", "eliminar_categoria&id=", ".listado", "La categoría se eliminó correctamente");
   addAjax(".editarCategoria/submit", "editar_categoria&id=", ".listado", "La categoría se editó correctamente");
   addAjax(".editarComponente/submit", "editar_componente&id=", ".listado", "El componente se editó correctamente");
@@ -68,9 +68,17 @@ $(document).ready(function(e){
 
   // Cambio de la clase "active" entre los menús
   $("nav li a").click(function() {
-    $("nav li a").each(function() { $(this).parent().removeClass("active"); });
+    $("nav li a").each(function() {
+      $(this).parent().removeClass("active");
+    });
     $(this).parent().addClass("active");
   });
+
+    $("li a div").click(function() {
+    $("li a div").each(function() { $(this).removeClass("panel-c-warning"); });
+    $(this).addClass("panel-c-warning");
+  });
+
 
   // Agrego efecto de selección al hacer click en una imagen
   $(document).on("click", ".img-thumbnail", function(){

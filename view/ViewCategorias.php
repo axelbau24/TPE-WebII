@@ -1,16 +1,10 @@
 <?php
-require_once('libs/Smarty.class.php');
+include_once("view/View.php");
 
-class ViewCategorias
-{
-  private $smarty;
+class ViewCategorias extends View{
 
-  function __construct()
-  {
-    $this->smarty = new Smarty();
-  }
-
-  function mostrar($categorias){
+  function mostrar($categorias, $permisos){
+    $this->smarty->assign('permisos', $permisos);
     $this->smarty->assign('categorias',$categorias);
     $this->smarty->display('listaCategorias.tpl');
   }

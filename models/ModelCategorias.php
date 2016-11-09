@@ -1,10 +1,7 @@
 <?php
-include_once ("models/db.php");
-class ModelCategorias extends Database{
+include_once ("models/Model.php");
+class ModelCategorias extends Model{
 
-  function __construct() {
-    parent::__construct();
-  }
 
   function getCategorias(){
     $sentencia = $this->db->prepare( "select * from categoria");

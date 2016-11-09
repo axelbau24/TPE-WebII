@@ -2,10 +2,10 @@
 -- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 18-10-2016 a las 03:14:16
--- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.6.21
+-- Host: 127.0.0.1
+-- Generation Time: Nov 09, 2016 at 11:45 PM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,47 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `todopc`
+-- Database: `todopc`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categoria`
+-- Table structure for table `accion`
+--
+
+CREATE TABLE `accion` (
+  `id_accion` int(11) NOT NULL,
+  `accion` varchar(30) NOT NULL,
+  `nombre` varchar(30) NOT NULL,
+  `fk_id_grupo_a` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `accion`
+--
+
+INSERT INTO `accion` (`id_accion`, `accion`, `nombre`, `fk_id_grupo_a`) VALUES
+(1, 'home', 'Ver lista de componentes', 0),
+(2, 'mostrar_componente', 'Ver un componente', 1),
+(3, 'mostrar_componentes', 'Ver administración de componen', 1),
+(4, 'eliminar_componente', 'Eliminación de componentes', 1),
+(5, 'agregar_componente', 'Adición de componentes', 1),
+(6, 'editar_componente', 'Edición de componentes', 1),
+(7, 'filtrar_categoria', 'Filtro de categorías', 2),
+(8, 'mostrar_categorias', 'Ver administración de categorí', 2),
+(9, 'eliminar_categoria', 'Eliminación de categorías', 2),
+(10, 'agregar_categoria', 'Adición de categorías', 2),
+(11, 'mostrar_formulario_consulta', 'Ver formulario de consultas', 3),
+(12, 'agregar_consulta', 'Envío de consultas', 3),
+(13, 'mostrar_consultas', 'Ver listado de consultas recib', 3),
+(14, 'eliminar_consulta', 'Eliminación de consultas', 3),
+(15, 'editar_categoria', 'Edición de categorias', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categoria`
 --
 
 CREATE TABLE `categoria` (
@@ -32,7 +66,7 @@ CREATE TABLE `categoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `categoria`
+-- Dumping data for table `categoria`
 --
 
 INSERT INTO `categoria` (`id_categoria`, `nombre`) VALUES
@@ -46,7 +80,7 @@ INSERT INTO `categoria` (`id_categoria`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `componente`
+-- Table structure for table `componente`
 --
 
 CREATE TABLE `componente` (
@@ -57,7 +91,7 @@ CREATE TABLE `componente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `componente`
+-- Dumping data for table `componente`
 --
 
 INSERT INTO `componente` (`id_componente`, `nombre`, `destacado`, `fk_id_categoria`) VALUES
@@ -82,7 +116,7 @@ INSERT INTO `componente` (`id_componente`, `nombre`, `destacado`, `fk_id_categor
 (19, 'Intel Core i7-6700K', 1, 4),
 (20, 'AMD FX-8320', 0, 4),
 (21, 'Logitech G900 Chaos Spectrum', 0, 5),
-(22, 'Razer Mamba Chroma', 0, 5),
+(22, 'Razer Mamba Chromah', 0, 5),
 (23, 'SteelSeries Sensei', 0, 5),
 (24, 'Corsair K95 RGB', 1, 5),
 (25, 'Razer BlackWidow', 0, 5),
@@ -96,7 +130,7 @@ INSERT INTO `componente` (`id_componente`, `nombre`, `destacado`, `fk_id_categor
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `consulta`
+-- Table structure for table `consulta`
 --
 
 CREATE TABLE `consulta` (
@@ -109,19 +143,39 @@ CREATE TABLE `consulta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `consulta`
+-- Dumping data for table `consulta`
 --
 
 INSERT INTO `consulta` (`id_consulta`, `nombre`, `mail`, `consulta`, `notificacion`, `fecha`) VALUES
 (2, 'Ezequiel ', 'ezfs@gmail.com', 'Hola, si, muy, buena, la pág. Gracias!', 1, '2016-09-29 01:05:02'),
 (3, 'Juan', 'pacopedro@delamar.es', 'Mi nombre así, y cuando yo \r\nme voy, me dicen al pasar,\r\nJuan paco pedro de la mar\r\nlalalalalaa..', 0, '2016-09-29 01:08:59'),
-(4, 'Sean', 'elmaildeSean@gmail.com', 'Muy buenos productos, entro todos los días a su página para chequear las novedades! Es genial!', 0, '2016-09-29 02:50:11'),
 (5, 'Fiona', 'Fionas@mail.com', 'Acá estámos con Shrek viendo su página, muy buena, muchas gracias!', 1, '2016-09-29 02:52:50');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `imagen`
+-- Table structure for table `grupo_acciones`
+--
+
+CREATE TABLE `grupo_acciones` (
+  `id_grupo_a` int(11) NOT NULL,
+  `nombre` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `grupo_acciones`
+--
+
+INSERT INTO `grupo_acciones` (`id_grupo_a`, `nombre`) VALUES
+(1, 'Componentes'),
+(2, 'Categorias'),
+(3, 'Consultas'),
+(4, 'Usuarios');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `imagen`
 --
 
 CREATE TABLE `imagen` (
@@ -131,7 +185,7 @@ CREATE TABLE `imagen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `imagen`
+-- Dumping data for table `imagen`
 --
 
 INSERT INTO `imagen` (`id_imagen`, `ruta`, `fk_id_componente`) VALUES
@@ -145,72 +199,213 @@ INSERT INTO `imagen` (`id_imagen`, `ruta`, `fk_id_componente`) VALUES
 (13, 'images/580575d7366ec_30.png', 30),
 (15, 'images/58057741edb6d_17.png', 17);
 
+-- --------------------------------------------------------
+
 --
--- Índices para tablas volcadas
+-- Table structure for table `permiso`
+--
+
+CREATE TABLE `permiso` (
+  `id_permiso` int(11) NOT NULL,
+  `fk_id_accion` varchar(35) NOT NULL,
+  `fk_id_rango` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `permiso`
+--
+
+INSERT INTO `permiso` (`id_permiso`, `fk_id_accion`, `fk_id_rango`) VALUES
+(1, '3', 3),
+(2, '4', 3),
+(3, '5', 3),
+(4, '6', 3),
+(5, '8', 3),
+(6, '9', 3),
+(7, '10', 3),
+(8, '15', 3),
+(9, '13', 3),
+(10, '12', 3),
+(14, '3', 4),
+(15, '4', 4),
+(16, '5', 4),
+(17, '6', 4),
+(18, '8', 4),
+(19, '9', 4),
+(20, '10', 4),
+(21, '13', 4),
+(22, '14', 4),
+(23, '15', 4),
+(24, '3', 2),
+(25, '4', 2),
+(26, '5', 2),
+(27, '6', 2),
+(31, '9', 2),
+(32, '10', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rango`
+--
+
+CREATE TABLE `rango` (
+  `id_rango` int(11) NOT NULL,
+  `nombre` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rango`
+--
+
+INSERT INTO `rango` (`id_rango`, `nombre`) VALUES
+(1, 'Administrador'),
+(2, 'Moderador'),
+(3, 'Normal'),
+(4, 'Visitante');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id_usuario` int(11) NOT NULL,
+  `nombre` varchar(25) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `fk_id_rango` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `email`, `password`, `fk_id_rango`) VALUES
+(1, 'axelbau24', 'axelbau24@gmail.com', '$2y$10$8dzhZh6LfY4sOca3oLHps.8YvA0AV3JM3/pchM9IWrnEMpBrr4nbC', 1);
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `categoria`
+-- Indexes for table `accion`
+--
+ALTER TABLE `accion`
+  ADD PRIMARY KEY (`id_accion`);
+
+--
+-- Indexes for table `categoria`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id_categoria`);
 
 --
--- Indices de la tabla `componente`
+-- Indexes for table `componente`
 --
 ALTER TABLE `componente`
   ADD PRIMARY KEY (`id_componente`),
   ADD KEY `fk_id_categoria` (`fk_id_categoria`);
 
 --
--- Indices de la tabla `consulta`
+-- Indexes for table `consulta`
 --
 ALTER TABLE `consulta`
   ADD PRIMARY KEY (`id_consulta`);
 
 --
--- Indices de la tabla `imagen`
+-- Indexes for table `grupo_acciones`
+--
+ALTER TABLE `grupo_acciones`
+  ADD PRIMARY KEY (`id_grupo_a`);
+
+--
+-- Indexes for table `imagen`
 --
 ALTER TABLE `imagen`
   ADD PRIMARY KEY (`id_imagen`),
   ADD KEY `imagen_ibfk_1` (`fk_id_componente`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- Indexes for table `permiso`
+--
+ALTER TABLE `permiso`
+  ADD PRIMARY KEY (`id_permiso`);
+
+--
+-- Indexes for table `rango`
+--
+ALTER TABLE `rango`
+  ADD PRIMARY KEY (`id_rango`);
+
+--
+-- Indexes for table `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id_usuario`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `categoria`
+-- AUTO_INCREMENT for table `accion`
+--
+ALTER TABLE `accion`
+  MODIFY `id_accion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
--- AUTO_INCREMENT de la tabla `componente`
+-- AUTO_INCREMENT for table `componente`
 --
 ALTER TABLE `componente`
   MODIFY `id_componente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
--- AUTO_INCREMENT de la tabla `consulta`
+-- AUTO_INCREMENT for table `consulta`
 --
 ALTER TABLE `consulta`
-  MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT de la tabla `imagen`
+-- AUTO_INCREMENT for table `grupo_acciones`
+--
+ALTER TABLE `grupo_acciones`
+  MODIFY `id_grupo_a` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `imagen`
 --
 ALTER TABLE `imagen`
   MODIFY `id_imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
--- Restricciones para tablas volcadas
+-- AUTO_INCREMENT for table `permiso`
+--
+ALTER TABLE `permiso`
+  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+--
+-- AUTO_INCREMENT for table `rango`
+--
+ALTER TABLE `rango`
+  MODIFY `id_rango` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `componente`
+-- Constraints for table `componente`
 --
 ALTER TABLE `componente`
   ADD CONSTRAINT `componente_ibfk_1` FOREIGN KEY (`fk_id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `imagen`
+-- Constraints for table `imagen`
 --
 ALTER TABLE `imagen`
   ADD CONSTRAINT `imagen_ibfk_1` FOREIGN KEY (`fk_id_componente`) REFERENCES `componente` (`id_componente`) ON DELETE CASCADE;

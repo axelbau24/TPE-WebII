@@ -1,13 +1,6 @@
 <?php
-include_once("libs/Smarty.class.php");
-class ViewComponentes
-{
-  private $smarty;
-
-  function __construct()
-  {
-    $this->smarty = new Smarty();
-  }
+include_once("view/View.php");
+class ViewComponentes extends View{
 
   function asignarDatos($datos)
   {
@@ -34,12 +27,18 @@ class ViewComponentes
     $this->smarty->display("filtroComponentes.tpl");
   }
 
-  function mostrarAdmin()
+  function mostrarAdmin($permisos)
   {
+    $this->smarty->assign("permisos", $permisos);
     $this->smarty->display("listaComponentes.tpl");
   }
 
-  function mostrarHome(){
+  function mostrarHome($permisos){
+
+    if(isset($_SESSION["user"])){
+      $this->smarty->assign("sesion", $_SESSION);
+    }
+    $this->smarty->assign("permisos", $permisos);
     $this->smarty->display("header.tpl");
   }
 

@@ -1,14 +1,7 @@
 <?php
-require_once('libs/Smarty.class.php');
+include_once("view/View.php");
 
-class ViewContacto
-{
-  private $smarty;
-
-  function __construct()
-  {
-    $this->smarty = new Smarty();
-  }
+class ViewContacto extends View{
 
   function mostrarFormulario(){
     $this->smarty->display('contacto.tpl');

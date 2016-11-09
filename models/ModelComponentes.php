@@ -1,6 +1,6 @@
 <?php
-include ("models/db.php");
-class ModelComponentes extends Database{
+include ("models/Model.php");
+class ModelComponentes extends Model{
 
   function __construct() {
     parent::__construct();

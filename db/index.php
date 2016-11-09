@@ -1,5 +1,7 @@
 <?php
 
+define("SQLFILE", "todopc.sql");
+
 include '../libs/Smarty.class.php';
 $smarty = new Smarty();
 
@@ -11,13 +13,17 @@ if(isset($_POST["host"]) && isset($_POST["user"]) && isset($_POST["db-pw"]) && i
       $conexionValida = false;
   }
 
-
   if($conexionValida){
-    $config = fopen("config.txt", "w+");
-    fwrite($config, $_POST["host"]."#".$_POST["user"]."#".$_POST["db-pw"]."#".$_POST["dbname"]);
-    fclose($config);
+    $configFile = "config.php";
+    $archivo = file($configFile);
+    $archivo[2] = changeValue($archivo[2], $_POST["host"]);
+    $archivo[3] = changeValue($archivo[3], $_POST["user"]);
+    $archivo[4] = changeValue($archivo[4], $_POST["db-pw"]);
+    $archivo[5] = changeValue($archivo[5], $_POST["dbname"]);
+    file_put_contents($configFile, $archivo);
+
     $smarty->assign("asignados", true);
-    $querys = getSQL("todopc.sql");
+    $querys = getSQL(SQLFILE);
     $dbname = $_POST["dbname"];
 
     if(isset($_POST['vaciar'])) $conexionValida->exec('DROP DATABASE IF EXISTS '.$dbname);
@@ -33,9 +39,6 @@ if(isset($_POST["host"]) && isset($_POST["user"]) && isset($_POST["db-pw"]) && i
       if($i == count($querys)) $smarty->assign("db_correcto", 1);
       else $smarty->assign("db_correcto", $conexionValida->errorInfo()[2]);
     }
-
-
-
 
   } else $smarty->assign("asignados", false);
   $smarty->display("errores.tpl");
@@ -55,6 +58,18 @@ function getSQL($nombre){
   $querys = explode(";", $sql);
   unset($querys[count($querys)-1]);
   return $querys;
+}
+
+function changeValue($variable, $value){
+  $start = '';
+  $end = '");';
+  $i = 0;
+  while ($i < strlen($variable) && !strpos($start, ', "')) {
+    $start .= $variable[$i];
+    $i++;
+  }
+  $newVar = $start.$value.$end.PHP_EOL;
+  return $newVar;
 }
 
  ?>

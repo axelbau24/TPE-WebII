@@ -1,13 +1,24 @@
+{assign var="return" value="0"}
+{function name=verificar action=nombre}
+  {assign var="i" value="0"}
 
+  {while $i < count($permisos) && $permisos[$i]["accion_denegada"] != $action}
+    <div class="hidden">{$i++}</div>
+  {/while}
+  {if $i == count($permisos)}<div class="hidden"> {$return++} </div>{/if}
+  {assign var="return" value="0"}
+{/function}
 <section class="content">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
         <div class="view-header">
+          {assign var="return" value="0"}
+          {verificar action="agregar_componente"}
+          {if $return}
           <div class="pull-right text-right" style="line-height: 14px">
             <button type="button" class="btn btn-default" data-toggle="modal" data-target=".newComp">Agregar nuevo</button>
           </div>
-
 
           <div class="modal fade newComp"  tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
             <div class="modal-dialog modal-sm">
@@ -38,7 +49,7 @@
               </div>
             </div>
           </div>
-
+          {/if}
           {foreach from=$componentes item=componente}
           <div class="modal fade editComp-{$componente["id_componente"]}" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
             <div class="modal-dialog">
@@ -105,8 +116,12 @@
               {foreach from=$componentes item=componente}
               {if $componente["fk_id_categoria"] == $categoria["id_categoria"]}
               <li class="list-group-item">{if $componente["destacado"]}<div class="glyphicon glyphicon-ok-sign destacado"></div> {/if}{$componente["nombre"]}
-                <a class="eliminarComponente glyphicon glyphicon-trash pull-right color-white" data-id={$componente["id_componente"]}></a> <!--Boton eliminar -->
-                <a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp-{$componente["id_componente"]}"></a> <!--Boton editar -->
+                {assign var="return" value="0"}
+                {verificar action="eliminar_componente"}
+                {if $return}<a class="eliminarComponente glyphicon glyphicon-trash pull-right color-white" data-id={$componente["id_componente"]}></a> {/if}<!--Boton eliminar -->
+                {assign var="return" value="0"}
+                {verificar action="editar_componente"}
+                {if $return}<a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp-{$componente["id_componente"]}"></a>{/if} <!--Boton editar -->
                 <button type="button" class="mostrarComponente btn btn-default btn-xs pull-right space-right" data-id={$componente["id_componente"]}>Ver mas</button>
               </li>
               {/if}

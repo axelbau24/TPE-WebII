@@ -2,17 +2,21 @@
 include_once("view/ViewComponentes.php");
 include_once("models/ModelComponentes.php");
 include_once("models/ModelCategorias.php");
+include_once("models/ModelUsuarios.php");
 
 class ComponentesController
 {
   private $vista;
   private $model;
   private $modelCategorias;
+  private $modelUsuario;
+
   function __construct()
   {
     $this->vista = new ViewComponentes();
     $this->model = new ModelComponentes();
     $this->modelCategorias = new ModelCategorias();
+    $this->modelUsuario = new ModelUsuarios();
   }
 
   function home()
@@ -21,18 +25,15 @@ class ComponentesController
     $this->vista->mostrarComponentes();
   }
   function mostrarInicio() {
-    $this->vista->mostrarHome();
+    session_start();
+    $user = null;
+    if(isset($_SESSION["user"])) $user = $_SESSION["user"];
+    $this->vista->mostrarHome($this->modelUsuario->getPermisos($user));
   }
 
-  function mostrar_componentes(){// Usado para el filtro de categorias
-
-    if(isset($_GET["categoria"])){
-      $this->vista->mostrarComponentesCategoria($this->model->getComponentesByCategoria($_GET["categoria"]));
-    }
-    else {
+  function mostrar_componentes(){
       $this->updateData();
-      $this->vista->mostrarAdmin();
-    }
+      $this->vista->mostrarAdmin($this->modelUsuario->getPermisos($_SESSION["user"]));
   }
 
   function mostrar_componente() {
@@ -114,6 +115,9 @@ class ComponentesController
       $categoria = $this->modelCategorias->getCategoria($_GET["id"]);
       $componentes = $this->model->getComponentesByCategoria($_GET["id"]);
       $this->vista->filtrar($componentes, $categoria);
+    }
+    else if(isset($_GET["categoria"])){
+      $this->vista->mostrarComponentesCategoria($this->model->getComponentesByCategoria($_GET["categoria"]));
     }
   }
 

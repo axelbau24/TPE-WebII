@@ -17,7 +17,9 @@ class ConfigApp{
     'mostrar_formulario_consulta' =>  "Contacto",
     'agregar_consulta' =>  "Contacto",
     'mostrar_consultas' =>  "Contacto",
-    'eliminar_consulta' =>  "Contacto"];
+    'eliminar_consulta' =>  "Contacto",
+    'login' =>  "Usuarios",
+    'logout' =>  "Usuarios"];
 
 }
 

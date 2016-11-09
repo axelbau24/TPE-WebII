@@ -1,20 +1,24 @@
 <?php
 require_once('view/ViewCategorias.php');
 require_once('models/ModelCategorias.php');
+require_once('models/ModelUsuarios.php');
 
 class CategoriasController
 {
   private $vista;
   private $modelo;
+  private $modelUsuario;
 
   function __construct()
   {
+    $this->modelUsuario = new ModelUsuarios();
     $this->modelo = new ModelCategorias();
     $this->vista = new ViewCategorias();
   }
 
   function mostrar_categorias(){
-    $this->vista->mostrar($this->modelo->getCategorias());
+    $permisos = $this->modelUsuario->getPermisos($_SESSION["user"]);
+    $this->vista->mostrar($this->modelo->getCategorias(), $permisos);
   }
 
 
@@ -29,8 +33,8 @@ class CategoriasController
     if(isset($_POST['nombre'])){
     $name = $_POST['nombre'];
     $this->modelo->agregarCategoria($name);
-  }
-  $this->mostrar_categorias();
+    }
+    $this->mostrar_categorias();
   }
   function editar_categoria(){
     if(isset($_GET['id'])){

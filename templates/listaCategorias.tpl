@@ -1,14 +1,25 @@
+{assign var="return" value="0"}
+{function name=verificar action=nombre}
+  {assign var="i" value="0"}
 
+  {while $i < count($permisos) && $permisos[$i]["accion_denegada"] != $action}
+    <div class="hidden">{$i++}</div>
+  {/while}
+  {if $i == count($permisos)}<div class="hidden"> {$return++} </div>{/if}
+  {assign var="return" value="0"}
+{/function}
   <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
             <div class="view-header">
+
+              {verificar action="agregar_categoria"}
+              {if $return}
               <div class="pull-right text-right" style="line-height: 14px">
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target=".newCat">Agregar nuevo</button>
               </div>
-
-
+              {/if}
               <div class="modal fade newCat"  tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
                 <div class="modal-dialog modal-sm">
                   <div class="modal-content">
@@ -84,15 +95,23 @@
             <hr>
           </div>
         </div>
+
+
         <div class="row">
           <div class="col-lg-12 col-xs-12">
               <ul class="list-group">
                 <li class="list-group-item active-custom"><strong class="color-white">Categorías</strong></a>
                    {foreach from=$categorias key=index item=categoria}
             <li class="list-group-item categoria"><span data-id="{$categoria['id_categoria']}" class="categorias">{$categoria['nombre']}</span>
-              <a data-id="{$categoria['id_categoria']}" class="glyphicon glyphicon-list pull-right color-white categorias"></a>
-              <a class="glyphicon glyphicon-trash pull-right color-white space-right" data-toggle="modal" data-target=".eliminarCat-{$categoria['id_categoria']}"></a>
-              <a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editCat-{$categoria['id_categoria']}"></a>
+              {assign var="return" value="0"}
+              {verificar action="filtrar_categoria"}
+              {if $return} <a data-id="{$categoria['id_categoria']}" class="glyphicon glyphicon-list pull-right color-white categorias"></a> {/if}
+              {assign var="return" value="0"}
+              {verificar action="eliminar_categoria"}
+              {if $return} <a class="glyphicon glyphicon-trash pull-right color-white space-right" data-toggle="modal" data-target=".eliminarCat-{$categoria['id_categoria']}"></a>{/if}
+              {assign var="return" value="0"}
+              {verificar action="editar_categoria"}
+              {if $return} <a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editCat-{$categoria['id_categoria']}"></a>{/if}
               <span class="badge btn-info pull-right space-right"><strong>Cantidad: </strong>{$categoria['cantidad']}</span>
 
               <div class="oculto componentes cat-{$categoria['id_categoria']}" style="display:none;">
