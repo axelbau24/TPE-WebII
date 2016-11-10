@@ -8,8 +8,7 @@ class ViewComponentes extends View{
     $this->smarty->assign("componentes", $datos["componentes"]);
   }
 
-  function mostrarComponentes()
-  {
+  function mostrarComponentes(){
     $this->smarty->display("componentes.tpl");
   }
 
@@ -27,18 +26,15 @@ class ViewComponentes extends View{
     $this->smarty->display("filtroComponentes.tpl");
   }
 
-  function mostrarAdmin($permisos)
-  {
-    $this->smarty->assign("permisos", $permisos);
+  function mostrarAdmin(){
     $this->smarty->display("listaComponentes.tpl");
   }
 
-  function mostrarHome($permisos){
+  function mostrarHome(){
 
     if(isset($_SESSION["user"])){
       $this->smarty->assign("sesion", $_SESSION);
     }
-    $this->smarty->assign("permisos", $permisos);
     $this->smarty->display("header.tpl");
   }
 

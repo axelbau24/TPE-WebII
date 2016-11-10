@@ -25,48 +25,13 @@
     <aside class="navigation">
       <img src="images/logo.png" alt="Logo TODO-PC" class="img-thumbnail"/>
 
-
-          <div class="modal fade iniciar"  tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+          <div class="modal fade iniciar iniciar_sesion"  tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
             <div class="modal-dialog modal-sm">
               <div class="modal-content">
                 <div class="modal-header text-center">
                   <h4 class="modal-title">Inicio de sesión</h4>
                 </div>
-                <form class="iniciar_sesion" method="post" action="index.php?action=login">
-                  <div class="modal-body">
-                    <div class="form-group"><label for="usuario">Usuario </label> <input type="username" required class="form-control" name="username" placeholder="ej. Marcos19"></div>
-                    <div class="form-group"><label for="password">Contraseña </label> <input type="password" required class="form-control" name="password" placeholder="•••••••"></div>
 
-                    <div class="form-group"><label> <input type="checkbox" name="mantener_sesion"> Mantener sesión iniciada</label></div>
-                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-accent">Ingresar</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <div class="modal fade registro"  tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog modal-sm">
-              <div class="modal-content">
-                <div class="modal-header text-center">
-                  <h4 class="modal-title">Nuevo usuario</h4>
-                </div>
-                <form class="iniciar_sesion" method="post">
-                  <div class="modal-body">
-                    <div class="form-group"><label for="user">Usuario </label> <input type="username" required class="form-control" name="username" placeholder="ej. Lucas31"></div>
-                    <div class="form-group"><label for="email">Email </label> <input type="email" required class="form-control" name="email" placeholder="ej. lucas31@gmail.com"></div>
-                    <div class="form-group"><label for="password">Contraseña </label> <input type="password" required class="form-control" name="password" placeholder="•••••••"></div>
-
-                    <div class="form-group"><label> <input type="checkbox" name="notificaciones"> Recibir notificaciones</label></div>
-                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-accent">Crear</button>
-                  </div>
-                </form>
               </div>
             </div>
           </div>
@@ -75,10 +40,10 @@
         <ul class="nav luna-nav">
           {if isset($sesion)}<li class="nav-category"><strong>Bienvenido <i>{$sesion["user"]}</i></strong></li>
           <button type="button" class="btn btn-xs btn-info space-left">Configuración</button>
-          <a href="index.php?action=logout"><button type="button" class="btn btn-xs btn-info">Salir</button></a>
+          <a href="logout"><button type="button" class="btn btn-xs btn-info">Salir</button></a>
           {else}<li class="nav-category"><strong>No ingreso al sistema</strong></li>
-          <button type="button" class="btn btn-xs btn-info space-left" data-toggle="modal" data-target=".iniciar">Iniciar Sesión</button>
-          <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target=".registro">Registro</button>{/if}
+          <a href="login"><button type="button" class="btn btn-xs btn-info space-left">Iniciar Sesión</button></a>
+          <button type="button" class="btn btn-xs btn-info">Registro</button>{/if}
           <li class="nav-category"><strong>Principal</strong></li>
           <li class="active nav-home"><a href="#">Listado de componentes</a></li>
 

@@ -8,6 +8,10 @@ class View{
     $this->smarty = new Smarty();
   }
 
+  function actualizarPermisos($nuevos){
+     $this->smarty->assign("permisos", $nuevos);
+  }
+
 
 }
 

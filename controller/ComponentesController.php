@@ -28,12 +28,14 @@ class ComponentesController
     session_start();
     $user = null;
     if(isset($_SESSION["user"])) $user = $_SESSION["user"];
-    $this->vista->mostrarHome($this->modelUsuario->getPermisos($user));
+    $this->vista->actualizarPermisos($this->modelUsuario->getPermisos($user));
+    $this->vista->mostrarHome();
   }
 
   function mostrar_componentes(){
       $this->updateData();
-      $this->vista->mostrarAdmin($this->modelUsuario->getPermisos($_SESSION["user"]));
+      $this->vista->actualizarPermisos($this->modelUsuario->getPermisos($_SESSION["user"]));
+      $this->vista->mostrarAdmin();
   }
 
   function mostrar_componente() {

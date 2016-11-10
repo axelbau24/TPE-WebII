@@ -34,29 +34,66 @@ $(document).ready(function(e){
       var formData = null;
       var method = "GET";
       if (tipo == "submit") {
-          formData = new FormData(this);
-          method = "POST";
+        formData = new FormData(this);
+        method = "POST";
       }
       ev.preventDefault();
       id = (id == 0) ? "" : $(this).attr("data-id");
       $.ajax({
-         method: method,
-         url: "index.php?action="+ action + id,
-         data: formData,
-         contentType: false,
-         cache: false,
-         processData:false,
-         success: function(data) {
-           if(aCargar.indexOf("-") >= 0) $(aCargar + id).html(data);
-           else $(aCargar).html(data);
-           $(".modal-backdrop").remove();
-           if(extra != undefined) extra();
-           if(msgSuccess != undefined && msgSuccess != 0) toastr.success(msgSuccess);
-           $(".carga").toggleClass("hidden");
-         }
-       })
+        method: method,
+        url: "index.php?action="+ action + id,
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData:false,
+        success: function(data) {
+          if(aCargar.indexOf("-") >= 0) $(aCargar + id).html(data);
+          else $(aCargar).html(data);
+          $(".modal-backdrop").remove();
+          if(extra != undefined) extra();
+          if(msgSuccess != undefined && msgSuccess != 0) toastr.success(msgSuccess);
+          $(".carga").toggleClass("hidden");
+        }
+      })
     });
   }
+
+  // Funcionalidad para el formulario de registro
+  $('#passwordCheck').on('input', function() {
+    var changer = $("#pwseguridad");
+    var valor = $(this).val();
+    var cantNumeros = valor.replace(/[^0-9]/g,"").length + 1;
+    var cantLetrasUpper = valor.replace(/[^A-Z]/g,"").length + 1;
+    var cantEspeciales = valor.match(/[@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g);
+    var nivel = cantLetrasUpper * cantNumeros + valor.length + 1 + (cantEspeciales ? cantEspeciales.length : 0 + 1 * 5);
+    if(nivel < 20) changer.html("Insegura").attr('class', 'pwseguridad');
+    else if(nivel < 30) changer.html("Mediana").attr('class', 'pwseguridad-med pwseguridad');
+    else if(nivel < 40)changer.html("Buena").attr('class', 'pwseguridad-high pwseguridad');
+    else if(nivel < 55)changer.html("Extrema").attr('class', 'pwseguridad-ext pwseguridad');
+    checkChange($(this));
+  });
+
+ $('#newPasswordCheck').on('input', function() { checkChange($(this)); });
+
+  function checkChange(selector) {
+    $(selector).next().removeClass("hidden");
+    var pw_input1 = $("#passwordCheck");
+    var pw_input2 = $("#newPasswordCheck");
+    var msg_match = $(".msg-match");
+    var submit_button = $(".btn-default");
+    if(pw_input1.val() == pw_input2.val()) {
+      pw_input2.next().removeClass("glyphicon-remove error-icon").addClass("glyphicon-ok success-icon");
+      submit_button.removeAttr("disabled");
+      msg_match.addClass("hidden");
+    } else {
+      pw_input2.next().removeClass("glyphicon-ok success-icon").addClass("glyphicon-remove error-icon");
+      submit_button.attr("disabled", "true");
+      msg_match.removeClass("hidden");
+    }
+  }
+
+
+
   // Configuración plugin de alertas
   toastr.options = {
     "debug": false,
@@ -74,7 +111,7 @@ $(document).ready(function(e){
     $(this).parent().addClass("active");
   });
 
-    $("li a div").click(function() {
+  $("li a div").click(function() {
     $("li a div").each(function() { $(this).removeClass("panel-c-warning"); });
     $(this).addClass("panel-c-warning");
   });
@@ -104,27 +141,27 @@ $(document).ready(function(e){
   // Filtro de categorias obtenido por javascript
   /*
   $(document).on('change', '.categorias', function() {
-    var selected = $(this).val();
-    var clasePanel = ".categoria";
-    var columnas = "col-lg-6 col-xs-6";
-    var columna = "col-lg-12 col-xs-12";
-    $(".color-white").each(function() {
-      $(this).parents(clasePanel).removeClass("hidden").addClass(columnas).removeClass(columna);
-      if(selected != 0){
-        if(selected == $(this).attr("data-id")){
-          $(this).parents("div div").removeClass("row");
-          $(this).parents(clasePanel).addClass(columna).removeClass(columnas);
-        }
-        else $(this).parents(clasePanel).toggleClass("hidden");
-      }
-      else updateRows(clasePanel);
-    });
-  });
+  var selected = $(this).val();
+  var clasePanel = ".categoria";
+  var columnas = "col-lg-6 col-xs-6";
+  var columna = "col-lg-12 col-xs-12";
+  $(".color-white").each(function() {
+  $(this).parents(clasePanel).removeClass("hidden").addClass(columnas).removeClass(columna);
+  if(selected != 0){
+  if(selected == $(this).attr("data-id")){
+  $(this).parents("div div").removeClass("row");
+  $(this).parents(clasePanel).addClass(columna).removeClass(columnas);
+}
+else $(this).parents(clasePanel).toggleClass("hidden");
+}
+else updateRows(clasePanel);
+});
+});
 
 
-  function updateRows(clase) {
-        $(clase).parent("div").removeClass("row")
-        $(clase + ":odd").parent("div").addClass("row");
-  }
+function updateRows(clase) {
+$(clase).parent("div").removeClass("row")
+$(clase + ":odd").parent("div").addClass("row");
+}
 */
 });

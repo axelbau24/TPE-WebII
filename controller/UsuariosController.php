@@ -1,12 +1,15 @@
 <?php
 include_once ("models/ModelUsuarios.php");
+include_once ("view/ViewUsuarios.php");
 require_once ('config/ConfigApp.php');
 class UsuariosController{
 
   private $model;
+  private $view;
 
   function __construct() {
     $this->model = new ModelUsuarios();
+    $this->view = new ViewUsuarios();
   }
 
   function autorizado($action){
@@ -36,18 +39,20 @@ class UsuariosController{
         foreach ($grupos as $grupo) {
           array_push($nuevoGrupos, $grupo["nombre"]);
         }
-    //    $_SESSION["permisos"] = $this->model->getPermisos($usuario);
-        $_SESSION["grupos"] = $nuevoGrupos;
         $_SESSION["user"] = $user;
         $_SESSION["email"] = $usuarioRegistrado["email"];
-      } // Si el usuario ingresa datos invalidos, hacer llamada de ajax para mostrar error
-      // Vista header se le pasa los datos de sesion directamente
-      header("Location: index.php");
+        header("Location: index.php"); die();
+      } else {
+        $this->view->agregarError('Usuario o contraseña incorrectos');
+      }
     }
+     $this->view->mostrarLogin();
+
+
   }
   function logout(){
     session_destroy();
-    header("Location: index.php");
+    header("Location: index.php"); die();
   }
 
 }

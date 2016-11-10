@@ -18,7 +18,8 @@ class CategoriasController
 
   function mostrar_categorias(){
     $permisos = $this->modelUsuario->getPermisos($_SESSION["user"]);
-    $this->vista->mostrar($this->modelo->getCategorias(), $permisos);
+    $this->vista->actualizarPermisos($permisos);
+    $this->vista->mostrar($this->modelo->getCategorias());
   }
 
 

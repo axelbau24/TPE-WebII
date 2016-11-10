@@ -92,3 +92,31 @@ li.active-custom:hover, .active-custom{
 .navbar-fixed-top{
   margin-bottom: 200px;
 }
+.pwseguridad{
+  color: white;
+  background-color: rgba(255, 8, 0, 0.3);
+  border-radius: 3px;
+  padding: 1px;
+
+}
+.pwseguridad-med{
+  background-color: rgba(254, 183, 0, 0.3);
+}
+.pwseguridad-high{
+  background-color: rgba(0, 254, 10, 0.3);
+}
+
+.pwseguridad-ext{
+  background-color: rgba(0, 171, 255, 0.3);
+}
+
+.form-control-feedback {
+  width: 45px;
+}
+
+.success-icon {
+  color: rgb(64, 208, 21);
+}
+.error-icon {
+  color: rgb(214, 56, 28);
+}
