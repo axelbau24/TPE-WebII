@@ -1,41 +1,35 @@
 <?php
+include_once("controller/Controller.php");
 include_once("view/ViewComponentes.php");
 include_once("models/ModelComponentes.php");
 include_once("models/ModelCategorias.php");
-include_once("models/ModelUsuarios.php");
 
-class ComponentesController
-{
-  private $vista;
-  private $model;
+class ComponentesController extends Controller{
+
   private $modelCategorias;
-  private $modelUsuario;
 
-  function __construct()
-  {
-    $this->vista = new ViewComponentes();
+
+  function __construct(){
+    parent::__construct();
+    $this->view = new ViewComponentes();
     $this->model = new ModelComponentes();
     $this->modelCategorias = new ModelCategorias();
-    $this->modelUsuario = new ModelUsuarios();
   }
 
-  function home()
-  {
+  function home(){
     $this->updateData();
-    $this->vista->mostrarComponentes();
+    $this->view->mostrarComponentes();
   }
   function mostrarInicio() {
     session_start();
-    $user = null;
-    if(isset($_SESSION["user"])) $user = $_SESSION["user"];
-    $this->vista->actualizarPermisos($this->modelUsuario->getPermisos($user));
-    $this->vista->mostrarHome();
+    $this->asignarPermisos();
+    $this->view->mostrarHome();
   }
 
   function mostrar_componentes(){
       $this->updateData();
-      $this->vista->actualizarPermisos($this->modelUsuario->getPermisos($_SESSION["user"]));
-      $this->vista->mostrarAdmin();
+      $this->view->actualizarPermisos($this->modelUsuario->getPermisosDenegados($_SESSION["user"]));
+      $this->view->mostrarAdmin();
   }
 
   function mostrar_componente() {
@@ -45,7 +39,7 @@ class ComponentesController
       $componente = $this->model->getComponente($id_componente);
       $imagenes = $this->model->getImagenes($id_componente);
       $componente["imagenes"] = $imagenes;
-      $this->vista->mostrarComponente($categoria, $componente);
+      $this->view->mostrarComponente($categoria, $componente);
     }else $this->mostrarInicio();
   }
   function eliminar_componente(){
@@ -109,17 +103,19 @@ class ComponentesController
       $componentes[$key]["imagenes"] = $this->model->getImagenes($componente["id_componente"]);
     }
     $data = ["componentes" => $componentes, "categorias" =>  $categorias];
-    $this->vista->asignarDatos($data);
+    $this->view->asignarDatos($data);
   }
 
   function filtrar_categoria() {
     if (isset($_GET["id"])) {
       $categoria = $this->modelCategorias->getCategoria($_GET["id"]);
       $componentes = $this->model->getComponentesByCategoria($_GET["id"]);
-      $this->vista->filtrar($componentes, $categoria);
+      $data = ["componentes" => $componentes, "categorias" =>  $categoria];
+      $this->view->asignarDatos($data);
+      $this->view->filtrar();
     }
     else if(isset($_GET["categoria"])){
-      $this->vista->mostrarComponentesCategoria($this->model->getComponentesByCategoria($_GET["categoria"]));
+      $this->view->mostrarComponentesCategoria($this->model->getComponentesByCategoria($_GET["categoria"]));
     }
   }
 

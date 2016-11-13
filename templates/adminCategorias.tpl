@@ -1,21 +1,12 @@
-{assign var="return" value="0"}
-{function name=verificar action=nombre}
-  {assign var="i" value="0"}
 
-  {while $i < count($permisos) && $permisos[$i]["accion_denegada"] != $action}
-    <div class="hidden">{$i++}</div>
-  {/while}
-  {if $i == count($permisos)}<div class="hidden"> {$return++} </div>{/if}
-  {assign var="return" value="0"}
-{/function}
   <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
             <div class="view-header">
 
-              {verificar action="agregar_categoria"}
-              {if $return}
+
+              {if !in_array("agregar_categoria", $permisos)}
               <div class="pull-right text-right" style="line-height: 14px">
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target=".newCat">Agregar nuevo</button>
               </div>
@@ -46,7 +37,7 @@
                     <div class="modal-header text-center">
                       <h4 class="modal-title">Editar categoria</h4>
                     </div>
-                    <form data-id="{$categoria['id_categoria']}" class="editarCategoria" action="index.php?action=editar_categoria&id={$categoria['id_categoria']}" method="post">
+                    <form data-id="{$categoria['id_categoria']}" class="editarCategoria"  method="post">
                       <div class="modal-body">
                         <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" required name="nuevo-nombre" value="{$categoria['nombre']}"></div>
                       </div>
@@ -66,7 +57,7 @@
                     <div class="modal-header text-center">
                       <h4 class="modal-title">Eliminar categoria <br><i>{$categoria['nombre']}</i></h4>
                     </div>
-                    <form data-id="{$categoria['id_categoria']}" class="borrarCategoria" action="index.php?action=eliminar_categoria&id={$categoria['id_categoria']}" method="post">
+                    <form data-id="{$categoria['id_categoria']}" class="borrarCategoria" method="post">
                       <div class="modal-body">
 
                         {if {$categoria['cantidad']} != 0}
@@ -103,15 +94,10 @@
                 <li class="list-group-item active-custom"><strong class="color-white">Categorías</strong></a>
                    {foreach from=$categorias key=index item=categoria}
             <li class="list-group-item categoria"><span data-id="{$categoria['id_categoria']}" class="categorias">{$categoria['nombre']}</span>
-              {assign var="return" value="0"}
-              {verificar action="filtrar_categoria"}
-              {if $return} <a data-id="{$categoria['id_categoria']}" class="glyphicon glyphicon-list pull-right color-white categorias"></a> {/if}
-              {assign var="return" value="0"}
-              {verificar action="eliminar_categoria"}
-              {if $return} <a class="glyphicon glyphicon-trash pull-right color-white space-right" data-toggle="modal" data-target=".eliminarCat-{$categoria['id_categoria']}"></a>{/if}
-              {assign var="return" value="0"}
-              {verificar action="editar_categoria"}
-              {if $return} <a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editCat-{$categoria['id_categoria']}"></a>{/if}
+
+              {if !in_array("filtrar_categoria", $permisos)} <a data-id="{$categoria['id_categoria']}" class="glyphicon glyphicon-list pull-right color-white categorias"></a> {/if}
+              {if !in_array("eliminar_categoria", $permisos)} <a class="glyphicon glyphicon-trash pull-right color-white space-right" data-toggle="modal" data-target=".eliminarCat-{$categoria['id_categoria']}"></a>{/if}
+              {if !in_array("editar_categoria", $permisos)} <a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editCat-{$categoria['id_categoria']}"></a>{/if}
               <span class="badge btn-info pull-right space-right"><strong>Cantidad: </strong>{$categoria['cantidad']}</span>
 
               <div class="oculto componentes cat-{$categoria['id_categoria']}" style="display:none;">

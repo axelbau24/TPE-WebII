@@ -1,21 +1,10 @@
-{assign var="return" value="0"}
-{function name=verificar action=nombre}
-  {assign var="i" value="0"}
 
-  {while $i < count($permisos) && $permisos[$i]["accion_denegada"] != $action}
-    <div class="hidden">{$i++}</div>
-  {/while}
-  {if $i == count($permisos)}<div class="hidden"> {$return++} </div>{/if}
-  {assign var="return" value="0"}
-{/function}
 <section class="content">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
         <div class="view-header">
-          {assign var="return" value="0"}
-          {verificar action="agregar_componente"}
-          {if $return}
+          {if !in_array("agregar_componente", $permisos)}
           <div class="pull-right text-right" style="line-height: 14px">
             <button type="button" class="btn btn-default" data-toggle="modal" data-target=".newComp">Agregar nuevo</button>
           </div>
@@ -57,7 +46,7 @@
                 <div class="modal-header text-center">
                   <h4 class="modal-title">Editar componente</h4>
                 </div>
-                <form data-id="{$componente['id_componente']}" class="editarComponente" action="index.php?action=editar_componente&id={$componente['id_componente']}" method="post" enctype="multipart/form-data">
+                <form data-id="{$componente['id_componente']}" class="editarComponente" method="post" enctype="multipart/form-data">
                   <div class="modal-body">
                     <div class="row">
                       {if count($componente["imagenes"]) > 0}<div class="col-lg-6 col-xs-6"> {else} <div class="col-lg-12 col-xs-12"> {/if}
@@ -116,12 +105,8 @@
               {foreach from=$componentes item=componente}
               {if $componente["fk_id_categoria"] == $categoria["id_categoria"]}
               <li class="list-group-item">{if $componente["destacado"]}<div class="glyphicon glyphicon-ok-sign destacado"></div> {/if}{$componente["nombre"]}
-                {assign var="return" value="0"}
-                {verificar action="eliminar_componente"}
-                {if $return}<a class="eliminarComponente glyphicon glyphicon-trash pull-right color-white" data-id={$componente["id_componente"]}></a> {/if}<!--Boton eliminar -->
-                {assign var="return" value="0"}
-                {verificar action="editar_componente"}
-                {if $return}<a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp-{$componente["id_componente"]}"></a>{/if} <!--Boton editar -->
+                {if !in_array("eliminar_componente", $permisos)}<a class="eliminarComponente glyphicon glyphicon-trash pull-right color-white" data-id={$componente["id_componente"]}></a> {/if}<!--Boton eliminar -->
+                {if !in_array("editar_componente", $permisos)}<a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp-{$componente["id_componente"]}"></a>{/if} <!--Boton editar -->
                 <button type="button" class="mostrarComponente btn btn-default btn-xs pull-right space-right" data-id={$componente["id_componente"]}>Ver mas</button>
               </li>
               {/if}

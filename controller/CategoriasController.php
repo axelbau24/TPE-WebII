@@ -1,25 +1,19 @@
 <?php
 require_once('view/ViewCategorias.php');
 require_once('models/ModelCategorias.php');
-require_once('models/ModelUsuarios.php');
+include_once("controller/Controller.php");
 
-class CategoriasController
-{
-  private $vista;
-  private $modelo;
-  private $modelUsuario;
+class CategoriasController extends Controller{
 
-  function __construct()
-  {
-    $this->modelUsuario = new ModelUsuarios();
+  function __construct(){
+    parent::__construct();
     $this->modelo = new ModelCategorias();
-    $this->vista = new ViewCategorias();
+    $this->view = new ViewCategorias();
   }
 
   function mostrar_categorias(){
-    $permisos = $this->modelUsuario->getPermisos($_SESSION["user"]);
-    $this->vista->actualizarPermisos($permisos);
-    $this->vista->mostrar($this->modelo->getCategorias());
+    $this->asignarPermisos();
+    $this->view->mostrar($this->modelo->getCategorias());
   }
 
 

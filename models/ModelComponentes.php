@@ -1,5 +1,5 @@
 <?php
-include ("models/Model.php");
+include_once ("models/Model.php");
 class ModelComponentes extends Model{
 
   function __construct() {

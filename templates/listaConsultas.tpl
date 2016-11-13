@@ -23,7 +23,11 @@
           <div class="panel-body">
             {$consulta["consulta"]}
           </div>
-          <div class="panel-footer"><i>{if !{$consulta["notificacion"]}}No d{else}D{/if}esea recibir notificaciones. </i><a data-id="{$consulta['id_consulta']}" class="eliminarConsulta btn btn-danger btn-xs pull-right">Eliminar</button></a></div>
+          <div class="panel-footer"><i>{if !{$consulta["notificacion"]}}No d{else}D{/if}esea recibir notificaciones. </i>
+          {if !in_array("eliminar_consulta", $permisos)}
+          <a data-id="{$consulta['id_consulta']}" class="eliminarConsulta btn btn-danger btn-xs pull-right">Eliminar</a>
+          {/if}
+          </div>
         </div>
       </div>
       {/foreach}

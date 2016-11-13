@@ -38,7 +38,7 @@
 
       <nav>
         <ul class="nav luna-nav">
-          {if isset($sesion)}<li class="nav-category"><strong>Bienvenido <i>{$sesion["user"]}</i></strong></li>
+          {if isset($usuario)}<li class="nav-category"><strong>Bienvenido <i>{$usuario}</i></strong></li>
           <button type="button" class="btn btn-xs btn-info space-left">Configuración</button>
           <a href="logout"><button type="button" class="btn btn-xs btn-info">Salir</button></a>
           {else}<li class="nav-category"><strong>No ingreso al sistema</strong></li>
@@ -47,32 +47,20 @@
           <li class="nav-category"><strong>Principal</strong></li>
           <li class="active nav-home"><a href="#">Listado de componentes</a></li>
 
-          {if isset($sesion)}
-          {assign var="return" value="0"}
-          {function name=verificar action=nombre}
-            {assign var="i" value="0"}
-            {while $i < count($permisos) && $permisos[$i]["accion_denegada"] != $action}
-              <div class="hidden">{$i++}</div>
-            {/while}
-            {if $i == count($permisos)}<div class="hidden"> {$return++} </div>{/if}
-            {assign var="return" value="0"}
-          {/function}
-
+          {if isset($usuario)}
           {assign var="titulo" value="<li class='nav-category'><strong>Administracion</strong></li>"}
           {assign var="showTitulo" value="1"}
           {function name="mostrarTitulo"}
              {if $showTitulo == 1} <div class="hidden">{$showTitulo++}</div> {$titulo}  {/if}
           {/function}
 
-          {assign var="return" value="0"}
-          {verificar action="mostrar_componentes"}
-          {if $return} {mostrarTitulo}<li class="nav-componentes"><a href="#">Componentes</a></li> {/if}
-          {assign var="return" value="0"}
-          {verificar action="mostrar_categorias"}
-          {if $return} {mostrarTitulo}<li class="nav-categorias"><a href="#">Categorías</a></li> {/if}
-          {assign var="return" value="0"}
-          {verificar action="mostrar_consultas"}
-          {if $return} {mostrarTitulo} <li class="nav-consultas"><a href="#">Ver consultas</a></li> {/if}
+
+          {if !in_array("mostrar_componentes", $permisos)}
+          {mostrarTitulo}<li class="nav-componentes"><a href="#">Componentes</a></li> {/if}
+          {if !in_array("mostrar_categorias", $permisos)}
+          {mostrarTitulo}<li class="nav-categorias"><a href="#">Categorías</a></li> {/if}
+          {if !in_array("mostrar_consultas", $permisos)}
+          {mostrarTitulo} <li class="nav-consultas"><a href="#">Ver consultas</a></li> {/if}
           {/if}
 
           <li class="nav-category"><strong>Contacto</strong></li>

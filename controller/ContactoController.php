@@ -1,16 +1,14 @@
 <?php
+include_once("controller/Controller.php");
 require_once('view/ViewContacto.php');
 require_once('models/ModelContacto.php');
 
-class ContactoController
-{
-  private $vista;
-  private $modelo;
+class ContactoController extends Controller{
 
-  function __construct()
-  {
-    $this->modelo = new ModelContacto();
-    $this->vista = new ViewContacto();
+  function __construct(){
+    parent::__construct();
+    $this->model = new ModelContacto();
+    $this->view = new ViewContacto();
   }
 
   function agregar_consulta(){
@@ -19,23 +17,24 @@ class ContactoController
     $consulta["mail"] = $_POST['mail'];
     $consulta["consulta"] = $_POST['consulta'];
     $consulta["notificacion"] = isset($_POST['notificacion']);
-    $this->modelo->agregarConsulta($consulta);
+    $this->model->agregarConsulta($consulta);
     }
     $this->mostrar_formulario_consulta();
   }
 
   function mostrar_formulario_consulta(){
-    $this->vista->mostrarFormulario();
+    $this->view->mostrarFormulario();
   }
   function mostrar_consultas()
   {
-    $consultas = $this->modelo->getConsultas();
-    $this->vista->mostrarConsultas($consultas);
+    $this->asignarPermisos();
+    $consultas = $this->model->getConsultas();
+    $this->view->mostrarConsultas($consultas);
   }
   function eliminar_consulta(){
     if(isset($_GET['id'])){
       $key = $_GET['id'];
-      $this->modelo->eliminarConsulta($key);
+      $this->model->eliminarConsulta($key);
     }
     $this->mostrar_consultas();
   }

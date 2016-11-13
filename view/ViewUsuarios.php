@@ -1,4 +1,5 @@
 <?php
+include_once("view/View.php");
 class ViewUsuarios extends View{
 
   function agregarError($error){

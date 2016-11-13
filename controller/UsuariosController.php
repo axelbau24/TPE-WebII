@@ -1,30 +1,19 @@
 <?php
-include_once ("models/ModelUsuarios.php");
 include_once ("view/ViewUsuarios.php");
 require_once ('config/ConfigApp.php');
-class UsuariosController{
-
-  private $model;
-  private $view;
+include_once("controller/Controller.php");
+class UsuariosController extends Controller{
 
   function __construct() {
-    $this->model = new ModelUsuarios();
+    parent::__construct();
+    $this->model = $this->modelUsuario;
     $this->view = new ViewUsuarios();
   }
 
   function autorizado($action){
     session_start();
-    $usuario = "";
-    $permisos = [];
-    if(isset($_SESSION["user"])){
-      $usuario = $_SESSION["user"];
-      $permisos = $this->model->getPermisos($usuario);
-    } else $permisos = $this->model->getPermisosVisitante();
-    // Al momento de registrar un usuario, verificar que no pueda ser espacios en blanco
-
-    foreach ($permisos as $permiso) {
-      if($permiso["accion_denegada"] === $action) return false;
-    }
+    $permisos = $this->asignarPermisos();
+    if(in_array($action, $permisos)) return false;
     return true;
   }
   function login(){
@@ -34,20 +23,14 @@ class UsuariosController{
       $usuarioRegistrado = $this->model->getUsuario($user);
       $passwordRegistrada = $usuarioRegistrado["password"];
       if (password_verify($password, $passwordRegistrada)){
-        $grupos = $this->model->getGrupos($user);
-        $nuevoGrupos = [];
-        foreach ($grupos as $grupo) {
-          array_push($nuevoGrupos, $grupo["nombre"]);
-        }
-        $_SESSION["user"] = $user;
+        $_SESSION["id"] = $usuarioRegistrado["id_usuario"];
+        $_SESSION["user"] = $usuarioRegistrado["nombre"];
         $_SESSION["email"] = $usuarioRegistrado["email"];
         header("Location: index.php"); die();
-      } else {
-        $this->view->agregarError('Usuario o contraseña incorrectos');
-      }
+      } else $this->view->agregarError('Usuario o contraseña incorrectos');
+
     }
      $this->view->mostrarLogin();
-
 
   }
   function logout(){

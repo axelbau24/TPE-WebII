@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2016 at 11:45 PM
+-- Generation Time: Nov 14, 2016 at 12:45 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -29,30 +29,29 @@ SET time_zone = "+00:00";
 CREATE TABLE `accion` (
   `id_accion` int(11) NOT NULL,
   `accion` varchar(30) NOT NULL,
-  `nombre` varchar(30) NOT NULL,
-  `fk_id_grupo_a` int(11) NOT NULL
+  `nombre` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accion`
 --
 
-INSERT INTO `accion` (`id_accion`, `accion`, `nombre`, `fk_id_grupo_a`) VALUES
-(1, 'home', 'Ver lista de componentes', 0),
-(2, 'mostrar_componente', 'Ver un componente', 1),
-(3, 'mostrar_componentes', 'Ver administración de componen', 1),
-(4, 'eliminar_componente', 'Eliminación de componentes', 1),
-(5, 'agregar_componente', 'Adición de componentes', 1),
-(6, 'editar_componente', 'Edición de componentes', 1),
-(7, 'filtrar_categoria', 'Filtro de categorías', 2),
-(8, 'mostrar_categorias', 'Ver administración de categorí', 2),
-(9, 'eliminar_categoria', 'Eliminación de categorías', 2),
-(10, 'agregar_categoria', 'Adición de categorías', 2),
-(11, 'mostrar_formulario_consulta', 'Ver formulario de consultas', 3),
-(12, 'agregar_consulta', 'Envío de consultas', 3),
-(13, 'mostrar_consultas', 'Ver listado de consultas recib', 3),
-(14, 'eliminar_consulta', 'Eliminación de consultas', 3),
-(15, 'editar_categoria', 'Edición de categorias', 2);
+INSERT INTO `accion` (`id_accion`, `accion`, `nombre`) VALUES
+(1, 'home', 'Ver lista de componentes'),
+(2, 'mostrar_componente', 'Ver un componente'),
+(3, 'mostrar_componentes', 'Ver administración de componen'),
+(4, 'eliminar_componente', 'Eliminación de componentes'),
+(5, 'agregar_componente', 'Adición de componentes'),
+(6, 'editar_componente', 'Edición de componentes'),
+(7, 'filtrar_categoria', 'Filtro de categorías'),
+(8, 'mostrar_categorias', 'Ver administración de categorí'),
+(9, 'eliminar_categoria', 'Eliminación de categorías'),
+(10, 'agregar_categoria', 'Adición de categorías'),
+(11, 'mostrar_formulario_consulta', 'Ver formulario de consultas'),
+(12, 'agregar_consulta', 'Envío de consultas'),
+(13, 'mostrar_consultas', 'Ver listado de consultas recib'),
+(14, 'eliminar_consulta', 'Eliminación de consultas'),
+(15, 'editar_categoria', 'Edición de categorias');
 
 -- --------------------------------------------------------
 
@@ -149,28 +148,8 @@ CREATE TABLE `consulta` (
 INSERT INTO `consulta` (`id_consulta`, `nombre`, `mail`, `consulta`, `notificacion`, `fecha`) VALUES
 (2, 'Ezequiel ', 'ezfs@gmail.com', 'Hola, si, muy, buena, la pág. Gracias!', 1, '2016-09-29 01:05:02'),
 (3, 'Juan', 'pacopedro@delamar.es', 'Mi nombre así, y cuando yo \r\nme voy, me dicen al pasar,\r\nJuan paco pedro de la mar\r\nlalalalalaa..', 0, '2016-09-29 01:08:59'),
-(5, 'Fiona', 'Fionas@mail.com', 'Acá estámos con Shrek viendo su página, muy buena, muchas gracias!', 1, '2016-09-29 02:52:50');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `grupo_acciones`
---
-
-CREATE TABLE `grupo_acciones` (
-  `id_grupo_a` int(11) NOT NULL,
-  `nombre` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `grupo_acciones`
---
-
-INSERT INTO `grupo_acciones` (`id_grupo_a`, `nombre`) VALUES
-(1, 'Componentes'),
-(2, 'Categorias'),
-(3, 'Consultas'),
-(4, 'Usuarios');
+(5, 'Fiona', 'Fionas@mail.com', 'Acá estámos con Shrek viendo su página, muy buena, muchas gracias!', 1, '2016-09-29 02:52:50'),
+(6, 'Sean', 'elmaildeSean@gmail.com', 'Muy buenos productos, entro todos los días a su página para chequear las novedades! Es genial!', 0, '2016-11-11 13:23:38');
 
 -- --------------------------------------------------------
 
@@ -208,14 +187,14 @@ INSERT INTO `imagen` (`id_imagen`, `ruta`, `fk_id_componente`) VALUES
 CREATE TABLE `permiso` (
   `id_permiso` int(11) NOT NULL,
   `fk_id_accion` varchar(35) NOT NULL,
-  `fk_id_rango` int(11) NOT NULL
+  `fk_id_rol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `permiso`
 --
 
-INSERT INTO `permiso` (`id_permiso`, `fk_id_accion`, `fk_id_rango`) VALUES
+INSERT INTO `permiso` (`id_permiso`, `fk_id_accion`, `fk_id_rol`) VALUES
 (1, '3', 3),
 (2, '4', 3),
 (3, '5', 3),
@@ -246,19 +225,19 @@ INSERT INTO `permiso` (`id_permiso`, `fk_id_accion`, `fk_id_rango`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rango`
+-- Table structure for table `rol`
 --
 
-CREATE TABLE `rango` (
-  `id_rango` int(11) NOT NULL,
+CREATE TABLE `rol` (
+  `id_rol` int(11) NOT NULL,
   `nombre` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `rango`
+-- Dumping data for table `rol`
 --
 
-INSERT INTO `rango` (`id_rango`, `nombre`) VALUES
+INSERT INTO `rol` (`id_rol`, `nombre`) VALUES
 (1, 'Administrador'),
 (2, 'Moderador'),
 (3, 'Normal'),
@@ -275,14 +254,14 @@ CREATE TABLE `usuario` (
   `nombre` varchar(25) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `fk_id_rango` int(11) NOT NULL
+  `fk_id_rol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombre`, `email`, `password`, `fk_id_rango`) VALUES
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `email`, `password`, `fk_id_rol`) VALUES
 (1, 'axelbau24', 'axelbau24@gmail.com', '$2y$10$8dzhZh6LfY4sOca3oLHps.8YvA0AV3JM3/pchM9IWrnEMpBrr4nbC', 1);
 
 --
@@ -315,12 +294,6 @@ ALTER TABLE `consulta`
   ADD PRIMARY KEY (`id_consulta`);
 
 --
--- Indexes for table `grupo_acciones`
---
-ALTER TABLE `grupo_acciones`
-  ADD PRIMARY KEY (`id_grupo_a`);
-
---
 -- Indexes for table `imagen`
 --
 ALTER TABLE `imagen`
@@ -334,10 +307,10 @@ ALTER TABLE `permiso`
   ADD PRIMARY KEY (`id_permiso`);
 
 --
--- Indexes for table `rango`
+-- Indexes for table `rol`
 --
-ALTER TABLE `rango`
-  ADD PRIMARY KEY (`id_rango`);
+ALTER TABLE `rol`
+  ADD PRIMARY KEY (`id_rol`);
 
 --
 -- Indexes for table `usuario`
@@ -358,7 +331,7 @@ ALTER TABLE `accion`
 -- AUTO_INCREMENT for table `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `componente`
 --
@@ -370,11 +343,6 @@ ALTER TABLE `componente`
 ALTER TABLE `consulta`
   MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT for table `grupo_acciones`
---
-ALTER TABLE `grupo_acciones`
-  MODIFY `id_grupo_a` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
 -- AUTO_INCREMENT for table `imagen`
 --
 ALTER TABLE `imagen`
@@ -383,12 +351,12 @@ ALTER TABLE `imagen`
 -- AUTO_INCREMENT for table `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
--- AUTO_INCREMENT for table `rango`
+-- AUTO_INCREMENT for table `rol`
 --
-ALTER TABLE `rango`
-  MODIFY `id_rango` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `rol`
+  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `usuario`
 --

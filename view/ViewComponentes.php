@@ -12,28 +12,22 @@ class ViewComponentes extends View{
     $this->smarty->display("componentes.tpl");
   }
 
-  function filtrar($componentes, $categoria)
-  {
-    $this->smarty->assign("categorias", $categoria);
-    $this->smarty->assign("componentes", $componentes);
-    $this->smarty->assign("filtro", true);
+  function filtrar(){
     $this->smarty->display("componentesCategoria.tpl");
   }
 
-  function mostrarComponentesCategoria($componentes)
-  {
+  function mostrarComponentesCategoria($componentes){
     $this->smarty->assign("componentes", $componentes);
     $this->smarty->display("filtroComponentes.tpl");
   }
 
   function mostrarAdmin(){
-    $this->smarty->display("listaComponentes.tpl");
+    $this->smarty->display("adminComponentes.tpl");
   }
 
   function mostrarHome(){
-
     if(isset($_SESSION["user"])){
-      $this->smarty->assign("sesion", $_SESSION);
+      $this->smarty->assign("usuario", $_SESSION["user"]);
     }
     $this->smarty->display("header.tpl");
   }
