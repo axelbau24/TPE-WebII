@@ -33,7 +33,7 @@
           <form method="post" action="login">
             <div class="form-group">
               <label class="control-label" for="username">Usuario</label>
-              <input type="text" placeholder="ejemplo@mail.com" name="username"  class="form-control" required autofocus>
+              <input type="text" placeholder="ejemplo@mail.com" name="usuario"  class="form-control" required autofocus>
             </div>
             <div class="form-group">
               <label class="control-label" for="password">Contraseña</label>

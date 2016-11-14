@@ -8,6 +8,12 @@ class ViewUsuarios extends View{
   function mostrarLogin(){
     $this->smarty->display("login.tpl");
   }
+  function mostrarRegistro(){
+    $this->smarty->display("register.tpl");
+  }
+  function mostrarAdminUsuarios(){
+    $this->smarty->display("adminUsuarios.tpl");
+  }
 
 }
  ?>

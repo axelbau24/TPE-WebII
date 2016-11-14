@@ -35,7 +35,7 @@
                   <div class="row">
                       <div class="form-group col-lg-6">
                           <label>Nombre de usuario</label>
-                          <input type="name" value="" class="form-control" name="username" placeholder="ej. Pablo24" required>
+                          <input type="name" value="" class="form-control" name="usuario" placeholder="ej. Pablo24" required>
                       </div>
                       <div class="form-group col-lg-6">
                           <label>Email</label>

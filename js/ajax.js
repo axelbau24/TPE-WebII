@@ -4,6 +4,7 @@ $(document).ready(function(e){
 
   // Se agrega /click o /submit para arreglar carga del selector despues de partial render
   addAjax(".nav-home/click", "home", ".listado", 0, 0);
+  addAjax(".nav-usuarios/click", "admin_usuarios", ".listado", 0, 0);
   addAjax(".nav-componentes/click", "mostrar_componentes", ".listado", 0, 0);
   addAjax(".nav-categorias/click", "mostrar_categorias", ".listado", 0, 0);
   addAjax(".nav-consultas/click", "mostrar_consultas", ".listado", 0, 0);

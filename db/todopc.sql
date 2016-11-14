@@ -2,10 +2,10 @@
 -- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 14, 2016 at 12:45 AM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.6.24
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 14-11-2016 a las 22:09:17
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `todopc`
+-- Base de datos: `todopc`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `accion`
+-- Estructura de tabla para la tabla `accion`
 --
 
 CREATE TABLE `accion` (
@@ -33,7 +33,7 @@ CREATE TABLE `accion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `accion`
+-- Volcado de datos para la tabla `accion`
 --
 
 INSERT INTO `accion` (`id_accion`, `accion`, `nombre`) VALUES
@@ -56,7 +56,7 @@ INSERT INTO `accion` (`id_accion`, `accion`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categoria`
+-- Estructura de tabla para la tabla `categoria`
 --
 
 CREATE TABLE `categoria` (
@@ -65,7 +65,7 @@ CREATE TABLE `categoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `categoria`
+-- Volcado de datos para la tabla `categoria`
 --
 
 INSERT INTO `categoria` (`id_categoria`, `nombre`) VALUES
@@ -79,7 +79,30 @@ INSERT INTO `categoria` (`id_categoria`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `componente`
+-- Estructura de tabla para la tabla `comentario`
+--
+
+CREATE TABLE `comentario` (
+  `id_comentario` int(11) NOT NULL,
+  `fk_id_componente` int(11) NOT NULL,
+  `fk_id_usuario` int(11) NOT NULL,
+  `comentario` varchar(500) NOT NULL,
+  `puntaje` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `comentario`
+--
+
+INSERT INTO `comentario` (`id_comentario`, `fk_id_componente`, `fk_id_usuario`, `comentario`, `puntaje`) VALUES
+(8, 3, 1, 'sisissi', 1),
+(9, 4, 2, 'nonoon', 3),
+(10, 1, 2, '3', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `componente`
 --
 
 CREATE TABLE `componente` (
@@ -90,7 +113,7 @@ CREATE TABLE `componente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `componente`
+-- Volcado de datos para la tabla `componente`
 --
 
 INSERT INTO `componente` (`id_componente`, `nombre`, `destacado`, `fk_id_categoria`) VALUES
@@ -129,7 +152,7 @@ INSERT INTO `componente` (`id_componente`, `nombre`, `destacado`, `fk_id_categor
 -- --------------------------------------------------------
 
 --
--- Table structure for table `consulta`
+-- Estructura de tabla para la tabla `consulta`
 --
 
 CREATE TABLE `consulta` (
@@ -142,19 +165,17 @@ CREATE TABLE `consulta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `consulta`
+-- Volcado de datos para la tabla `consulta`
 --
 
 INSERT INTO `consulta` (`id_consulta`, `nombre`, `mail`, `consulta`, `notificacion`, `fecha`) VALUES
-(2, 'Ezequiel ', 'ezfs@gmail.com', 'Hola, si, muy, buena, la pág. Gracias!', 1, '2016-09-29 01:05:02'),
 (3, 'Juan', 'pacopedro@delamar.es', 'Mi nombre así, y cuando yo \r\nme voy, me dicen al pasar,\r\nJuan paco pedro de la mar\r\nlalalalalaa..', 0, '2016-09-29 01:08:59'),
-(5, 'Fiona', 'Fionas@mail.com', 'Acá estámos con Shrek viendo su página, muy buena, muchas gracias!', 1, '2016-09-29 02:52:50'),
 (6, 'Sean', 'elmaildeSean@gmail.com', 'Muy buenos productos, entro todos los días a su página para chequear las novedades! Es genial!', 0, '2016-11-11 13:23:38');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `imagen`
+-- Estructura de tabla para la tabla `imagen`
 --
 
 CREATE TABLE `imagen` (
@@ -164,7 +185,7 @@ CREATE TABLE `imagen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `imagen`
+-- Volcado de datos para la tabla `imagen`
 --
 
 INSERT INTO `imagen` (`id_imagen`, `ruta`, `fk_id_componente`) VALUES
@@ -181,7 +202,7 @@ INSERT INTO `imagen` (`id_imagen`, `ruta`, `fk_id_componente`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `permiso`
+-- Estructura de tabla para la tabla `permiso`
 --
 
 CREATE TABLE `permiso` (
@@ -191,7 +212,7 @@ CREATE TABLE `permiso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `permiso`
+-- Volcado de datos para la tabla `permiso`
 --
 
 INSERT INTO `permiso` (`id_permiso`, `fk_id_accion`, `fk_id_rol`) VALUES
@@ -225,7 +246,7 @@ INSERT INTO `permiso` (`id_permiso`, `fk_id_accion`, `fk_id_rol`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rol`
+-- Estructura de tabla para la tabla `rol`
 --
 
 CREATE TABLE `rol` (
@@ -234,7 +255,7 @@ CREATE TABLE `rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `rol`
+-- Volcado de datos para la tabla `rol`
 --
 
 INSERT INTO `rol` (`id_rol`, `nombre`) VALUES
@@ -246,7 +267,7 @@ INSERT INTO `rol` (`id_rol`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -258,122 +279,135 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `email`, `password`, `fk_id_rol`) VALUES
-(1, 'axelbau24', 'axelbau24@gmail.com', '$2y$10$8dzhZh6LfY4sOca3oLHps.8YvA0AV3JM3/pchM9IWrnEMpBrr4nbC', 1);
+(1, 'axelbau24', 'axelbau24@gmail.com', '$2y$10$8dzhZh6LfY4sOca3oLHps.8YvA0AV3JM3/pchM9IWrnEMpBrr4nbC', 1),
+(2, 'eze', 'eze@gmail.com', '$2y$10$P3QOScmkdzfKziH9O0hrSuZKmykjzc1VyGUORdTx1J0t2acA.iKOm', 1),
+(3, 'algo', 'axalgoelbau24@gma.com', '$2y$10$zugLwh3.WW9k7UpbHarurOsr4uovSksH7EzMkf2tHfT2pRu5r5gjy', 3);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `accion`
+-- Indices de la tabla `accion`
 --
 ALTER TABLE `accion`
   ADD PRIMARY KEY (`id_accion`);
 
 --
--- Indexes for table `categoria`
+-- Indices de la tabla `categoria`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id_categoria`);
 
 --
--- Indexes for table `componente`
+-- Indices de la tabla `comentario`
+--
+ALTER TABLE `comentario`
+  ADD PRIMARY KEY (`id_comentario`);
+
+--
+-- Indices de la tabla `componente`
 --
 ALTER TABLE `componente`
   ADD PRIMARY KEY (`id_componente`),
   ADD KEY `fk_id_categoria` (`fk_id_categoria`);
 
 --
--- Indexes for table `consulta`
+-- Indices de la tabla `consulta`
 --
 ALTER TABLE `consulta`
   ADD PRIMARY KEY (`id_consulta`);
 
 --
--- Indexes for table `imagen`
+-- Indices de la tabla `imagen`
 --
 ALTER TABLE `imagen`
   ADD PRIMARY KEY (`id_imagen`),
   ADD KEY `imagen_ibfk_1` (`fk_id_componente`);
 
 --
--- Indexes for table `permiso`
+-- Indices de la tabla `permiso`
 --
 ALTER TABLE `permiso`
   ADD PRIMARY KEY (`id_permiso`);
 
 --
--- Indexes for table `rol`
+-- Indices de la tabla `rol`
 --
 ALTER TABLE `rol`
   ADD PRIMARY KEY (`id_rol`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `accion`
+-- AUTO_INCREMENT de la tabla `accion`
 --
 ALTER TABLE `accion`
   MODIFY `id_accion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
--- AUTO_INCREMENT for table `categoria`
+-- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
   MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT for table `componente`
+-- AUTO_INCREMENT de la tabla `comentario`
+--
+ALTER TABLE `comentario`
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT de la tabla `componente`
 --
 ALTER TABLE `componente`
   MODIFY `id_componente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
--- AUTO_INCREMENT for table `consulta`
+-- AUTO_INCREMENT de la tabla `consulta`
 --
 ALTER TABLE `consulta`
   MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT for table `imagen`
+-- AUTO_INCREMENT de la tabla `imagen`
 --
 ALTER TABLE `imagen`
   MODIFY `id_imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
--- AUTO_INCREMENT for table `permiso`
+-- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
   MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
--- AUTO_INCREMENT for table `rol`
+-- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
   MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `usuario`
+-- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `componente`
+-- Filtros para la tabla `componente`
 --
 ALTER TABLE `componente`
   ADD CONSTRAINT `componente_ibfk_1` FOREIGN KEY (`fk_id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE;
 
 --
--- Constraints for table `imagen`
+-- Filtros para la tabla `imagen`
 --
 ALTER TABLE `imagen`
   ADD CONSTRAINT `imagen_ibfk_1` FOREIGN KEY (`fk_id_componente`) REFERENCES `componente` (`id_componente`) ON DELETE CASCADE;

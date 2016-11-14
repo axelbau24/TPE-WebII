@@ -17,8 +17,8 @@ class UsuariosController extends Controller{
     return true;
   }
   function login(){
-    if(isset($_POST["username"]) && isset($_POST["password"])){
-      $user = $_POST["username"];
+    if(isset($_POST["usuario"]) && isset($_POST["password"])){
+      $user = $_POST["usuario"];
       $password = $_POST["password"];
       $usuarioRegistrado = $this->model->getUsuario($user);
       $passwordRegistrada = $usuarioRegistrado["password"];
@@ -33,11 +33,26 @@ class UsuariosController extends Controller{
      $this->view->mostrarLogin();
 
   }
+  function registrar(){
+      $newUsuario = [];
+      if( (isset($_POST['usuario'])) && (isset($_POST['password'])) && (isset($_POST['email']))){
+      $newUsuario["usuario"] = $_POST['usuario'];
+      $newUsuario["email"] = $_POST['email'];
+      $newUsuario["password"] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+      $this->model->crearUsuario($newUsuario);
+      $this->login();
+    }
+    $this->view->mostrarRegistro();
+  }
   function logout(){
     session_destroy();
     header("Location: index.php"); die();
   }
+  function admin_usuarios(){
+      $this->view->mostrarAdminUsuarios();
 
+
+  }
 }
 
 ?>

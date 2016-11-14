@@ -41,9 +41,9 @@
           {if isset($usuario)}<li class="nav-category"><strong>Bienvenido <i>{$usuario}</i></strong></li>
           <button type="button" class="btn btn-xs btn-info space-left">Configuración</button>
           <a href="logout"><button type="button" class="btn btn-xs btn-info">Salir</button></a>
-          {else}<li class="nav-category"><strong>No ingreso al sistema</strong></li>
+          {else}<li class="nav-category"><strong>No ingresó al sistema</strong></li>
           <a href="login"><button type="button" class="btn btn-xs btn-info space-left">Iniciar Sesión</button></a>
-          <button type="button" class="btn btn-xs btn-info">Registro</button>{/if}
+          <a href="registrar"><button type="button" class="btn btn-xs btn-info">Registro</button></a>{/if}
           <li class="nav-category"><strong>Principal</strong></li>
           <li class="active nav-home"><a href="#">Listado de componentes</a></li>
 
@@ -61,6 +61,8 @@
           {mostrarTitulo}<li class="nav-categorias"><a href="#">Categorías</a></li> {/if}
           {if !in_array("mostrar_consultas", $permisos)}
           {mostrarTitulo} <li class="nav-consultas"><a href="#">Ver consultas</a></li> {/if}
+          {if !in_array("admin_usuarios", $permisos)}
+          {mostrarTitulo} <li class="nav-usuarios"><a href="#">Usuarios</a></li> {/if}
           {/if}
 
           <li class="nav-category"><strong>Contacto</strong></li>

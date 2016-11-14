@@ -30,12 +30,21 @@ class ModelUsuarios extends Model{
     return $permisos->fetchAll(PDO::FETCH_COLUMN);
   }
 
+  function getUsuarios(){
+    $usuarios = $this->db->prepare("SELECT * FROM usuario");
+    $usuarios->execute();
+    return $usuarios->fetch(PDO::FETCH_ASSOC);
+  }
   function getUsuario($nickname){
     $permisos = $this->db->prepare("SELECT * FROM usuario WHERE nombre = ?");
     $permisos->execute(array($nickname));
     return $permisos->fetch(PDO::FETCH_ASSOC);
   }
-
+  function crearUsuario($usr){
+    $id_rol=3;
+    $usuario = $this->db->prepare("insert into usuario(nombre,email,password,fk_id_rol) values(?,?,?,?) ");
+    $usuario->execute(array($usr["usuario"],$usr["email"],$usr["password"],$id_rol));
+  }
 }
 
  ?>

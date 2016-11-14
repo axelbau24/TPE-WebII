@@ -3,8 +3,8 @@
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -l
   RewriteRule ^ - [L]
-  RewriteRule ^api/(.*)$ api/index.php?request=$1 [QSA,L]
-  # RewriteRule ^(.*)/(.*)$ index.php?action=$1&id_tarea=$2 [QSA,L]
-  RewriteRule ^(.*)$ index.php?action=$1 [QSA,L]
+   RewriteRule ^api/(.*)$ api/index.php?request=$1 [QSA,L]
+   RewriteRule ^(.*)/(.*)$ index.php?action=$1&id_comentario=$2 [QSA,L]
+   RewriteRule ^(.*)$ index.php?action=$1 [QSA,L]
 
 </IfModule>

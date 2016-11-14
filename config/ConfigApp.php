@@ -19,7 +19,9 @@ class ConfigApp{
     'mostrar_consultas' =>  "Contacto",
     'eliminar_consulta' =>  "Contacto",
     'login' =>  "Usuarios",
-    'logout' =>  "Usuarios"];
+    'logout' =>  "Usuarios",
+    'registrar' =>  "Usuarios",
+    'admin_usuarios' =>  "Usuarios"];
 
 }
 
