@@ -1,5 +1,5 @@
 <?php
-  require 'ComentariosApi.php';
+  require 'api/ComentariosApi.php';
 
   try {
     $api_handler = new ComentariosApi($_REQUEST['request']);
