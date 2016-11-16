@@ -117,6 +117,16 @@ li.active-custom:hover, .active-custom{
 .success-icon {
   color: rgb(64, 208, 21);
 }
+.panel-puntaje:hover, .panel-fecha:hover{
+  text-decoration: none;
+}
+.comentarios-container{
+  background-color: #2a2d35;
+}
+.comentario-text{
+  color: white;
+}
+
 .error-icon {
   color: rgb(214, 56, 28);
 }
