@@ -26,7 +26,7 @@ class ComponentesController extends Controller{
     $this->view->mostrarHome();
   }
 
-  function mostrar_componentes(){
+  function admin_componentes(){
       $this->updateData();
       $this->view->actualizarPermisos($this->modelUsuario->getPermisosDenegados($_SESSION["user"]));
       $this->view->mostrarAdmin();
@@ -47,13 +47,13 @@ class ComponentesController extends Controller{
       $key = $_GET['id'];
       $this->model->eliminarComponente($key);
     }
-    $this->mostrar_componentes();
+    $this->admin_componentes();
 
   }
 
   function agregar_componente(){
     $this->model->agregarComponente($this->crearComponente());
-    $this->mostrar_componentes();
+    $this->admin_componentes();
   }
   function crearComponente(){
     $newComponente = [];
@@ -86,7 +86,7 @@ class ComponentesController extends Controller{
       $this->eliminarImagenes($this->model->getImagenes($newComponente["id"]));
       $this->model->editarComponente($newComponente);
     }
-    $this->mostrar_componentes();
+    $this->admin_componentes();
   }
 
   function eliminarImagenes($imagenes){

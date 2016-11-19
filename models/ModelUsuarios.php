@@ -40,10 +40,10 @@ class ModelUsuarios extends Model{
     $permisos->execute(array($nickname));
     return $permisos->fetch(PDO::FETCH_ASSOC);
   }
-  function crearUsuario($usr){
-    $id_rol=3;
+  function crearUsuario($user){
+    $default_rol = 3;
     $usuario = $this->db->prepare("insert into usuario(nombre,email,password,fk_id_rol) values(?,?,?,?) ");
-    $usuario->execute(array($usr["usuario"],$usr["email"],$usr["password"],$id_rol));
+    $usuario->execute(array($user["usuario"],$user["email"],$user["password"],$default_rol));
   }
 }
 

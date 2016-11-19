@@ -5,8 +5,8 @@ $(document).ready(function(e){
   // Se agrega /click o /submit para arreglar carga del selector despues de partial render
   addAjax(".nav-home/click", "home", ".listado", 0, 0);
   addAjax(".nav-usuarios/click", "admin_usuarios", ".listado", 0, 0);
-  addAjax(".nav-componentes/click", "mostrar_componentes", ".listado", 0, 0);
-  addAjax(".nav-categorias/click", "mostrar_categorias", ".listado", 0, 0);
+  addAjax(".nav-componentes/click", "admin_componentes", ".listado", 0, 0);
+  addAjax(".nav-categorias/click", "admin_categorias", ".listado", 0, 0);
   addAjax(".nav-consultas/click", "mostrar_consultas", ".listado", 0, 0);
   addAjax(".nav-contacto/click", "mostrar_formulario_consulta", ".listado", 0, 0);
   addAjax(".categorias/click", "filtrar_categoria&categoria=", ".cat-");
@@ -23,7 +23,6 @@ $(document).ready(function(e){
       $("input, textarea").val("");
     });
   });
-
 
   // Función genérica para ajax
   function addAjax(selector, action, aCargar, msgSuccess, id, extra) {
@@ -59,70 +58,6 @@ $(document).ready(function(e){
     });
   }
 
-  // Funcionalidad para el formulario de registro
-  $('#passwordCheck').on('input', function() {
-    var changer = $("#pwseguridad");
-    var valor = $(this).val();
-    var cantNumeros = valor.replace(/[^0-9]/g,"").length + 1;
-    var cantLetrasUpper = valor.replace(/[^A-Z]/g,"").length + 1;
-    var cantEspeciales = valor.match(/[@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g);
-    var nivel = cantLetrasUpper * cantNumeros + valor.length + 1 + (cantEspeciales ? cantEspeciales.length : 0 + 1 * 5);
-    if(nivel < 20) changer.html("Insegura").attr('class', 'pwseguridad');
-    else if(nivel < 30) changer.html("Mediana").attr('class', 'pwseguridad-med pwseguridad');
-    else if(nivel < 40)changer.html("Buena").attr('class', 'pwseguridad-high pwseguridad');
-    else if(nivel < 55)changer.html("Extrema").attr('class', 'pwseguridad-ext pwseguridad');
-    checkChange($(this));
-  });
-
- $('#newPasswordCheck').on('input', function() { checkChange($(this)); });
-
-  function checkChange(selector) {
-    $(selector).next().removeClass("hidden");
-    var pw_input1 = $("#passwordCheck");
-    var pw_input2 = $("#newPasswordCheck");
-    var msg_match = $(".msg-match");
-    var submit_button = $(".btn-default");
-    if(pw_input1.val() == pw_input2.val()) {
-      pw_input2.next().removeClass("glyphicon-remove error-icon").addClass("glyphicon-ok success-icon");
-      submit_button.removeAttr("disabled");
-      msg_match.addClass("hidden");
-    } else {
-      pw_input2.next().removeClass("glyphicon-ok success-icon").addClass("glyphicon-remove error-icon");
-      submit_button.attr("disabled", "true");
-      msg_match.removeClass("hidden");
-    }
-  }
-
-
-
-  // Configuración plugin de alertas
-  toastr.options = {
-    "debug": false,
-    "newestOnTop": false,
-    "positionClass": "toast-bottom-right",
-    "closeButton": true,
-    "timeOut": "1600"
-  };
-
-  // Cambio de la clase "active" entre los menús
-  $("nav li a").click(function() {
-    $("nav li a").each(function() {
-      $(this).parent().removeClass("active");
-    });
-    $(this).parent().addClass("active");
-  });
-
-  $("li a div").click(function() {
-    $("li a div").each(function() { $(this).removeClass("panel-c-warning"); });
-    $(this).addClass("panel-c-warning");
-  });
-
-
-  // Agrego efecto de selección al hacer click en una imagen
-  $(document).on("click", ".img-thumbnail", function(){
-    $(this).toggleClass("check");
-  });
-
   // Sección Lista de categorias, se usa esto para mostrar los componentes en esa categoria
   $(document).on("click", ".categorias", function() {
     $(this).parent().find("div").toggle();
@@ -139,20 +74,5 @@ $(document).ready(function(e){
     });
   });
 
-  $(document).on("focus", ".input-e, .form-control-n", function(){
-      $(this)
-      .prop("readonly", false)
-      .removeClass("editable");
-  });
 
-  $(document).on("blur", ".input-e, .form-control-n", function(){
-      $(this)
-      .prop("readonly", true)
-      .addClass("editable")
-      .siblings("span").text($(this).val());
-  });
-
-  $(document).on("click", "td", function(){
-      $(this).children().focus();
-  });
 });

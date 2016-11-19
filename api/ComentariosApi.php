@@ -12,13 +12,13 @@ class ComentariosApi extends Api
     $this->model = new ModelComentarios();
   }
 
-  protected function comentarios($argumentos){
+  public function comentarios($argumentos){
     switch ($this->method) {
       case 'GET':
           if(count($argumentos)>0){
-            $tarea = $this->model->getComentario($argumentos[0]);
-            $error['Error'] = "Ese contacto no existe";
-            return ($tarea) ? $tarea : $error;
+            $comentario = $this->model->getComentario($argumentos[0]);
+            $error['Error'] = "Ese comentario no existe";
+            return ($comentario) ? $comentario : $error;
           }else{
             return $this->model->getComentarios();
           }
@@ -39,12 +39,10 @@ class ComentariosApi extends Api
             }
           break;
       default:
-           return "Only accepts GET";
+           return "Método no válido";
         break;
     }
    }
-
-
 
 }
 

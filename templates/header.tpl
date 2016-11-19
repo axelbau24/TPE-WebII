@@ -47,7 +47,6 @@
           <li class="nav-category"><strong>Principal</strong></li>
           <li class="active nav-home"><a href="#">Listado de componentes</a></li>
 
-          {if isset($usuario)}
           {assign var="titulo" value="<li class='nav-category'><strong>Administracion</strong></li>"}
           {assign var="showTitulo" value="1"}
           {function name="mostrarTitulo"}
@@ -55,15 +54,14 @@
           {/function}
 
           {if !in_array("admin_usuarios", $permisos)}
-          {mostrarTitulo} <li class="nav-usuarios"><a href="#">Usuarios</a></li> {/if}
-          {if !in_array("mostrar_componentes", $permisos)}
+          {mostrarTitulo} <li class="nav-usuarios"><a href="#">Usuarios <span class="fade">-</span></a></li> {/if}
+          {if !in_array("admin_componentes", $permisos)}
           {mostrarTitulo}<li class="nav-componentes"><a href="#">Componentes</a></li> {/if}
-          {if !in_array("mostrar_categorias", $permisos)}
+          {if !in_array("admin_categorias", $permisos)}
           {mostrarTitulo}<li class="nav-categorias"><a href="#">Categorías</a></li> {/if}
           {if !in_array("mostrar_consultas", $permisos)}
           {mostrarTitulo} <li class="nav-consultas"><a href="#">Ver consultas</a></li> {/if}
 
-          {/if}
 
           <li class="nav-category"><strong>Contacto</strong></li>
           <li class="nav-contacto"><a href="#">Contactanos</a></li>

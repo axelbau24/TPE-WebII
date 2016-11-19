@@ -11,7 +11,7 @@ class CategoriasController extends Controller{
     $this->view = new ViewCategorias();
   }
 
-  function mostrar_categorias(){
+  function admin_categorias(){
     $this->asignarPermisos();
     $this->view->mostrar($this->modelo->getCategorias());
   }
@@ -22,14 +22,14 @@ class CategoriasController extends Controller{
     $key = $_GET['id'];
     $this->modelo->eliminarCategoria($key);
     }
-    $this->mostrar_categorias();
+    $this->admin_categorias();
 }
   function agregar_categoria(){
     if(isset($_POST['nombre'])){
     $name = $_POST['nombre'];
     $this->modelo->agregarCategoria($name);
     }
-    $this->mostrar_categorias();
+    $this->admin_categorias();
   }
   function editar_categoria(){
     if(isset($_GET['id'])){
@@ -37,7 +37,7 @@ class CategoriasController extends Controller{
     $newName = $_POST['nuevo-nombre'];
     $this->modelo->editarCategoria($newName,$key);
     }
-    $this->mostrar_categorias();
+    $this->admin_categorias();
   }
 
 }
