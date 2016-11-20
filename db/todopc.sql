@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-11-2016 a las 22:09:17
--- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.6.21
+-- Tiempo de generación: 20-11-2016 a las 16:30:18
+-- Versión del servidor: 10.1.16-MariaDB
+-- Versión de PHP: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -37,21 +37,21 @@ CREATE TABLE `accion` (
 --
 
 INSERT INTO `accion` (`id_accion`, `accion`, `nombre`) VALUES
-(1, 'home', 'Ver lista de componentes'),
 (2, 'mostrar_componente', 'Ver un componente'),
-(3, 'mostrar_componentes', 'Ver administración de componen'),
+(3, 'admin_componentes', 'Ver administración de componen'),
 (4, 'eliminar_componente', 'Eliminación de componentes'),
 (5, 'agregar_componente', 'Adición de componentes'),
 (6, 'editar_componente', 'Edición de componentes'),
 (7, 'filtrar_categoria', 'Filtro de categorías'),
-(8, 'mostrar_categorias', 'Ver administración de categorí'),
+(8, 'admin_categorias', 'Ver administración de categorí'),
 (9, 'eliminar_categoria', 'Eliminación de categorías'),
 (10, 'agregar_categoria', 'Adición de categorías'),
 (11, 'mostrar_formulario_consulta', 'Ver formulario de consultas'),
 (12, 'agregar_consulta', 'Envío de consultas'),
 (13, 'mostrar_consultas', 'Ver listado de consultas recib'),
 (14, 'eliminar_consulta', 'Eliminación de consultas'),
-(15, 'editar_categoria', 'Edición de categorias');
+(15, 'editar_categoria', 'Edición de categorias'),
+(16, 'admin_usuarios', 'Ver administración de usuarios');
 
 -- --------------------------------------------------------
 
@@ -96,8 +96,7 @@ CREATE TABLE `comentario` (
 
 INSERT INTO `comentario` (`id_comentario`, `fk_id_componente`, `fk_id_usuario`, `comentario`, `puntaje`) VALUES
 (8, 3, 1, 'sisissi', 1),
-(9, 4, 2, 'nonoon', 3),
-(10, 1, 2, '3', 4);
+(9, 4, 2, 'nonoon', 3);
 
 -- --------------------------------------------------------
 
@@ -169,8 +168,10 @@ CREATE TABLE `consulta` (
 --
 
 INSERT INTO `consulta` (`id_consulta`, `nombre`, `mail`, `consulta`, `notificacion`, `fecha`) VALUES
-(3, 'Juan', 'pacopedro@delamar.es', 'Mi nombre así, y cuando yo \r\nme voy, me dicen al pasar,\r\nJuan paco pedro de la mar\r\nlalalalalaa..', 0, '2016-09-29 01:08:59'),
-(6, 'Sean', 'elmaildeSean@gmail.com', 'Muy buenos productos, entro todos los días a su página para chequear las novedades! Es genial!', 0, '2016-11-11 13:23:38');
+(2, 'Ezequiel ', 'ezfs@gmail.com', 'Hola, si, muy, buena, la pág. Gracias!', 1, '2016-09-29 04:05:02'),
+(3, 'Juan', 'pacopedro@delamar.es', 'Mi nombre así, y cuando yo \r\nme voy, me dicen al pasar,\r\nJuan paco pedro de la mar\r\nlalalalalaa..', 0, '2016-09-29 04:08:59'),
+(4, 'Sean', 'elmaildeSean@gmail.com', 'Muy buenos productos, entro todos los días a su página para chequear las novedades! Es genial!', 0, '2016-09-29 05:50:11'),
+(5, 'Fiona', 'Fionas@mail.com', 'Acá estámos con Shrek viendo su página, muy buena, muchas gracias!', 1, '2016-09-29 05:52:50');
 
 -- --------------------------------------------------------
 
@@ -207,7 +208,7 @@ INSERT INTO `imagen` (`id_imagen`, `ruta`, `fk_id_componente`) VALUES
 
 CREATE TABLE `permiso` (
   `id_permiso` int(11) NOT NULL,
-  `fk_id_accion` varchar(35) NOT NULL,
+  `fk_id_accion` int(11) NOT NULL,
   `fk_id_rol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -216,32 +217,35 @@ CREATE TABLE `permiso` (
 --
 
 INSERT INTO `permiso` (`id_permiso`, `fk_id_accion`, `fk_id_rol`) VALUES
-(1, '3', 3),
-(2, '4', 3),
-(3, '5', 3),
-(4, '6', 3),
-(5, '8', 3),
-(6, '9', 3),
-(7, '10', 3),
-(8, '15', 3),
-(9, '13', 3),
-(10, '12', 3),
-(14, '3', 4),
-(15, '4', 4),
-(16, '5', 4),
-(17, '6', 4),
-(18, '8', 4),
-(19, '9', 4),
-(20, '10', 4),
-(21, '13', 4),
-(22, '14', 4),
-(23, '15', 4),
-(24, '3', 2),
-(25, '4', 2),
-(26, '5', 2),
-(27, '6', 2),
-(31, '9', 2),
-(32, '10', 2);
+(1, 3, 3),
+(2, 4, 3),
+(3, 5, 3),
+(4, 6, 3),
+(5, 8, 3),
+(6, 9, 3),
+(7, 10, 3),
+(8, 15, 3),
+(9, 13, 3),
+(10, 12, 3),
+(14, 3, 4),
+(15, 4, 4),
+(16, 5, 4),
+(17, 6, 4),
+(18, 8, 4),
+(19, 9, 4),
+(20, 10, 4),
+(21, 13, 4),
+(22, 14, 4),
+(23, 15, 4),
+(24, 3, 2),
+(25, 4, 2),
+(26, 5, 2),
+(27, 6, 2),
+(31, 9, 2),
+(32, 10, 2),
+(33, 16, 2),
+(34, 16, 3),
+(35, 16, 4);
 
 -- --------------------------------------------------------
 
@@ -307,7 +311,9 @@ ALTER TABLE `categoria`
 -- Indices de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  ADD PRIMARY KEY (`id_comentario`);
+  ADD PRIMARY KEY (`id_comentario`),
+  ADD KEY `fk_id_usuario` (`fk_id_usuario`),
+  ADD KEY `fk_id_componente` (`fk_id_componente`);
 
 --
 -- Indices de la tabla `componente`
@@ -333,7 +339,9 @@ ALTER TABLE `imagen`
 -- Indices de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  ADD PRIMARY KEY (`id_permiso`);
+  ADD PRIMARY KEY (`id_permiso`),
+  ADD KEY `fk_id_rol` (`fk_id_rol`),
+  ADD KEY `fk_id_accion` (`fk_id_accion`);
 
 --
 -- Indices de la tabla `rol`
@@ -345,7 +353,8 @@ ALTER TABLE `rol`
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id_usuario`);
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD KEY `fk_id_rol` (`fk_id_rol`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -355,7 +364,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `accion`
 --
 ALTER TABLE `accion`
-  MODIFY `id_accion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_accion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
@@ -365,7 +374,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `componente`
 --
@@ -375,7 +384,7 @@ ALTER TABLE `componente`
 -- AUTO_INCREMENT de la tabla `consulta`
 --
 ALTER TABLE `consulta`
-  MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `imagen`
 --
@@ -385,7 +394,7 @@ ALTER TABLE `imagen`
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
@@ -401,6 +410,13 @@ ALTER TABLE `usuario`
 --
 
 --
+-- Filtros para la tabla `comentario`
+--
+ALTER TABLE `comentario`
+  ADD CONSTRAINT `fk_comp` FOREIGN KEY (`fk_id_componente`) REFERENCES `componente` (`id_componente`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_user` FOREIGN KEY (`fk_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE;
+
+--
 -- Filtros para la tabla `componente`
 --
 ALTER TABLE `componente`
@@ -411,6 +427,19 @@ ALTER TABLE `componente`
 --
 ALTER TABLE `imagen`
   ADD CONSTRAINT `imagen_ibfk_1` FOREIGN KEY (`fk_id_componente`) REFERENCES `componente` (`id_componente`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `permiso`
+--
+ALTER TABLE `permiso`
+  ADD CONSTRAINT `fk_accion` FOREIGN KEY (`fk_id_accion`) REFERENCES `accion` (`id_accion`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_rol` FOREIGN KEY (`fk_id_rol`) REFERENCES `rol` (`id_rol`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `rol_User` FOREIGN KEY (`fk_id_rol`) REFERENCES `rol` (`id_rol`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
