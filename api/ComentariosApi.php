@@ -1,7 +1,7 @@
 <?php
 require 'api.php';
 include_once("../models/ModelComentarios.php");
-include_once '../db/config.php';
+
 class ComentariosApi extends Api
 {
   private $model;

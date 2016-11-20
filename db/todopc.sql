@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-11-2016 a las 16:30:18
--- Versión del servidor: 10.1.16-MariaDB
--- Versión de PHP: 5.6.24
+-- Tiempo de generación: 21-11-2016 a las 00:43:53
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -69,7 +69,7 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`id_categoria`, `nombre`) VALUES
-(1, 'Motherboards'),
+(1, 'Motherboardsc'),
 (2, 'Tarjetas Gráficas'),
 (3, 'Almacenamiento'),
 (4, 'Procesadores'),
@@ -87,16 +87,17 @@ CREATE TABLE `comentario` (
   `fk_id_componente` int(11) NOT NULL,
   `fk_id_usuario` int(11) NOT NULL,
   `comentario` varchar(500) NOT NULL,
-  `puntaje` tinyint(1) NOT NULL
+  `puntaje` tinyint(1) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `comentario`
 --
 
-INSERT INTO `comentario` (`id_comentario`, `fk_id_componente`, `fk_id_usuario`, `comentario`, `puntaje`) VALUES
-(8, 3, 1, 'sisissi', 1),
-(9, 4, 2, 'nonoon', 3);
+INSERT INTO `comentario` (`id_comentario`, `fk_id_componente`, `fk_id_usuario`, `comentario`, `puntaje`, `fecha`) VALUES
+(8, 3, 1, 'sisissi', 1, '2016-11-20 20:26:25'),
+(9, 4, 2, 'nonoon', 3, '2016-11-20 20:26:25');
 
 -- --------------------------------------------------------
 
@@ -289,7 +290,9 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `email`, `password`, `fk_id_rol`) VALUES
 (1, 'axelbau24', 'axelbau24@gmail.com', '$2y$10$8dzhZh6LfY4sOca3oLHps.8YvA0AV3JM3/pchM9IWrnEMpBrr4nbC', 1),
 (2, 'eze', 'eze@gmail.com', '$2y$10$P3QOScmkdzfKziH9O0hrSuZKmykjzc1VyGUORdTx1J0t2acA.iKOm', 1),
-(3, 'algo', 'axalgoelbau24@gma.com', '$2y$10$zugLwh3.WW9k7UpbHarurOsr4uovSksH7EzMkf2tHfT2pRu5r5gjy', 3);
+(5, 'juan', 'sasdade@fmail.com', '$2y$10$w0vkF7hITCNA0ltAna57WOcEFatjekWWDYzO9XNY8w93as0NZyj66', 3),
+(6, 'wqeqweq', 'axelbau24@rqw', '$2y$10$wZCGV6XDc3c1po.gSTMpcOz7cSoU8lPugnejijfzXjVtWzbtzEB/m', 3),
+(7, 'qwrqwrqwr', 'a@wrq', '$2y$10$qg1ykMby4KruzDWhCQccd.IpxNYzDy8kxhyWd5ydayLVxILMq74J2', 1);
 
 --
 -- Índices para tablas volcadas
@@ -374,7 +377,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT de la tabla `componente`
 --
@@ -404,7 +407,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- Restricciones para tablas volcadas
 --

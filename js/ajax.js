@@ -13,17 +13,73 @@ $(document).ready(function(e){
   addAjax(".borrarCategoria/submit", "eliminar_categoria&id=", ".listado", "La categoría se eliminó correctamente");
   addAjax(".editarCategoria/submit", "editar_categoria&id=", ".listado", "La categoría se editó correctamente");
   addAjax(".editarComponente/submit", "editar_componente&id=", ".listado", "El componente se editó correctamente");
-  addAjax(".mostrarComponente/click", "mostrar_componente&id=", ".listado");
+  addAjax(".mostrarComponente/click", "mostrar_componente&id=", ".listado", 0, 1, function() {
+    var id_componente = $(".id_componente").val();
+    obtenerComentarios(id_componente);
+  });
   addAjax(".eliminarComponente/click", "eliminar_componente&id=", ".listado", "El componente se eliminó correctamente");
   addAjax(".addCategoria/submit", "agregar_categoria", ".listado", "La categoría se agregó correctamente", 0);
-  addAjax(".addComponente/submit", "agregar_componente", ".listado", "El componente se agregó correctamente", 0);
+  addAjax(".addUsuario/submit", "agregar_usuario", ".listado", "El usuario se agregó correctamente", 0);
+  addAjax(".agregarComentario", "agregar_comentario", ".listado", "La categoría se agregó correctamente", 0);
+  addAjax(".buscarUsuario/submit", "buscar_usuario&id=", ".listado");
   addAjax(".eliminarConsulta/click", "eliminar_consulta&id=", ".listado", "La consulta se eliminó correctamente");
+  addAjax(".eliminarUsuario/click", "eliminar_usuario&id=", ".listado", "El usuario se eliminó correctamente");
+  addAjax(".editarUsuario/submit", "editar_usuario&id=", ".listado", "El usuario se editó correctamente");
   addAjax(".contacto/submit", "agregar_consulta", "", "La consulta se envió correctamente", 0, function() {
     $("input, textarea").each(function() {
       $("input, textarea").val("");
     });
   });
+  //Funcion para obtener los comentarios
 
+  var template;
+function obtenerComentarios(id_componente){
+
+  $.ajax({ url: 'js/templates/comentario.mst',
+   success: function(templateReceived) {
+     template = templateReceived;
+   }
+ });
+
+
+
+  $.get( "api/comentarios", function(data) {
+    var datos = [];
+    for (var i = 0; i < data.length; i++) {
+      if (id_componente == data[i].fk_id_componente) {
+        datos.push(data[i]);
+      }
+    }
+    console.log(datos.length);
+    var rendered = Mustache.render(template,{comentarios:datos});
+    $(".comentarios").append(rendered);
+
+  });
+}
+
+  $(document).on('submit', '.agregarComentario', function(ev) {
+    ev.preventDefault();
+    var comentario = $(this).serialize();
+    console.log(comentario);
+    console.log("anduvo");
+    $.post( "api/comentarios", comentario, function( comentarios ) {
+      var rendered = Mustache.render(template,{comentarios});
+      $( ".comentarios" ).append(rendered);
+    });
+  });
+    $(document).on('click', '.borrarComentario', function(ev) {
+      ev.preventDefault();
+      var comentario = $(this).parents(".comentario");
+      var id =  $(this).attr("data-id");
+      $.ajax({
+          type: "DELETE",
+          url: 'api/comentarios/' + id,
+          success: function(){
+            $(comentario).html("");
+          }
+        });
+
+      });
   // Función genérica para ajax
   function addAjax(selector, action, aCargar, msgSuccess, id, extra) {
     var datos = selector.split("/");

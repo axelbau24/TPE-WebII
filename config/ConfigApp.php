@@ -21,7 +21,11 @@ class ConfigApp{
     'login' =>  "Usuarios",
     'logout' =>  "Usuarios",
     'registrar' =>  "Usuarios",
-    'admin_usuarios' =>  "Usuarios"];
+    'admin_usuarios' =>  "Usuarios",
+    'eliminar_usuario' =>  "Usuarios",
+    'editar_usuario' =>  "Usuarios",
+    'agregar_usuario' => "Usuarios",
+    'buscar_usuario' => "Usuarios"];
 
 }
 

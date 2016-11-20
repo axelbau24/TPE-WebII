@@ -11,7 +11,11 @@ class ViewUsuarios extends View{
   function mostrarRegistro(){
     $this->smarty->display("register.tpl");
   }
-  function mostrarAdminUsuarios(){
+  function mostrarAdminUsuarios($usuarios, $roles, $permisos){
+
+    $this->smarty->assign("usuarios", $usuarios);
+    $this->smarty->assign("roles", $roles);
+    $this->smarty->assign("permisos", $permisos);
     $this->smarty->display("adminUsuarios.tpl");
   }
 

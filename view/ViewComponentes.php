@@ -33,6 +33,11 @@ class ViewComponentes extends View{
   }
 
   function mostrarComponente($categoria, $componente) {
+    if(isset($_SESSION["user"]) && isset($_SESSION["id"])){
+      $usuario["nombre"] =  $_SESSION["user"];
+      $usuario["id"] =  $_SESSION["id"];
+      $this->smarty->assign("usuario", $usuario);
+    }
     $this->smarty->assign("categoria", $categoria);
     $this->smarty->assign("componente", $componente);
     $this->smarty->display("componente.tpl");

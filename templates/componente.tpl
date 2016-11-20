@@ -59,66 +59,22 @@
 
         <h3>Comentarios:</h3>
         <div class="comentarios">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="panel panel-filled">
-                <div class="panel-heading">
-                  <div class="panel-tools">
-                    <a class="panel-fecha">13 de noviembre, 2016</a>
-                    <a class="panel-puntaje"><i class="glyphicon glyphicon-thumbs-up success-icon"></i> <strong>5</strong></a>
-                    <a class="panel-eliminar"><i class="glyphicon glyphicon-remove error-icon"></i></a>
-                  </div>
 
-                  <img alt="usuario_axelbau24" class="avatar" height="20" src="https://avatars3.githubusercontent.com/u/21210049?v=3&amp;s=40" width="20">
-                  <span><i>axelbau24</i> comentó:</span>
-                </div>
-                <div class="panel-body">
-                  <div class="comentario-text space-left">
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <div class="panel panel-filled">
-                <div class="panel-heading">
-                  <div class="panel-tools">
-                    <a class="panel-fecha">15 de noviembre, 2016</a>
-                    <a class="panel-puntaje"><i class="glyphicon glyphicon-thumbs-up success-icon"></i> <strong>2</strong></a>
-                    <a class="panel-close"><i class="glyphicon glyphicon-remove error-icon"></i></a>
-                  </div>
-
-                  <img alt="usuario_markos35" class="avatar" height="20" src="https://avatars0.githubusercontent.com/u/6765956?v=3&s=460" width="20">
-                  <span><i>markos35</i> comentó:</span>
-                </div>
-                <div class="panel-body">
-                  <div class="comentario-text space-left">
-                      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-
+        {if isset($usuario)}
         <div class="row">
           <div class="col-md-12">
             <div class="panel panel-filled">
               <div class="panel-heading">
-                <!-- <div class="panel-tools">
-                  <a class="panel-puntaje"><i class="glyphicon glyphicon-thumbs-up success-icon"></i> <strong>2</strong></a>
-                  <a class="panel-close"><i class="glyphicon glyphicon-remove error-icon"></i></a>
-                </div> -->
                 <h4>Agregar comentario..</h4>
               </div>
               <div class="panel-body">
-                <form class="">
+                <form class="agregarComentario" method="post">
+                  <input type="hidden" name="id_componente" value="{$componente["id_componente"]}" class="id_componente">
+                  <input type="hidden" name="id_usuario" value="{$usuario["id"]}">
                   <div class="form-group form-inline">
                     <label>Puntaje:</label>
-                    <select class="form-control">
+                    <select class="form-control" name="puntaje">
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
@@ -128,7 +84,7 @@
                   </div>
                   <div class="form-group">
                     <label>Comentario:</label>
-                    <textarea class="form-control" rows="3" placeholder="Escriba un comentario..."></textarea>
+                    <textarea class="form-control" rows="3" name="comentario" placeholder="Escriba un comentario..."></textarea>
                   </div>
                   <button type="submit" class="btn btn-default">Comentar</button>
                 </form>
@@ -136,6 +92,7 @@
             </div>
           </div>
         </div>
+        {/if}
       </div>
 
     </div>
