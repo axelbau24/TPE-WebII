@@ -3,10 +3,11 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="view-header">
+          {if !in_array("agregar_usuario", $permisos)}
           <div class="pull-right text-right" style="line-height: 14px">
             <button type="button" class="btn btn-default" data-toggle="modal" data-target=".newUsuario">Crear nuevo</button>
           </div>
-
+          {/if}
           <div class="header-title">
             <h3 class="m-b-xs">Administración de usuarios</h3>
             <small>Administra diferentes usuarios, cambiando sus permisos y creando nuevos.</small>
@@ -27,28 +28,13 @@
               <div class="row">
                 <div class="col-lg-12 col-xs-12">
                   <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" name="nombre" required placeholder="ej. Moderador"></div>
-                  <div class="col-xs-6">
+                  {foreach from=$actions item=action}
+                  <div class="col-lg-6 col-xs-4">
                     <div class="form-group">
-                      <div class="checkbox"><label><input type="checkbox" checked> Ver componentes </label></div>
-                      <div class="checkbox"><label><input type="checkbox"> Agregar componentes </label></div>
-                      <div class="checkbox"><label><input type="checkbox" checked> Ver administrador de componentes </label></div>
-                      <div class="checkbox"><label><input type="checkbox" checked> Eliminar componentes </label></div>
-                      <div class="checkbox"><label><input type="checkbox"> Editar componentes </label></div>
-                      <div class="checkbox"><label><input type="checkbox"> Eliminar consultas </label></div>
-                      <div class="checkbox"><label><input type="checkbox"> Enviar consultas </label></div>
+                      <div class="checkbox"><label><input type="checkbox" name="id_{$action['id_accion']}"> {$action['nombre']} </label></div>
                     </div>
                   </div>
-                  <div class="col-xs-6">
-                    <div class="form-group">
-                      <div class="checkbox"><label><input type="checkbox"> Ver componente </label></div>
-                      <div class="checkbox"><label><input type="checkbox" checked> Filtrar categorias </label></div>
-                      <div class="checkbox"><label><input type="checkbox" checked> Crear categorias </label></div>
-                      <div class="checkbox"><label><input type="checkbox"> Eliminar categorias </label></div>
-                      <div class="checkbox"><label><input type="checkbox"> Editar categorias </label></div>
-                      <div class="checkbox"><label><input type="checkbox" checked> Ver administrador de categorias </label></div>
-                      <div class="checkbox"><label><input type="checkbox" checked> Ver administrador de consultas </label></div>
-                    </div>
-                  </div>
+                  {/foreach}
                 </div>
               </div>
             </div>
@@ -101,10 +87,10 @@
                 <div class="pull-right text-right" style="line-height: 14px">
                   <form class="form-inline pull-right buscarUsuario" method="post">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="busqueda" placeholder="Buscar usuario..">
+                      <input type="text" class="form-control" name="busqueda" placeholder="Buscar usuario.." required>
                     </div>
                     <button type="submit" class="btn btn-default">Buscar</button><br><br>
-                    {if count($usuarios) > 1}   <span>Existen <strong>{count($usuarios)}</strong> usuarios registrados en el sistema</span> {/if}
+                    <span>Existen <strong>{$cantUsuarios}</strong> usuarios registrados en el sistema</span>
                   </form>
                 </div>
                 <div class="header-title">
@@ -128,26 +114,33 @@
                         <th>Usuario</th>
                         <th>Email</th>
                         <th>Rol</th>
-                        <th>Eliminar</th>
+                        {if !in_array("eliminar_usuario", $permisos)}<th>Eliminar</th>{/if}
                       </tr>
                     </thead>
                     <tbody>
                         {foreach from=$usuarios item=usuario}
-                      <tr class="usuarios">
-
-                        <td><span class="usuarioEditado">{$usuario["nombre"]}</span><input type='text' name='username' value='{$usuario["nombre"]}' class='input-e form-control ' readonly='readonly'/></td>
-                        <td><span class="usuarioEditado">{$usuario["email"]}</span><input type='text' name='email' value='{$usuario["email"]}' class='input-e form-control' readonly='readonly'/></td>
-                        <td><span class="usuarioEditado">{$usuario["rol"]}</span>
-                          <select name='rol' class='editable form-control-n' readonly='readonly'>
-                              {foreach from=$roles item=rol}
-                            <option value="{$rol["nombre"]}" {if $rol["id_rol"] == $usuario["fk_id_rol"]} selected {/if}>{$rol["nombre"]}</option>
-                              {/foreach}
-                          </select>
-                        </td>
-                        <td data-id="{$usuario["id_usuario"]}" class="eliminarUsuario">X</td>
+                      <tr class="usuario">
                         <td>
-                          <button type="submit" class="btn btn-default">Guardar</button>
+                          <span>{$usuario["nombre"]}</span>
+                            {if !in_array("editar_usuario", $permisos)}<input type='text' name='username' value='{$usuario["nombre"]}' class='input-e form-control ' readonly='readonly'/>{/if}
                         </td>
+                        <td>
+                          <span>{$usuario["email"]}</span>
+                          {if !in_array("editar_usuario", $permisos)}<input type='text' name='email' value='{$usuario["email"]}' class='input-e form-control' readonly='readonly'/>{/if}
+                        </td>
+                        <td>
+                          <span>{$usuario["rol"]}</span>
+                            {if !in_array("editar_usuario", $permisos)}
+                            <select name="rol" class='editable form-control-n input-e' readonly='readonly'>
+                                {foreach from=$roles item=rol}
+                              <option value="{$rol["nombre"]}" data-id="{$rol["id_rol"]}" {if $rol["id_rol"] == $usuario["fk_id_rol"]} selected {/if}>{$rol["nombre"]}</option>
+                                {/foreach}
+                            </select>
+                            {/if}
+                        </td>
+
+                        {if !in_array("eliminar_usuario", $permisos)}<td><div data-id="{$usuario["id_usuario"]}" class="eliminarUsuario">X</div></td>{/if}
+                        {if !in_array("editar_usuario", $permisos)}<td><button type="button" data-id="{$usuario["id_usuario"]}" class="guardarUsuario btn btn-default">Guardar</button></td>{/if}
 
                       </tr>
                       {/foreach}
@@ -156,7 +149,7 @@
                     </tbody>
                   </table>
 
-                  <button type="button" class="btn btn-default btn-xs pull-right space-right" data-id="x">Mostrar mas</button>
+                  <button type="button" class="mostrarMas btn btn-default btn-xs pull-right space-right">Mostrar mas</button>
 
               </div>
             </div>
@@ -165,7 +158,7 @@
       </div>
     </div>
   </div>
-
+    {if !in_array("update_permisos", $permisos) && !in_array("agregar_rol", $permisos)}
   <div class="row">
     <div class="col-xs-12">
       <div class="panel panel-filled">
@@ -174,16 +167,13 @@
             <div class="col-lg-12">
               <div class="view-header">
                 <div class="pull-right text-right space-left" style="line-height: 14px">
-                  <button type="button" class="btn btn-default" data-toggle="modal" data-target=".newRol">Nuevo rol</button>
+                  {if !in_array("agregar_rol", $permisos)}<button type="button" class="btn btn-default" data-toggle="modal" data-target=".newRol">Nuevo rol</button>{/if}
                 </div>
                 <div class="pull-right text-right" style="line-height: 14px">
-                  <select name="rol" class="categorias form-control">
-                    <option value="0">Seleccionar rol..</option>
+                  <select name="rol" class="roles form-control">
                     {foreach from=$roles item=rol}
-                      <option value="{$rol["id_rol"]}">{$rol["nombre"]}</option>
+                      <option {if $permiso["rol"]["id_rol"] == $rol["id_rol"]} selected {/if} value="{$rol["id_rol"]}">{$rol["nombre"]}</option>
                     {/foreach}
-
-
                   </select>
                 </div>
                 <div class="header-title">
@@ -198,18 +188,22 @@
         <div class="panel-body">
           <div class="panel panel-filled panel-c-info">
             <div class="panel-heading">
-              <h3>Administrador</h3>
+              <h3>{$permiso["rol"]["nombre"]}
+              {foreach from=$roles item=rol}
+                {if $permiso["rol"]["nombre"] == $rol["nombre"] && $rol["cantUsuarios"] == 0} {if !in_array("eliminar_rol", $permisos)}<div data-id="{$permiso["rol"]["id_rol"]}" class="pull-right glyphicon glyphicon-remove error-icon eliminarRol"></div> {/if}{/if}
+              {/foreach}
+              </h3>
             </div>
             <div class="panel-body">
-              <form class="" method="post">
-                <div class="col-xs-4">
+              <form class="cambiarPermisos" method="post" data-id={$permiso["rol"]["id_rol"]}>
+                {foreach from=$actions item=action}
+                <div class="col-lg-6 col-xs-4">
                   <div class="form-group">
-                    {foreach from=$permisos item=permiso}
-                    <div class="checkbox"><label><input type="checkbox" id-accion="{$permiso['id_accion']}"> {$permiso['nombre']} </label></div>
-                    {/foreach}
+                    <div class="checkbox"><label><input {if !in_array($action['id_accion'], $permiso)} checked {/if} type="checkbox" name="id_{$action['id_accion']}"> {$action['nombre']} </label></div>
                   </div>
                 </div>
-                <div class="col-xs-12"><button type="submit" class="btn btn-default">Guardar</button></div>
+                {/foreach}
+                {if !in_array("update_permisos", $permisos)}<div class="col-xs-12"><button type="submit" class="btn btn-default">Guardar</button></div>{/if}
               </form>
             </div>
           </div>
@@ -218,4 +212,5 @@
       </div>
     </div>
   </div>
+  {/if}
 </section>

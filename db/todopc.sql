@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-11-2016 a las 00:43:53
--- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.6.21
+-- Tiempo de generación: 21-11-2016 a las 21:59:32
+-- Versión del servidor: 10.1.16-MariaDB
+-- Versión de PHP: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -51,7 +51,13 @@ INSERT INTO `accion` (`id_accion`, `accion`, `nombre`) VALUES
 (13, 'mostrar_consultas', 'Ver listado de consultas recib'),
 (14, 'eliminar_consulta', 'Eliminación de consultas'),
 (15, 'editar_categoria', 'Edición de categorias'),
-(16, 'admin_usuarios', 'Ver administración de usuarios');
+(16, 'admin_usuarios', 'Ver administración de usuarios'),
+(17, 'eliminar_usuario', 'Eliminar usuarios'),
+(18, 'editar_usuario', 'Editar usuarios'),
+(19, 'agregar_usuario', 'Agregar usuarios'),
+(20, 'update_permisos', 'Editar permisos de rol'),
+(21, 'eliminar_rol', 'Eliminar roles'),
+(22, 'agregar_rol', 'Agregar roles');
 
 -- --------------------------------------------------------
 
@@ -69,7 +75,7 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`id_categoria`, `nombre`) VALUES
-(1, 'Motherboardsc'),
+(1, 'Motherboards'),
 (2, 'Tarjetas Gráficas'),
 (3, 'Almacenamiento'),
 (4, 'Procesadores'),
@@ -96,8 +102,13 @@ CREATE TABLE `comentario` (
 --
 
 INSERT INTO `comentario` (`id_comentario`, `fk_id_componente`, `fk_id_usuario`, `comentario`, `puntaje`, `fecha`) VALUES
-(8, 3, 1, 'sisissi', 1, '2016-11-20 20:26:25'),
-(9, 4, 2, 'nonoon', 3, '2016-11-20 20:26:25');
+(1, 1, 9, 'Esta motherboard esta muy buena!', 4, '2016-11-21 20:44:14'),
+(2, 1, 15, 'La compré y se me rompió a la semana.', 1, '2016-11-21 20:46:39'),
+(5, 5, 15, 'Esta rinde muy bien!', 4, '2016-11-21 20:48:22'),
+(6, 3, 15, 'Muy veloz!', 4, '2016-11-21 20:50:35'),
+(7, 8, 15, 'Estaría bueno poner una foto', 3, '2016-11-21 20:51:37'),
+(8, 1, 12, 'Si, la verdad que esta mother no rinde mucho', 3, '2016-11-21 20:52:57'),
+(9, 2, 12, 'De 10!', 5, '2016-11-21 20:53:11');
 
 -- --------------------------------------------------------
 
@@ -218,16 +229,6 @@ CREATE TABLE `permiso` (
 --
 
 INSERT INTO `permiso` (`id_permiso`, `fk_id_accion`, `fk_id_rol`) VALUES
-(1, 3, 3),
-(2, 4, 3),
-(3, 5, 3),
-(4, 6, 3),
-(5, 8, 3),
-(6, 9, 3),
-(7, 10, 3),
-(8, 15, 3),
-(9, 13, 3),
-(10, 12, 3),
 (14, 3, 4),
 (15, 4, 4),
 (16, 5, 4),
@@ -239,14 +240,41 @@ INSERT INTO `permiso` (`id_permiso`, `fk_id_accion`, `fk_id_rol`) VALUES
 (22, 14, 4),
 (23, 15, 4),
 (24, 3, 2),
-(25, 4, 2),
-(26, 5, 2),
-(27, 6, 2),
-(31, 9, 2),
-(32, 10, 2),
-(33, 16, 2),
-(34, 16, 3),
-(35, 16, 4);
+(35, 16, 4),
+(36, 3, 2),
+(37, 3, 2),
+(67, 3, 3),
+(68, 4, 3),
+(69, 5, 3),
+(70, 6, 3),
+(71, 8, 3),
+(72, 9, 3),
+(73, 10, 3),
+(74, 13, 3),
+(75, 14, 3),
+(76, 15, 3),
+(77, 16, 3),
+(78, 3, 2),
+(79, 4, 2),
+(80, 5, 2),
+(81, 6, 2),
+(83, 3, 2),
+(84, 4, 2),
+(85, 5, 2),
+(86, 6, 2),
+(87, 9, 2),
+(88, 10, 2),
+(89, 3, 2),
+(90, 4, 2),
+(91, 5, 2),
+(92, 6, 2),
+(93, 9, 2),
+(94, 10, 2),
+(95, 17, 2),
+(96, 18, 2),
+(97, 20, 2),
+(98, 21, 2),
+(99, 22, 2);
 
 -- --------------------------------------------------------
 
@@ -288,11 +316,13 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `email`, `password`, `fk_id_rol`) VALUES
-(1, 'axelbau24', 'axelbau24@gmail.com', '$2y$10$8dzhZh6LfY4sOca3oLHps.8YvA0AV3JM3/pchM9IWrnEMpBrr4nbC', 1),
-(2, 'eze', 'eze@gmail.com', '$2y$10$P3QOScmkdzfKziH9O0hrSuZKmykjzc1VyGUORdTx1J0t2acA.iKOm', 1),
-(5, 'juan', 'sasdade@fmail.com', '$2y$10$w0vkF7hITCNA0ltAna57WOcEFatjekWWDYzO9XNY8w93as0NZyj66', 3),
-(6, 'wqeqweq', 'axelbau24@rqw', '$2y$10$wZCGV6XDc3c1po.gSTMpcOz7cSoU8lPugnejijfzXjVtWzbtzEB/m', 3),
-(7, 'qwrqwrqwr', 'a@wrq', '$2y$10$qg1ykMby4KruzDWhCQccd.IpxNYzDy8kxhyWd5ydayLVxILMq74J2', 1);
+(9, 'axelbau24', 'latinga.web@gmail.com', '$2y$10$zOWuWGx./3fkpunQcOUMpuqf4yTSCIZpDMu3PD7xXutlDK.9b/3dW', 1),
+(10, 'santii35', 'santii_35@gmail.com', '$2y$10$OgZ98guEhTv1yJpIZTTGG.A/q0bn3hx6S/leKM5EkgXAhL0A1MlCq', 3),
+(11, '93_sherman', 'sher_93@gmail.com', '$2y$10$nnLhK7Z7V7F8tT7qLMDnFe2LE3eCbmYVKz9Famr2bza.m2.zcHNwq', 3),
+(12, 'usuario53', 'user_53@gmail.com', '$2y$10$TDkM7Ch8FcIj2Ppk40TkWe.ARp4T.SICpPksKx3DQerzJF8i87XZu', 3),
+(13, 'ezefz', 'ezefazio@gmail.com', '$2y$10$S3PBHbdK9Ml2OLq.Wl3VzeVTdJlZwsXo4GiiH3sMblnMw.lrQXNdy', 1),
+(14, 'XpedritoX', 'x_xp3drito@gmail.com', '$2y$10$kGdz2XhtFSKCZZzzPhD4JelvtMuRnOsIjQ19mbUMGM3I.5fFuOV8.', 2),
+(15, 'Maestro_L', 'masterl32@hotmail.com', '$2y$10$HPGBhaTanLOwkI.eyZ9TQ.nBq9AHZ9CcY/WbXbzdgw1Zp3z7tzzHW', 3);
 
 --
 -- Índices para tablas volcadas
@@ -367,7 +397,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `accion`
 --
 ALTER TABLE `accion`
-  MODIFY `id_accion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_accion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
@@ -377,7 +407,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `componente`
 --
@@ -397,17 +427,17 @@ ALTER TABLE `imagen`
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- Restricciones para tablas volcadas
 --

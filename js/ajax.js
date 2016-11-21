@@ -10,17 +10,20 @@ $(document).ready(function(e){
   addAjax(".nav-consultas/click", "mostrar_consultas", ".listado", 0, 0);
   addAjax(".nav-contacto/click", "mostrar_formulario_consulta", ".listado", 0, 0);
   addAjax(".categorias/click", "filtrar_categoria&categoria=", ".cat-");
+  addAjax(".cambiarPermisos/submit", "update_permisos&id_rol=", ".listado", "Los permisos fueron actualizados correctamente");
   addAjax(".borrarCategoria/submit", "eliminar_categoria&id=", ".listado", "La categoría se eliminó correctamente");
   addAjax(".editarCategoria/submit", "editar_categoria&id=", ".listado", "La categoría se editó correctamente");
   addAjax(".editarComponente/submit", "editar_componente&id=", ".listado", "El componente se editó correctamente");
   addAjax(".mostrarComponente/click", "mostrar_componente&id=", ".listado", 0, 1, function() {
-    var id_componente = $(".id_componente").val();
+    var id_componente = $(".comentarios").attr("data-id");
     obtenerComentarios(id_componente);
   });
+  addAjax(".eliminarRol/click", "eliminar_rol&id_rol=", ".listado", "El rol se eliminó correctamente");
   addAjax(".eliminarComponente/click", "eliminar_componente&id=", ".listado", "El componente se eliminó correctamente");
   addAjax(".addCategoria/submit", "agregar_categoria", ".listado", "La categoría se agregó correctamente", 0);
   addAjax(".addUsuario/submit", "agregar_usuario", ".listado", "El usuario se agregó correctamente", 0);
-  addAjax(".agregarComentario", "agregar_comentario", ".listado", "La categoría se agregó correctamente", 0);
+  addAjax(".addRol/submit", "agregar_rol", ".listado", "El rol fue creado correctamente", 0);
+  addAjax(".agregarComentario", "agregar_comentario", ".listado", "El comentario se agregó correctamente", 0);
   addAjax(".buscarUsuario/submit", "buscar_usuario&id=", ".listado");
   addAjax(".eliminarConsulta/click", "eliminar_consulta&id=", ".listado", "La consulta se eliminó correctamente");
   addAjax(".eliminarUsuario/click", "eliminar_usuario&id=", ".listado", "El usuario se eliminó correctamente");
@@ -30,19 +33,15 @@ $(document).ready(function(e){
       $("input, textarea").val("");
     });
   });
+
   //Funcion para obtener los comentarios
-
   var template;
-function obtenerComentarios(id_componente){
-
-  $.ajax({ url: 'js/templates/comentario.mst',
-   success: function(templateReceived) {
-     template = templateReceived;
-   }
- });
-
-
-
+  function obtenerComentarios(id_componente){
+    $.ajax({ url: 'js/templates/comentario.mst',
+    success: function(templateReceived) {
+      template = templateReceived;
+    }
+  });
   $.get( "api/comentarios", function(data) {
     var datos = [];
     for (var i = 0; i < data.length; i++) {
@@ -50,85 +49,116 @@ function obtenerComentarios(id_componente){
         datos.push(data[i]);
       }
     }
-    console.log(datos.length);
     var rendered = Mustache.render(template,{comentarios:datos});
     $(".comentarios").append(rendered);
 
   });
 }
 
-  $(document).on('submit', '.agregarComentario', function(ev) {
+$(document).on('submit', '.agregarComentario', function(ev) {
+  ev.preventDefault();
+  var comentario = $(this).serialize();
+  $.post( "api/comentarios", comentario, function( comentarios ) {
+    var rendered = Mustache.render(template,{comentarios});
+    $(rendered).hide().appendTo(".comentarios").show("slow");
+    $(".agregarComentario").find("textarea").val("");
+  });
+});
+$(document).on('click', '.borrarComentario', function(ev) {
+  ev.preventDefault();
+  var comentario = $(this).parents(".comentario");
+  var id =  $(this).attr("data-id");
+  $.ajax({
+    type: "DELETE",
+    url: 'api/comentarios/' + id,
+    success: function(){
+      comentario.hide("slow", function(){ comentario.remove(); });
+    }
+  });
+});
+
+// Función genérica para ajax
+function addAjax(selector, action, aCargar, msgSuccess, id, extra) {
+  var datos = selector.split("/");
+  var tipo = datos[1];
+  selector = datos[0];
+  $(document).on(tipo, selector, function(ev) {
+    $(".carga").toggleClass("hidden");
+    var formData = null;
+    var method = "GET";
+    if (tipo == "submit") {
+      formData = new FormData(this);
+      method = "POST";
+    }
     ev.preventDefault();
-    var comentario = $(this).serialize();
-    console.log(comentario);
-    console.log("anduvo");
-    $.post( "api/comentarios", comentario, function( comentarios ) {
-      var rendered = Mustache.render(template,{comentarios});
-      $( ".comentarios" ).append(rendered);
-    });
-  });
-    $(document).on('click', '.borrarComentario', function(ev) {
-      ev.preventDefault();
-      var comentario = $(this).parents(".comentario");
-      var id =  $(this).attr("data-id");
-      $.ajax({
-          type: "DELETE",
-          url: 'api/comentarios/' + id,
-          success: function(){
-            $(comentario).html("");
-          }
-        });
-
-      });
-  // Función genérica para ajax
-  function addAjax(selector, action, aCargar, msgSuccess, id, extra) {
-    var datos = selector.split("/");
-    var tipo = datos[1];
-    selector = datos[0];
-    $(document).on(tipo, selector, function(ev) {
-      $(".carga").toggleClass("hidden");
-      var formData = null;
-      var method = "GET";
-      if (tipo == "submit") {
-        formData = new FormData(this);
-        method = "POST";
+    id = (id == 0) ? "" : $(this).attr("data-id");
+    $.ajax({
+      method: method,
+      url: "index.php?action="+ action + id,
+      data: formData,
+      contentType: false,
+      cache: false,
+      processData:false,
+      success: function(data) {
+        if(aCargar.indexOf("-") >= 0) $(aCargar + id).html(data);
+        else $(aCargar).html(data);
+        $(".modal-backdrop").remove();
+        if(extra != undefined) extra();
+        if(msgSuccess != undefined && msgSuccess != 0) toastr.success(msgSuccess);
+        $(".carga").toggleClass("hidden");
       }
-      ev.preventDefault();
-      id = (id == 0) ? "" : $(this).attr("data-id");
-      $.ajax({
-        method: method,
-        url: "index.php?action="+ action + id,
-        data: formData,
-        contentType: false,
-        cache: false,
-        processData:false,
-        success: function(data) {
-          if(aCargar.indexOf("-") >= 0) $(aCargar + id).html(data);
-          else $(aCargar).html(data);
-          $(".modal-backdrop").remove();
-          if(extra != undefined) extra();
-          if(msgSuccess != undefined && msgSuccess != 0) toastr.success(msgSuccess);
-          $(".carga").toggleClass("hidden");
-        }
-      })
-    });
+    })
+  });
+}
+
+// Sección Lista de categorias, se usa esto para mostrar los componentes en esa categoria
+$(document).on("click", ".categorias", function() {
+  $(this).parent().find("div").toggle();
+});
+
+// Filtro de categorias obtenido por base de datos
+$(document).on('change', '.categorias', function() {
+  var valor = $(this).val();
+  var url = "index.php?action=filtrar_categoria&id=" + valor;
+  if(valor == 0) url = "index.php?action=home";
+  $.get(url, function(data) {
+    if(valor == 0) $(".listado").html(data)
+    else $(".contenido-componentes").html(data);
+  });
+});
+
+
+$(document).on('change', '.roles', function() {
+  var id = $(this).val();
+  var url = "index.php?action=admin_usuarios&filtrar_rol=" + id;
+  $.get(url, function(data) {
+    $(".listado").html(data);
+  });
+});
+
+$(document).on('click', '.guardarUsuario', function(ev) {
+  ev.preventDefault();
+  var idUsuario = $(this).attr("data-id");
+  var inputs = $(this).parents(".usuario").find(".input-e");
+  var usuario = {
+    username: $(inputs[0]).val(),
+    email: $(inputs[1]).val(),
+    rol: $(inputs[2]).find(":selected").attr("data-id")
   }
-
-  // Sección Lista de categorias, se usa esto para mostrar los componentes en esa categoria
-  $(document).on("click", ".categorias", function() {
-    $(this).parent().find("div").toggle();
+  $.post( "index.php?action=editar_usuario&id=" + idUsuario, usuario, function( data ) {
+    toastr.success("Los datos del usuario fueron actualizados correctamente");
+    $(".listado").html(data)
   });
+});
 
-  // Filtro de categorias obtenido por base de datos
-  $(document).on('change', '.categorias', function() {
-    var valor = $(this).val();
-    var url = "index.php?action=filtrar_categoria&id=" + valor;
-    if(valor == 0) url = "index.php?action=home";
-    $.get(url, function(data) {
-      if(valor == 0) $(".listado").html(data)
-      else $(".contenido-componentes").html(data);
-    });
+var cantUsuarios;
+$(document).on('click', '.mostrarMas', function(ev) {
+  ev.preventDefault();
+  cantUsuarios = $(".usuario").length + 2;
+  $.get( "index.php?action=admin_usuarios&cantUsuarios=" + cantUsuarios, function(data) {
+    $(".listado").html(data);
   });
+});
 
 
 });

@@ -58,19 +58,20 @@
         <div class="comentarios-container panel panel-heading">
 
         <h3>Comentarios:</h3>
-        <div class="comentarios">
+        <div class="comentarios" data-id="{$componente["id_componente"]}">
 
         </div>
-        {if isset($usuario)}
+
         <div class="row">
           <div class="col-md-12">
+          {if isset($usuario)}
             <div class="panel panel-filled">
               <div class="panel-heading">
                 <h4>Agregar comentario..</h4>
               </div>
               <div class="panel-body">
                 <form class="agregarComentario" method="post">
-                  <input type="hidden" name="id_componente" value="{$componente["id_componente"]}" class="id_componente">
+                  <input type="hidden" name="id_componente" value="{$componente["id_componente"]}">
                   <input type="hidden" name="id_usuario" value="{$usuario["id"]}">
                   <div class="form-group form-inline">
                     <label>Puntaje:</label>
@@ -89,10 +90,10 @@
                   <button type="submit" class="btn btn-default">Comentar</button>
                 </form>
               </div>
-            </div>
+            </div>{/if}
           </div>
         </div>
-        {/if}
+
       </div>
 
     </div>
