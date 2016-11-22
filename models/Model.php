@@ -1,10 +1,9 @@
 <?php
-$path = "db/";
-if(strpos(pathinfo($_SERVER["SCRIPT_FILENAME"])["dirname"], 'api')) $path = "../" . $path;
-include_once $path .'config.php';
+include_once dirname(__DIR__). "/db/config.php";
 
 abstract class Model{
   protected $db;
+
   function __construct() {
     try {
       $this->db = new PDO('mysql:host='.HOST.';dbname='.rtrim(DBNAME).';charset=utf8', USUARIO, DBPASS);

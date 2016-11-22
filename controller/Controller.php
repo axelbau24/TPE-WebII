@@ -1,5 +1,5 @@
 <?php
-include_once("models/ModelUsuarios.php");
+include_once(dirname(__DIR__). "/models/ModelUsuarios.php");
 abstract class Controller{
 
   protected $model;

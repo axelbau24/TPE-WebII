@@ -3,9 +3,9 @@ define('DEFAULT_ROL', '3');
 define('USUARIOS_A_MOSTRAR', '4');
 define('ADMIN_EDIT_ROL', '1');
 
-include_once ("view/ViewUsuarios.php");
-require_once ('config/ConfigApp.php');
-include_once("controller/Controller.php");
+include_once (dirname(__DIR__). "/view/ViewUsuarios.php");
+include_once(dirname(__DIR__). "/controller/Controller.php");
+
 class UsuariosController extends Controller{
 
   function __construct() {

@@ -1,5 +1,5 @@
 <?php
-include_once ("models/Model.php");
+include_once (dirname(__DIR__). "/models/Model.php");
 class ModelUsuarios extends Model{
 
   // Esta funcion devuelve los permisos que el usuario NO puede hacer

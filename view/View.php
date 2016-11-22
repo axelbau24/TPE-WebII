@@ -1,5 +1,5 @@
 <?php
-require_once('libs/Smarty.class.php');
+require_once(dirname(__DIR__). '/libs/Smarty.class.php');
 class View{
 
   protected $smarty;

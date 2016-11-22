@@ -1,6 +1,7 @@
 <?php
 require 'api.php';
 include_once("../models/ModelComentarios.php");
+include_once("../controller/UsuariosController.php");
 
 class ComentariosApi extends Api
 {

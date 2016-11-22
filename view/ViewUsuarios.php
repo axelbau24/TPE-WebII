@@ -1,5 +1,5 @@
 <?php
-include_once("view/View.php");
+include_once(dirname(__DIR__). "/view/View.php");
 class ViewUsuarios extends View{
 
   function agregarError($error){
