@@ -139,7 +139,7 @@
                             {/if}
                         </td>
 
-                        {if !in_array("eliminar_usuario", $permisos)}<td><div data-id="{$usuario["id_usuario"]}" class="eliminarUsuario">X</div></td>{/if}
+                        {if !in_array("eliminar_usuario", $permisos)}<td><div data-id="{$usuario["id_usuario"]}" class="glyphicon glyphicon-remove eliminarUsuario error-icon"></div></td>{/if}
                         {if !in_array("editar_usuario", $permisos)}<td><button type="button" data-id="{$usuario["id_usuario"]}" class="guardarUsuario btn btn-default">Guardar</button></td>{/if}
 
                       </tr>

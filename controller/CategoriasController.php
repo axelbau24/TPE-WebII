@@ -18,21 +18,21 @@ class CategoriasController extends Controller{
 
 
   function eliminar_categoria(){
-    if(isset($_GET['id'])){
+    if(isset($_GET['id']) && !empty($_GET['id'])){
     $key = $_GET['id'];
     $this->modelo->eliminarCategoria($key);
     }
     $this->admin_categorias();
 }
   function agregar_categoria(){
-    if(isset($_POST['nombre'])){
+    if(isset($_POST['nombre']) && !empty($_POST['nombre'])){
     $name = $_POST['nombre'];
     $this->modelo->agregarCategoria($name);
     }
     $this->admin_categorias();
   }
   function editar_categoria(){
-    if(isset($_GET['id'])){
+    if(isset($_GET['id']) && isset($_POST['nuevo-nombre']) && !empty($_POST['nuevo-nombre'])  && !empty($_GET['id']) ){
     $key = $_GET['id'];
     $newName = $_POST['nuevo-nombre'];
     $this->modelo->editarCategoria($newName,$key);

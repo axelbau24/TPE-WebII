@@ -16,5 +16,5 @@ if (array_key_exists(ConfigApp::$ACTION,$_REQUEST) && array_key_exists($_REQUEST
     $action = $_REQUEST[ConfigApp::$ACTION];
     $nombreController = ConfigApp::$ACTIONS[$action];
     if($c_usuarios->autorizado($action)) $controllers[$nombreController]->{$action}();
-} else $c_componentes->mostrarInicio();
+} else $c_componentes->iniciar();
  ?>

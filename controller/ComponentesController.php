@@ -20,7 +20,7 @@ class ComponentesController extends Controller{
     $this->updateData();
     $this->view->mostrarComponentes();
   }
-  function mostrarInicio() {
+  function iniciar() {
     session_start();
     $this->asignarPermisos();
     $this->view->mostrarHome();
@@ -28,22 +28,23 @@ class ComponentesController extends Controller{
 
   function admin_componentes(){
       $this->updateData();
-      $this->view->actualizarPermisos($this->modelUsuario->getPermisosDenegados($_SESSION["user"]));
+      $this->asignarPermisos();
       $this->view->mostrarAdmin();
   }
 
   function mostrar_componente() {
-    if(isset($_GET["id"])){
+    if(isset($_GET["id"]) && !empty($_GET["id"])){
+      $this->asignarPermisos();
       $id_componente = $_GET["id"];
       $categoria = $this->model->getCategoriaComponente($id_componente);
       $componente = $this->model->getComponente($id_componente);
       $imagenes = $this->model->getImagenes($id_componente);
       $componente["imagenes"] = $imagenes;
       $this->view->mostrarComponente($categoria, $componente);
-    }else $this->mostrarInicio();
+    }else $this->iniciar();
   }
   function eliminar_componente(){
-    if(isset($_GET["id"])){
+    if(isset($_GET["id"]) && !empty($_GET["id"])){
       $key = $_GET['id'];
       $this->model->eliminarComponente($key);
     }
@@ -57,7 +58,7 @@ class ComponentesController extends Controller{
   }
   function crearComponente(){
     $newComponente = [];
-    if( (isset($_POST['nombre'])) && (isset($_POST['categoria'])) ){
+    if(isset($_POST['nombre']) && isset($_POST['categoria']) && !empty($_POST['nombre']) && !empty($_POST['categoria'])){
     $newComponente["nombre"] = $_POST['nombre'];
     $newComponente["destacado"] = isset($_POST['recomendado']);
     $newComponente["id_categoria"] = $_POST['categoria'];
@@ -81,7 +82,7 @@ class ComponentesController extends Controller{
 
   function editar_componente(){
     $newComponente = $this->crearComponente();
-    if(isset($_GET['id'])){
+    if(isset($_GET['id']) && !empty($_GET["id"])){
       $newComponente["id"] = $_GET['id'];
       $this->eliminarImagenes($this->model->getImagenes($newComponente["id"]));
       $this->model->editarComponente($newComponente);
@@ -91,7 +92,7 @@ class ComponentesController extends Controller{
 
   function eliminarImagenes($imagenes){
     foreach ($imagenes as $imagen) {
-      if(isset($_POST["img_".$imagen["id_imagen"]]))
+      if(isset($_POST["img_".$imagen["id_imagen"]]) && !empty($_POST["img_".$imagen["id_imagen"]]))
       $this->model->eliminarImagen($imagen);
     }
   }
@@ -107,14 +108,14 @@ class ComponentesController extends Controller{
   }
 
   function filtrar_categoria() {
-    if (isset($_GET["id"])) {
+    if (isset($_GET["id"]) && !empty($_GET["id"])) {
       $categoria = $this->modelCategorias->getCategoria($_GET["id"]);
       $componentes = $this->model->getComponentesByCategoria($_GET["id"]);
       $data = ["componentes" => $componentes, "categorias" =>  $categoria];
       $this->view->asignarDatos($data);
       $this->view->filtrar();
     }
-    else if(isset($_GET["categoria"])){
+    else if(isset($_GET["categoria"]) && !empty($_GET["categoria"])){
       $this->view->mostrarComponentesCategoria($this->model->getComponentesByCategoria($_GET["categoria"]));
     }
   }

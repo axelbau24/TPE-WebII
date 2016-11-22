@@ -2,7 +2,8 @@
 include_once ("models/Model.php");
 class ModelUsuarios extends Model{
 
-  function getPermisosDenegados($user){
+  // Esta funcion devuelve los permisos que el usuario NO puede hacer
+  function getPermisosUsuario($user){
     $permisos = $this->db->prepare(
     "SELECT
       accion.accion AS accion_denegada
@@ -11,7 +12,7 @@ class ModelUsuarios extends Model{
       accion,
       permiso
     WHERE
-      permiso.fk_id_rol = usuario.fk_id_rol AND permiso.fk_id_accion = accion.id_accion AND usuario.nombre = ?");
+      permiso.fk_id_rol = usuario.fk_id_rol AND permiso.fk_id_accion = accion.id_accion AND usuario.id_usuario = ?");
     $permisos->execute(array($user));
     return $permisos->fetchAll(PDO::FETCH_COLUMN);
   }
@@ -38,6 +39,11 @@ class ModelUsuarios extends Model{
   function getUsuario($nickname){
     $permisos = $this->db->prepare("SELECT usuario.*, rol.nombre AS rol FROM rol, usuario WHERE usuario.fk_id_rol = rol.id_rol AND usuario.nombre = ? OR usuario.email = ? GROUP BY usuario.id_usuario");
     $permisos->execute(array($nickname, $nickname));
+    return $permisos->fetch(PDO::FETCH_ASSOC);
+  }
+  function getUsuarioById($id){
+    $permisos = $this->db->prepare("SELECT * FROM usuario WHERE id_usuario = ?");
+    $permisos->execute(array($id));
     return $permisos->fetch(PDO::FETCH_ASSOC);
   }
   function crearUsuario($user){

@@ -64,7 +64,7 @@
 
         <div class="row">
           <div class="col-md-12">
-          {if isset($usuario)}
+          {if count($datosUsuario) > 0}
             <div class="panel panel-filled">
               <div class="panel-heading">
                 <h4>Agregar comentario..</h4>
@@ -72,7 +72,7 @@
               <div class="panel-body">
                 <form class="agregarComentario" method="post">
                   <input type="hidden" name="id_componente" value="{$componente["id_componente"]}">
-                  <input type="hidden" name="id_usuario" value="{$usuario["id"]}">
+                  <input type="hidden" name="id_usuario" value="{$datosUsuario["id_usuario"]}">
                   <div class="form-group form-inline">
                     <label>Puntaje:</label>
                     <select class="form-control" name="puntaje">

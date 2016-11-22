@@ -12,17 +12,18 @@ class ContactoController extends Controller{
   }
 
   function agregar_consulta(){
-    if((isset($_POST['name'])) && (isset($_POST['mail'])) && (isset($_POST['consulta']) )){
-    $consulta["nombre"] = $_POST['name'];
-    $consulta["mail"] = $_POST['mail'];
-    $consulta["consulta"] = $_POST['consulta'];
-    $consulta["notificacion"] = isset($_POST['notificacion']);
-    $this->model->agregarConsulta($consulta);
+    if(isset($_POST['name']) && isset($_POST['mail']) && isset($_POST['consulta'])){
+      $consulta["nombre"] = $_POST['name'];
+      $consulta["mail"] = $_POST['mail'];
+      $consulta["consulta"] = $_POST['consulta'];
+      $consulta["notificacion"] = isset($_POST['notificacion']);
+      $this->model->agregarConsulta($consulta);
     }
     $this->mostrar_formulario_consulta();
   }
 
   function mostrar_formulario_consulta(){
+    $this->asignarPermisos();
     $this->view->mostrarFormulario();
   }
   function mostrar_consultas()
@@ -32,7 +33,7 @@ class ContactoController extends Controller{
     $this->view->mostrarConsultas($consultas);
   }
   function eliminar_consulta(){
-    if(isset($_GET['id'])){
+    if(isset($_GET['id']) && !empty($_GET["id"])){
       $key = $_GET['id'];
       $this->model->eliminarConsulta($key);
     }

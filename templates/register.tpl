@@ -43,7 +43,7 @@
                       </div>
                       <div class="form-group col-lg-6 has-feedback">
                           <label>Contraseña</label>
-                          <input type="password" value="" id="passwordCheck" class="form-control" name="password" placeholder="*******">
+                          <input type="password" value="" id="passwordCheck" class="form-control" name="password" placeholder="*******" required>
                           <span class="hidden glyphicon glyphicon-ok form-control-feedback success-icon" aria-hidden="true"></span>
                           <span class="help-block small">Seguridad de contraseña: <span id="pwseguridad"></span></span>
                       </div>
@@ -53,13 +53,16 @@
                           <span class="hidden glyphicon glyphicon-remove form-control-feedback error-icon" aria-hidden="true"></span>
                           <span class="hidden help-block small pull-right msg-match">Las contraseñas no coinciden</span>
                       </div>
-                      <div class="form-group col-lg-12">
-                        <div class="checkbox"><label> <input type="checkbox" name="notificaciones" value=""> Recibir notificaciones</label></div>
-                      </div>
                   </div>
                   <div>
                       <button type="submit" disabled class="btn btn-default">Crear</button>
                   </div>
+                  <br>
+                    {if isset($error)}
+                    <div class="panel panel-filled panel-c-danger">
+                        <div class="panel-heading">{$error}</div>
+                    </div>
+                    {/if}
               </form>
           </div>
       </div>

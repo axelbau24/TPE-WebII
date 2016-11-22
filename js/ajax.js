@@ -28,7 +28,7 @@ $(document).ready(function(e){
   addAjax(".eliminarConsulta/click", "eliminar_consulta&id=", ".listado", "La consulta se eliminó correctamente");
   addAjax(".eliminarUsuario/click", "eliminar_usuario&id=", ".listado", "El usuario se eliminó correctamente");
   addAjax(".editarUsuario/submit", "editar_usuario&id=", ".listado", "El usuario se editó correctamente");
-  addAjax(".contacto/submit", "agregar_consulta", "", "La consulta se envió correctamente", 0, function() {
+  addAjax(".contacto/submit", "agregar_consulta", ".listado", "La consulta se envió correctamente", 0, function() {
     $("input, textarea").each(function() {
       $("input, textarea").val("");
     });
@@ -104,7 +104,8 @@ function addAjax(selector, action, aCargar, msgSuccess, id, extra) {
         else $(aCargar).html(data);
         $(".modal-backdrop").remove();
         if(extra != undefined) extra();
-        if(msgSuccess != undefined && msgSuccess != 0) toastr.success(msgSuccess);
+        if(msgSuccess != undefined && msgSuccess != 0 && data != "") toastr.success(msgSuccess);
+        if(data == "") toastr.error("Hubo un error al ejecutar la acción");
         $(".carga").toggleClass("hidden");
       }
     })
@@ -146,7 +147,8 @@ $(document).on('click', '.guardarUsuario', function(ev) {
     rol: $(inputs[2]).find(":selected").attr("data-id")
   }
   $.post( "index.php?action=editar_usuario&id=" + idUsuario, usuario, function( data ) {
-    toastr.success("Los datos del usuario fueron actualizados correctamente");
+    if(data != "") toastr.success("Los datos del usuario fueron actualizados correctamente");
+    else toastr.error("Hubo un error al ejecutar la acción");
     $(".listado").html(data)
   });
 });
