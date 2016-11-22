@@ -39,7 +39,7 @@
       <nav>
         <ul class="nav luna-nav">
           {if count($datosUsuario) > 0}<li class="nav-category"><strong>Bienvenido <i>{$datosUsuario["nombre"]}</i></strong></li>
-          <button type="button" class="btn btn-xs btn-info space-left">Configuración</button>
+          <button type="button" class="btn btn-xs btn-info space-left config">Configuración</button>
           <a href="logout"><button type="button" class="btn btn-xs btn-info">Salir</button></a>
           {else}<li class="nav-category"><strong>No ingresó al sistema</strong></li>
           <a href="login"><button type="button" class="btn btn-xs btn-info space-left">Iniciar Sesión</button></a>

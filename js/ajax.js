@@ -13,6 +13,7 @@ $(document).ready(function(e){
   addAjax(".cambiarPermisos/submit", "update_permisos&id_rol=", ".listado", "Los permisos fueron actualizados correctamente");
   addAjax(".borrarCategoria/submit", "eliminar_categoria&id=", ".listado", "La categoría se eliminó correctamente");
   addAjax(".editarCategoria/submit", "editar_categoria&id=", ".listado", "La categoría se editó correctamente");
+  addAjax(".addComponente/submit", "agregar_componente", ".listado", "El componente se agregó correctamente", 0);
   addAjax(".editarComponente/submit", "editar_componente&id=", ".listado", "El componente se editó correctamente");
   addAjax(".mostrarComponente/click", "mostrar_componente&id=", ".listado", 0, 1, function() {
     var id_componente = $(".comentarios").attr("data-id");
@@ -28,6 +29,8 @@ $(document).ready(function(e){
   addAjax(".eliminarConsulta/click", "eliminar_consulta&id=", ".listado", "La consulta se eliminó correctamente");
   addAjax(".eliminarUsuario/click", "eliminar_usuario&id=", ".listado", "El usuario se eliminó correctamente");
   addAjax(".editarUsuario/submit", "editar_usuario&id=", ".listado", "El usuario se editó correctamente");
+  addAjax(".config/click", "configurar_perfil", ".listado",0,0);
+  addAjax(".editarPerfil/submit", "configurar_perfil", ".listado","El perfil se editó correctamente", 0);
   addAjax(".contacto/submit", "agregar_consulta", ".listado", "La consulta se envió correctamente", 0, function() {
     $("input, textarea").each(function() {
       $("input, textarea").val("");

@@ -91,6 +91,30 @@ class UsuariosController extends Controller{
     }
     $this->admin_usuarios();
   }
+  function configurar_perfil(){
+    if(isset($_SESSION['id'])){
+    $usuario = $this->model->getUsuarioById($_SESSION['id']);
+
+    if((isset($_POST['password'])) && !empty(isset($_POST['new_password'])) && !empty(isset($_POST['c_new_password']))){
+      $password = $_POST['password'];
+      $passwordRegistrada = $usuario['password'];
+      if(password_verify($password, $passwordRegistrada) && ($_POST['new_password'] == ($_POST['c_new_password']))){
+        $new_password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+        $this->model->editarDatos($new_password,$usuario['email'],$usuario['avatar'],$usuario['id_usuario']);
+      }
+
+    //if(isset($_FILES['avatar'])){
+      //$path_avatar = $_FILES['avatar'];
+      //$this->model->editarDatos($usuario['password'],$usuario['email'],$path_avatar,$usuario['id_usuario']);
+    //}
+
+    if(isset($_POST['email'])){}
+      $email = $_POST['email'];
+      $this->model->editarDatos($usuario['password'],$email,$usuario['avatar'],$usuario['id_usuario']);
+    }
+  }
+        $this->view->configurarPerfil();
+  }
   // Se busca un usuario en especifico para hacer ediciones, etc
   function buscar_usuario(){
     if(isset($_POST['busqueda']) && !empty($_POST["busqueda"])){

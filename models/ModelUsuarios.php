@@ -17,6 +17,10 @@ class ModelUsuarios extends Model{
     return $permisos->fetchAll(PDO::FETCH_COLUMN);
   }
 
+  function configurarPerfil(){
+  //  $usuario = $this->db->("SELECT usuario FROM usuario WHERE usuario.fk_id_rol = rol.id_rol ORDER BY usuario.fk_id_rol ASC");
+  }
+
   function getPermisosVisitante(){
     $permisos = $this->db->prepare(
     "SELECT
@@ -37,14 +41,14 @@ class ModelUsuarios extends Model{
     return $usuarios->fetchAll(PDO::FETCH_ASSOC);
   }
   function getUsuario($nickname){
-    $permisos = $this->db->prepare("SELECT usuario.*, rol.nombre AS rol FROM rol, usuario WHERE usuario.fk_id_rol = rol.id_rol AND usuario.nombre = ? OR usuario.email = ? GROUP BY usuario.id_usuario");
-    $permisos->execute(array($nickname, $nickname));
-    return $permisos->fetch(PDO::FETCH_ASSOC);
+    $usuario = $this->db->prepare("SELECT usuario.*, rol.nombre AS rol FROM rol, usuario WHERE usuario.fk_id_rol = rol.id_rol AND usuario.nombre = ? OR usuario.email = ? GROUP BY usuario.id_usuario");
+    $usuario->execute(array($nickname, $nickname));
+    return $usuario->fetch(PDO::FETCH_ASSOC);
   }
   function getUsuarioById($id){
-    $permisos = $this->db->prepare("SELECT * FROM usuario WHERE id_usuario = ?");
-    $permisos->execute(array($id));
-    return $permisos->fetch(PDO::FETCH_ASSOC);
+    $usuario = $this->db->prepare("SELECT * FROM usuario WHERE id_usuario = ?");
+    $usuario->execute(array($id));
+    return $usuario->fetch(PDO::FETCH_ASSOC);
   }
   function crearUsuario($user){
 
@@ -76,6 +80,10 @@ class ModelUsuarios extends Model{
   function editarUsuario($usuario){
     $sentencia = $this->db->prepare("UPDATE usuario set nombre=? , email=?, fk_id_rol=? where id_usuario=?");
     $sentencia->execute(array($usuario["username"], $usuario["email"], $usuario["id_rol"], $usuario["id_usuario"]));
+  }
+  function editarDatos($password,$email,$avatar,$id_usuario){
+    $sentencia = $this->db->prepare("UPDATE usuario set password=? , email=?, avatar=? where id_usuario=?");
+    $sentencia->execute(array($password , $email, $avatar, $id_usuario));
   }
   function getActions(){
     $permisos = $this->db->prepare("SELECT * FROM accion");

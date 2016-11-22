@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-11-2016 a las 21:59:32
--- Versión del servidor: 10.1.16-MariaDB
--- Versión de PHP: 5.6.24
+-- Tiempo de generación: 22-11-2016 a las 21:33:11
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -308,21 +308,22 @@ CREATE TABLE `usuario` (
   `nombre` varchar(25) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `fk_id_rol` int(11) NOT NULL
+  `fk_id_rol` int(11) NOT NULL,
+  `avatar` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombre`, `email`, `password`, `fk_id_rol`) VALUES
-(9, 'axelbau24', 'latinga.web@gmail.com', '$2y$10$zOWuWGx./3fkpunQcOUMpuqf4yTSCIZpDMu3PD7xXutlDK.9b/3dW', 1),
-(10, 'santii35', 'santii_35@gmail.com', '$2y$10$OgZ98guEhTv1yJpIZTTGG.A/q0bn3hx6S/leKM5EkgXAhL0A1MlCq', 3),
-(11, '93_sherman', 'sher_93@gmail.com', '$2y$10$nnLhK7Z7V7F8tT7qLMDnFe2LE3eCbmYVKz9Famr2bza.m2.zcHNwq', 3),
-(12, 'usuario53', 'user_53@gmail.com', '$2y$10$TDkM7Ch8FcIj2Ppk40TkWe.ARp4T.SICpPksKx3DQerzJF8i87XZu', 3),
-(13, 'ezefz', 'ezefazio@gmail.com', '$2y$10$S3PBHbdK9Ml2OLq.Wl3VzeVTdJlZwsXo4GiiH3sMblnMw.lrQXNdy', 1),
-(14, 'XpedritoX', 'x_xp3drito@gmail.com', '$2y$10$kGdz2XhtFSKCZZzzPhD4JelvtMuRnOsIjQ19mbUMGM3I.5fFuOV8.', 2),
-(15, 'Maestro_L', 'masterl32@hotmail.com', '$2y$10$HPGBhaTanLOwkI.eyZ9TQ.nBq9AHZ9CcY/WbXbzdgw1Zp3z7tzzHW', 3);
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `email`, `password`, `fk_id_rol`, `avatar`) VALUES
+(9, 'axelbau24', 'adcasddeb@gmail.com', '$2y$10$zOWuWGx./3fkpunQcOUMpuqf4yTSCIZpDMu3PD7xXutlDK.9b/3dW', 1, 'c:/alsdo.jpg'),
+(10, 'santii35', 'santii_35@gmail.com', '$2y$10$OgZ98guEhTv1yJpIZTTGG.A/q0bn3hx6S/leKM5EkgXAhL0A1MlCq', 3, ''),
+(11, '93_sherman', 'sher_93@gmail.com', '$2y$10$nnLhK7Z7V7F8tT7qLMDnFe2LE3eCbmYVKz9Famr2bza.m2.zcHNwq', 3, ''),
+(12, 'usuario53', 'user_53@gmail.com', '$2y$10$TDkM7Ch8FcIj2Ppk40TkWe.ARp4T.SICpPksKx3DQerzJF8i87XZu', 3, ''),
+(13, 'ezefz', 'ezefazio@gmail.com', '$2y$10$S3PBHbdK9Ml2OLq.Wl3VzeVTdJlZwsXo4GiiH3sMblnMw.lrQXNdy', 1, ''),
+(14, 'XpedritoX', 'x_xp3drito@gmail.com', '$2y$10$kGdz2XhtFSKCZZzzPhD4JelvtMuRnOsIjQ19mbUMGM3I.5fFuOV8.', 2, ''),
+(15, 'Maestro_L', 'masterl32@hotmail.com', '$2y$10$HPGBhaTanLOwkI.eyZ9TQ.nBq9AHZ9CcY/WbXbzdgw1Zp3z7tzzHW', 3, '');
 
 --
 -- Índices para tablas volcadas

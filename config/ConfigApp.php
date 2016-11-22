@@ -28,7 +28,8 @@ class ConfigApp{
     'buscar_usuario' => "Usuarios",
     'update_permisos' => "Usuarios",
     'eliminar_rol' => "Usuarios",
-    'agregar_rol' => "Usuarios"];
+    'agregar_rol' => "Usuarios",
+    'configurar_perfil'=> "Usuarios"];
 
 }
 

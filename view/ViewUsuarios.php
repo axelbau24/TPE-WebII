@@ -24,6 +24,10 @@ class ViewUsuarios extends View{
   function mostrarAdminUsuarios(){
     $this->smarty->display("adminUsuarios.tpl");
   }
+  function configurarPerfil(){
+  //  $this->smarty->assign("usuarios", array($usuario));
+    $this->smarty->display("userConfig.tpl");
+  }
 
 }
  ?>
