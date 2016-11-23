@@ -26,10 +26,11 @@ class ConfigApp{
     'editar_usuario' =>  "Usuarios",
     'agregar_usuario' => "Usuarios",
     'buscar_usuario' => "Usuarios",
-    'update_permisos' => "Usuarios",
-    'eliminar_rol' => "Usuarios",
-    'agregar_rol' => "Usuarios",
-    'configurar_perfil'=> "Usuarios"];
+    'update_permisos' => "Roles",
+    'eliminar_rol' => "Roles",
+    'agregar_rol' => "Roles",
+    'configurar_perfil'=> "Usuarios",
+    'admin_roles'=> "Roles"];
 
 }
 

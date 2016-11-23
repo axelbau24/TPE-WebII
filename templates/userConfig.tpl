@@ -21,18 +21,18 @@
           <div class="panel-body">
             <div class="col-lg-6 col-xs-12">
               <div class="panel panel-filled text-center">
-                        <div class="panel-heading"><h3>Usuario <i>{$datosUsuario['nombre']}</i></h3></div>
+                        <div class="panel-heading"><h3>Usuario <i>{$usuario['nombre']}</i></h3></div>
                         <div class="panel-body">
-                            <img class="img-thumbnail img-responsive color-transparent" src="images/avatar/default.png" alt="" />
+                            <img class="img-thumbnail img-responsive color-transparent" src="{$usuario['avatar']}" alt="" />
                         </div>
-                        <div class="panel-footer"><label>Email: <i>{$datosUsuario['email']}</i></label></div>
+                        <div class="panel-footer"><label>Email: <i>{$usuario['email']}</i></label></div>
                     </div>
 
             </div>
             <div class="col-lg-6 col-xs-12">
               <form class="editarPerfil" method="post" enctype="multipart/form-data" >
                   <div class="modal-body">
-                    <div class="form-group"><label for="componente">Email: </label> <input type="email" required="" class="form-control" name="email" value="{$datosUsuario['email']}"></div>
+                    <div class="form-group"><label for="componente">Email: </label> <input type="email" required="" class="form-control" name="email" value="{$usuario['email']}"></div>
                     <div class="form-group"><label for="componente">Cambiar contraseña: </label>
                     <input type="password"  class="form-control" name="password" placeholder="Contraseña actual" ><br>
                     <input type="password"  class="form-control" name="new_password" placeholder="Nueva contraseña" ><br>

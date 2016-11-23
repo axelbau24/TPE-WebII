@@ -9,6 +9,7 @@ class ContactoController extends Controller{
     parent::__construct();
     $this->model = new ModelContacto();
     $this->view = new ViewContacto();
+    parent::asignarPermisos();
   }
 
   function agregar_consulta(){
@@ -19,16 +20,11 @@ class ContactoController extends Controller{
       $consulta["notificacion"] = isset($_POST['notificacion']);
       $this->model->agregarConsulta($consulta);
     }
-    $this->mostrar_formulario_consulta();
-  }
-
-  function mostrar_formulario_consulta(){
-    $this->asignarPermisos();
     $this->view->mostrarFormulario();
   }
-  function mostrar_consultas()
-  {
-    $this->asignarPermisos();
+
+
+  function mostrar_consultas(){
     $consultas = $this->model->getConsultas();
     $this->view->mostrarConsultas($consultas);
   }

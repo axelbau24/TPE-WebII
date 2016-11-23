@@ -4,6 +4,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="view-header">
+            {if !in_array("filtrar_categoria", $permisos)}
           <div class="pull-right text-right" style="line-height: 14px">
             <strong class="pull-left">Filtrar categorías</strong><br>
             <select name="categoria" class="categorias form-control">
@@ -13,7 +14,7 @@
               {/foreach}
             </select>
           </div>
-
+          {/if}
           <div class="header-title">
             <h3 class="m-b-xs">Listado de componentes de PC</h3>
             <small>Listado de diferentes tipos de componentes por categoria.</small>

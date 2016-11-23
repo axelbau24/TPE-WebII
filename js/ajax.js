@@ -5,10 +5,11 @@ $(document).ready(function(e){
   // Se agrega /click o /submit para arreglar carga del selector despues de partial render
   addAjax(".nav-home/click", "home", ".listado", 0, 0);
   addAjax(".nav-usuarios/click", "admin_usuarios", ".listado", 0, 0);
+  addAjax(".nav-roles/click", "admin_roles", ".listado", 0, 0);
   addAjax(".nav-componentes/click", "admin_componentes", ".listado", 0, 0);
   addAjax(".nav-categorias/click", "admin_categorias", ".listado", 0, 0);
   addAjax(".nav-consultas/click", "mostrar_consultas", ".listado", 0, 0);
-  addAjax(".nav-contacto/click", "mostrar_formulario_consulta", ".listado", 0, 0);
+  addAjax(".nav-contacto/click", "agregar_consulta", ".listado", 0, 0);
   addAjax(".categorias/click", "filtrar_categoria&categoria=", ".cat-");
   addAjax(".cambiarPermisos/submit", "update_permisos&id_rol=", ".listado", "Los permisos fueron actualizados correctamente");
   addAjax(".borrarCategoria/submit", "eliminar_categoria&id=", ".listado", "La categoría se eliminó correctamente");
@@ -39,23 +40,30 @@ $(document).ready(function(e){
 
   //Funcion para obtener los comentarios
   var template;
+  var repetidor;
   function obtenerComentarios(id_componente){
+
     $.ajax({ url: 'js/templates/comentario.mst',
     success: function(templateReceived) {
       template = templateReceived;
     }
   });
-  $.get( "api/comentarios", function(data) {
-    var datos = [];
-    for (var i = 0; i < data.length; i++) {
-      if (id_componente == data[i].fk_id_componente) {
-        datos.push(data[i]);
+  clearInterval(repetidor);
+  function get() {
+    $.get( "api/comentarios", function(data) {
+      var datos = [];
+      for (var i = 0; i < data.length; i++) {
+        if (id_componente == data[i].fk_id_componente) {
+          datos.push(data[i]);
+        }
       }
-    }
-    var rendered = Mustache.render(template,{comentarios:datos});
-    $(".comentarios").append(rendered);
+      var rendered = Mustache.render(template,{comentarios:datos});
+      $(".comentarios").html(rendered);
+    });
+  }
+  get();
+  repetidor = setInterval(get, 2000);
 
-  });
 }
 
 $(document).on('submit', '.agregarComentario', function(ev) {
@@ -134,7 +142,7 @@ $(document).on('change', '.categorias', function() {
 
 $(document).on('change', '.roles', function() {
   var id = $(this).val();
-  var url = "index.php?action=admin_usuarios&filtrar_rol=" + id;
+  var url = "index.php?action=admin_roles&filtrar_rol=" + id;
   $.get(url, function(data) {
     $(".listado").html(data);
   });

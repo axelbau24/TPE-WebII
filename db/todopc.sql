@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-11-2016 a las 21:33:11
--- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.6.21
+-- Tiempo de generación: 23-11-2016 a las 03:14:29
+-- Versión del servidor: 10.1.16-MariaDB
+-- Versión de PHP: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -46,8 +46,7 @@ INSERT INTO `accion` (`id_accion`, `accion`, `nombre`) VALUES
 (8, 'admin_categorias', 'Ver administración de categorí'),
 (9, 'eliminar_categoria', 'Eliminación de categorías'),
 (10, 'agregar_categoria', 'Adición de categorías'),
-(11, 'mostrar_formulario_consulta', 'Ver formulario de consultas'),
-(12, 'agregar_consulta', 'Envío de consultas'),
+(11, 'agregar_consulta', 'Enviar consultas'),
 (13, 'mostrar_consultas', 'Ver listado de consultas recib'),
 (14, 'eliminar_consulta', 'Eliminación de consultas'),
 (15, 'editar_categoria', 'Edición de categorias'),
@@ -57,7 +56,10 @@ INSERT INTO `accion` (`id_accion`, `accion`, `nombre`) VALUES
 (19, 'agregar_usuario', 'Agregar usuarios'),
 (20, 'update_permisos', 'Editar permisos de rol'),
 (21, 'eliminar_rol', 'Eliminar roles'),
-(22, 'agregar_rol', 'Agregar roles');
+(22, 'agregar_rol', 'Agregar roles'),
+(23, 'agregar_comentario', 'Publicar comentarios'),
+(24, 'eliminar_comentario', 'Eliminar comentarios'),
+(25, 'admin_roles', 'Ver administración de roles');
 
 -- --------------------------------------------------------
 
@@ -102,13 +104,14 @@ CREATE TABLE `comentario` (
 --
 
 INSERT INTO `comentario` (`id_comentario`, `fk_id_componente`, `fk_id_usuario`, `comentario`, `puntaje`, `fecha`) VALUES
-(1, 1, 9, 'Esta motherboard esta muy buena!', 4, '2016-11-21 20:44:14'),
-(2, 1, 15, 'La compré y se me rompió a la semana.', 1, '2016-11-21 20:46:39'),
-(5, 5, 15, 'Esta rinde muy bien!', 4, '2016-11-21 20:48:22'),
-(6, 3, 15, 'Muy veloz!', 4, '2016-11-21 20:50:35'),
-(7, 8, 15, 'Estaría bueno poner una foto', 3, '2016-11-21 20:51:37'),
-(8, 1, 12, 'Si, la verdad que esta mother no rinde mucho', 3, '2016-11-21 20:52:57'),
-(9, 2, 12, 'De 10!', 5, '2016-11-21 20:53:11');
+(13, 1, 4, 'Esta motherboard esta muy buena!', 5, '2016-11-23 01:49:49'),
+(14, 1, 1, 'Una de las mejores!', 4, '2016-11-21 23:44:14'),
+(15, 1, 3, 'La compré y se me rompió a la semana.', 1, '2016-11-21 23:46:39'),
+(16, 5, 4, 'Esta rinde muy bien!', 4, '2016-11-21 23:48:22'),
+(17, 3, 1, 'Muy veloz!', 4, '2016-11-21 23:50:35'),
+(18, 8, 2, 'Estaría bueno poner una foto', 3, '2016-11-21 23:51:37'),
+(19, 1, 5, 'Si, la verdad que esta mother no rinde mucho', 3, '2016-11-21 23:52:57'),
+(20, 2, 6, 'De 10!', 5, '2016-11-21 23:53:11');
 
 -- --------------------------------------------------------
 
@@ -229,52 +232,97 @@ CREATE TABLE `permiso` (
 --
 
 INSERT INTO `permiso` (`id_permiso`, `fk_id_accion`, `fk_id_rol`) VALUES
-(14, 3, 4),
-(15, 4, 4),
-(16, 5, 4),
-(17, 6, 4),
-(18, 8, 4),
-(19, 9, 4),
-(20, 10, 4),
-(21, 13, 4),
-(22, 14, 4),
-(23, 15, 4),
-(24, 3, 2),
-(35, 16, 4),
-(36, 3, 2),
-(37, 3, 2),
-(67, 3, 3),
-(68, 4, 3),
-(69, 5, 3),
-(70, 6, 3),
-(71, 8, 3),
-(72, 9, 3),
-(73, 10, 3),
-(74, 13, 3),
-(75, 14, 3),
-(76, 15, 3),
-(77, 16, 3),
-(78, 3, 2),
-(79, 4, 2),
-(80, 5, 2),
-(81, 6, 2),
-(83, 3, 2),
-(84, 4, 2),
-(85, 5, 2),
-(86, 6, 2),
-(87, 9, 2),
-(88, 10, 2),
-(89, 3, 2),
-(90, 4, 2),
-(91, 5, 2),
-(92, 6, 2),
-(93, 9, 2),
-(94, 10, 2),
-(95, 17, 2),
-(96, 18, 2),
-(97, 20, 2),
-(98, 21, 2),
-(99, 22, 2);
+(1, 3, 4),
+(2, 4, 4),
+(3, 5, 4),
+(4, 6, 4),
+(5, 8, 4),
+(6, 9, 4),
+(7, 10, 4),
+(8, 13, 4),
+(9, 14, 4),
+(10, 15, 4),
+(11, 16, 4),
+(12, 17, 4),
+(13, 18, 4),
+(14, 19, 4),
+(15, 20, 4),
+(16, 21, 4),
+(17, 22, 4),
+(18, 23, 4),
+(19, 24, 4),
+(20, 25, 4),
+(21, 3, 3),
+(22, 4, 3),
+(23, 5, 3),
+(24, 6, 3),
+(25, 8, 3),
+(26, 9, 3),
+(27, 10, 3),
+(28, 13, 3),
+(29, 14, 3),
+(30, 15, 3),
+(31, 16, 3),
+(32, 17, 3),
+(33, 18, 3),
+(34, 19, 3),
+(35, 20, 3),
+(36, 21, 3),
+(37, 22, 3),
+(38, 24, 3),
+(39, 25, 3),
+(40, 3, 2),
+(41, 4, 2),
+(42, 5, 2),
+(43, 6, 2),
+(44, 9, 2),
+(45, 10, 2),
+(46, 17, 2),
+(47, 18, 2),
+(48, 20, 2),
+(49, 21, 2),
+(50, 22, 2),
+(51, 25, 2),
+(53, 3, 4),
+(54, 4, 4),
+(55, 5, 4),
+(56, 6, 4),
+(57, 8, 4),
+(58, 9, 4),
+(59, 10, 4),
+(60, 13, 4),
+(61, 14, 4),
+(62, 15, 4),
+(63, 16, 4),
+(64, 17, 4),
+(65, 18, 4),
+(66, 19, 4),
+(67, 20, 4),
+(68, 21, 4),
+(69, 22, 4),
+(70, 23, 4),
+(71, 24, 4),
+(72, 25, 4),
+(73, 3, 4),
+(74, 4, 4),
+(75, 5, 4),
+(76, 6, 4),
+(77, 8, 4),
+(78, 9, 4),
+(79, 10, 4),
+(80, 13, 4),
+(81, 14, 4),
+(82, 15, 4),
+(83, 16, 4),
+(84, 17, 4),
+(85, 18, 4),
+(86, 19, 4),
+(87, 20, 4),
+(88, 21, 4),
+(89, 22, 4),
+(90, 23, 4),
+(91, 24, 4),
+(92, 25, 4);
 
 -- --------------------------------------------------------
 
@@ -308,22 +356,22 @@ CREATE TABLE `usuario` (
   `nombre` varchar(25) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `fk_id_rol` int(11) NOT NULL,
-  `avatar` varchar(50) NOT NULL
+  `avatar` varchar(50) NOT NULL DEFAULT 'images/avatar/default.png',
+  `fk_id_rol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombre`, `email`, `password`, `fk_id_rol`, `avatar`) VALUES
-(9, 'axelbau24', 'adcasddeb@gmail.com', '$2y$10$zOWuWGx./3fkpunQcOUMpuqf4yTSCIZpDMu3PD7xXutlDK.9b/3dW', 1, 'c:/alsdo.jpg'),
-(10, 'santii35', 'santii_35@gmail.com', '$2y$10$OgZ98guEhTv1yJpIZTTGG.A/q0bn3hx6S/leKM5EkgXAhL0A1MlCq', 3, ''),
-(11, '93_sherman', 'sher_93@gmail.com', '$2y$10$nnLhK7Z7V7F8tT7qLMDnFe2LE3eCbmYVKz9Famr2bza.m2.zcHNwq', 3, ''),
-(12, 'usuario53', 'user_53@gmail.com', '$2y$10$TDkM7Ch8FcIj2Ppk40TkWe.ARp4T.SICpPksKx3DQerzJF8i87XZu', 3, ''),
-(13, 'ezefz', 'ezefazio@gmail.com', '$2y$10$S3PBHbdK9Ml2OLq.Wl3VzeVTdJlZwsXo4GiiH3sMblnMw.lrQXNdy', 1, ''),
-(14, 'XpedritoX', 'x_xp3drito@gmail.com', '$2y$10$kGdz2XhtFSKCZZzzPhD4JelvtMuRnOsIjQ19mbUMGM3I.5fFuOV8.', 2, ''),
-(15, 'Maestro_L', 'masterl32@hotmail.com', '$2y$10$HPGBhaTanLOwkI.eyZ9TQ.nBq9AHZ9CcY/WbXbzdgw1Zp3z7tzzHW', 3, '');
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `email`, `password`, `avatar`, `fk_id_rol`) VALUES
+(1, 'axelbau24', 'axelbau24@gmail.com', '$2y$10$yUdJQJ/cAGEnkzhKL/hpdOPHhX3Ku7UWqBeQOUcbsTnQKQcx.Ch6m', 'images/avatar/5834fb7747075_user_1.png', 1),
+(2, 'eze', 'ezefazio@gmail.com', '$2y$10$aYD9Yhg/r3B7svmTZpJ7X.C7RfTWewaSwyHv3ZvHAlFAI5fn7KTDO', 'images/avatar/default.png', 1),
+(3, 'santii35', 'santii_35@gmail.com', '$2y$10$o1cfUKVxNWgfSKB17ul39.t8CxtvBe1.nqobZzsPY6yeOoh3aG.bS', 'images/avatar/default.png', 3),
+(4, '93_sherman', 'sher_93@gmail.com', '$2y$10$WF20Z76Pu3fbN3AMdqCDMeurvAfUWRvJR264SqQlEKkHxv0mF6HSG', 'images/avatar/default.png', 2),
+(5, 'usuario53', 'user_53@gmail.com', '$2y$10$kR7EAKupD7irI6VIEbezb.8cKWNRjOdnDGUjgWwp6Ydec559X2LXe', 'images/avatar/default.png', 3),
+(6, 'XpedritoX', 'x_xp3drito@gmail.com', '$2y$10$R9OLyC4NYpNlcpN9jIM53uIbEfkUxK6PVQ2Ys5AzlhJ3kYRhjWLhe', 'images/avatar/default.png', 3),
+(7, 'Maestro_L', 'masterl32@hotmail.com', '$2y$10$G5.DgQ7EBpxgLfEeP.VrLubuZc7aOlF0mKOugRhZcNvoscFOevm5W', 'images/avatar/default.png', 3);
 
 --
 -- Índices para tablas volcadas
@@ -398,7 +446,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `accion`
 --
 ALTER TABLE `accion`
-  MODIFY `id_accion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_accion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
@@ -408,7 +456,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT de la tabla `componente`
 --
@@ -418,7 +466,7 @@ ALTER TABLE `componente`
 -- AUTO_INCREMENT de la tabla `consulta`
 --
 ALTER TABLE `consulta`
-  MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `imagen`
 --
@@ -428,17 +476,17 @@ ALTER TABLE `imagen`
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Restricciones para tablas volcadas
 --

@@ -64,7 +64,7 @@
 
         <div class="row">
           <div class="col-md-12">
-          {if count($datosUsuario) > 0}
+          {if count($datosUsuario) > 0 && !in_array("agregar_comentario", $permisos)}
             <div class="panel panel-filled">
               <div class="panel-heading">
                 <h4>Agregar comentario..</h4>

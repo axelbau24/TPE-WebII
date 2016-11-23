@@ -1,7 +1,6 @@
 <?php
 define('DEFAULT_ROL', '3');
 define('USUARIOS_A_MOSTRAR', '4');
-define('ADMIN_EDIT_ROL', '1');
 
 include_once (dirname(__DIR__). "/view/ViewUsuarios.php");
 include_once(dirname(__DIR__). "/controller/Controller.php");
@@ -12,15 +11,20 @@ class UsuariosController extends Controller{
     parent::__construct();
     $this->model = $this->modelUsuario;
     $this->view = new ViewUsuarios();
+    session_start();
+    $this->checkTiempoSesion();
   }
-
   // Lo primero que se llama antes de ejecutar cualquier método, comprueba que el usuario este
   // autorizado a ejecutar dicho método
   function autorizado($action){
-    session_start();
     $permisos = $this->asignarPermisos();
     if(in_array($action, $permisos)) return false;
     return true;
+  }
+
+  // Si el usuario al ingresar no marco "Mantener sesion iniciada", su sesión se cerrará luego de 5 minutos (300 segundos)
+  function checkTiempoSesion(){
+    if(isset($_SESSION["tiempo"]) && time() - $_SESSION["tiempo"] > 300) $this->logout();
   }
 
   function login(){
@@ -30,6 +34,7 @@ class UsuariosController extends Controller{
       $usuarioRegistrado = $this->model->getUsuario($user);
       $passwordRegistrada = $usuarioRegistrado["password"];
       if (password_verify($password, $passwordRegistrada)){
+        if(!isset($_POST["mantenerSesion"])) $_SESSION["tiempo"] = time();
         $_SESSION["id"] = $usuarioRegistrado["id_usuario"];
         $_SESSION["user"] = $usuarioRegistrado["nombre"];
         $_SESSION["email"] = $usuarioRegistrado["email"];
@@ -38,45 +43,36 @@ class UsuariosController extends Controller{
 
     }
     $this->view->mostrarLogin();
-
   }
   // Si el usuario mando datos válidos, creo un arreglo con los datos del usuario
   // y lo agrego a la base de datos solo si es unico (que no exista otro con el mismo nombre)
   function registrar(){
-    if($this->datosValidos()){
-      $newUsuario = $this->crearUsuario();
-      if(!$this->usuarioExistente($newUsuario)){
-        $this->model->crearUsuario($newUsuario);
-        $this->login();
+    if($this->datosValidos() && isset($_POST["r_password"]) && !empty($_POST["r_password"])){
+      if($_POST['password'] === $_POST["r_password"]){
+        $newUsuario = $this->crearUsuario();
+        if(count($newUsuario) > 0){
+            $this->model->crearUsuario($newUsuario);
+            $this->login();
+        }
+        else $this->view->agregarError('El nombre de usuario elegido ya existe');
       }
     }
     $this->view->mostrarRegistro();
   }
 
-  // Comprueba que el usuario contenga datos (Si no tiene es porque ya existe)
-  function usuarioExistente($newUsuario){
-    if(count($newUsuario) > 0) return false;
-    else {
-      $this->view->agregarError('El nombre de usuario elegido ya existe');
-      return true;
-    }
-  }
-
   function datosValidos(){
-    return (isset($_POST['usuario'])) && (isset($_POST['password'])) && (isset($_POST['email'])) && (!empty($_POST['usuario'])) && (!empty($_POST['password']));
+    return (isset($_POST['usuario'])) && (isset($_POST['password'])) && (isset($_POST['email'])) && (!empty($_POST['usuario'])) && (!empty($_POST['email'])) && (!empty($_POST['password']));
   }
 
   // Metodo utilizado por "registrar()" y "agregar_usuario()" (Perteneciente a la seccion admin usuarios)
   function crearUsuario(){
     $newUsuario = [];
     $usuarioCheck = $this->model->getUsuario($_POST['usuario']);
-    if(count($usuarioCheck) === 1 && isset($_POST["r_password"]) && !empty($_POST["r_password"])){
-      if($_POST['password'] === $_POST["r_password"]){
+    if(count($usuarioCheck) === 1){
         $newUsuario["usuario"] = $_POST['usuario'];
         $newUsuario["email"] = $_POST['email'];
         $newUsuario["password"] = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $newUsuario["rol"] = DEFAULT_ROL;
-      }
     }
     return $newUsuario;
   }
@@ -84,36 +80,57 @@ class UsuariosController extends Controller{
   function agregar_usuario(){
     if($this->datosValidos() && isset($_POST["rol"]) && !empty($_POST["rol"])){
       $newUsuario = $this->crearUsuario();
-      if(!$this->usuarioExistente($newUsuario)){
+      if(count($newUsuario) > 0){
         $newUsuario["rol"] = $_POST["rol"];
         $this->model->crearUsuario($newUsuario);
       } else die();
     }
     $this->admin_usuarios();
   }
-  function configurar_perfil(){
-    if(isset($_SESSION['id'])){
-    $usuario = $this->model->getUsuarioById($_SESSION['id']);
 
-    if((isset($_POST['password'])) && !empty(isset($_POST['new_password'])) && !empty(isset($_POST['c_new_password']))){
-      $password = $_POST['password'];
-      $passwordRegistrada = $usuario['password'];
-      if(password_verify($password, $passwordRegistrada) && ($_POST['new_password'] == ($_POST['c_new_password']))){
-        $new_password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
-        $this->model->editarDatos($new_password,$usuario['email'],$usuario['avatar'],$usuario['id_usuario']);
+  function getAvatarPath($img_avatar, $usuario){
+    $avatar = [];
+      $extension = $img_avatar["type"];
+      if($extension == "image/jpeg" || $extension == "image/png"){
+        $avatar["ext"] = "." . explode("/", $extension)[1];
+        $avatar["tmp_name"] = $img_avatar["tmp_name"];
+      }
+      $ruta = $usuario["avatar"];
+      if(!empty($avatar)){
+        $ruta = "images/avatar/" . uniqid() . "_user_" . $usuario["id_usuario"]  . $avatar["ext"];
+        move_uploaded_file($avatar["tmp_name"], $ruta);
+        unlink($usuario["avatar"]);
+      }
+    return $ruta;
+  }
+
+
+  function configurar_perfil(){
+    if(isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION["email"])){
+      $usuario = $this->model->getUsuarioById($_SESSION['id']);
+
+      if(isset($_POST['email']) && !empty($_POST['email'])){
+        $usuario["email"] = $_POST['email'];
+        $this->model->editarDatos($usuario);
       }
 
-    //if(isset($_FILES['avatar'])){
-      //$path_avatar = $_FILES['avatar'];
-      //$this->model->editarDatos($usuario['password'],$usuario['email'],$path_avatar,$usuario['id_usuario']);
-    //}
-
-    if(isset($_POST['email'])){}
-      $email = $_POST['email'];
-      $this->model->editarDatos($usuario['password'],$email,$usuario['avatar'],$usuario['id_usuario']);
+      if(isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['new_password'])
+      && !empty($_POST['new_password']) && isset($_POST['c_new_password']) && !empty($_POST['c_new_password'])){
+        $password = $_POST['password'];
+        $passwordRegistrada = $usuario['password'];
+        if(password_verify($password, $passwordRegistrada) && $_POST['new_password'] == $_POST['c_new_password']){
+          $usuario["password"] = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+          $this->model->editarDatos($usuario);
+        }
+      }
+      if(isset($_FILES['avatar']) && !empty($_FILES['avatar'])){
+        $usuario["avatar"] = $this->getAvatarPath($_FILES['avatar'], $usuario);
+        $this->model->editarDatos($usuario);
+      }
+      // Actualizo todos los datos del usuario
+      $usuario = $this->model->getUsuarioById($_SESSION['id']);
+      $this->view->configurarPerfil($usuario);
     }
-  }
-        $this->view->configurarPerfil();
   }
   // Se busca un usuario en especifico para hacer ediciones, etc
   function buscar_usuario(){
@@ -129,7 +146,7 @@ class UsuariosController extends Controller{
   }
   function logout(){
     session_destroy();
-    header("Location: index.php"); die();
+    header("Location: index.php");die();
   }
   function eliminar_usuario(){
     if(isset($_GET['id']) && !empty($_GET["id"])){
@@ -142,18 +159,10 @@ class UsuariosController extends Controller{
     $this->setData();
     $this->view->mostrarAdminUsuarios();
   }
-  function update_permisos(){
-    if(isset($_GET["id_rol"]) && !empty($_GET["id_rol"])){
-      $permisos = $this->model->getPermisos($_GET["id_rol"]);
-      $this->updatePermisos($_GET["id_rol"]);
-    }
-    $this->setData();
-    $this->view->mostrarAdminUsuarios();
-  }
+
   // Método que se encarga de actualizar todos los datos necesarios del admin de usuarios
   // para luego mostrarlos en la vista.
   function setData(){
-    $actions = $this->model->getActions();
     $users = $this->model->getUsuarios();
     $roles = $this->model->getRoles();
 
@@ -161,54 +170,24 @@ class UsuariosController extends Controller{
       $usuarios = array_slice($users, 0, $_GET["cantUsuarios"]);
     } else $usuarios = array_slice($users, 0, USUARIOS_A_MOSTRAR);
 
-    for ($i=0; $i < count($roles); $i++) {
-      $roles[$i]["cantUsuarios"] = $this->model->getCantUsuariosEnRol($roles[$i]["id_rol"]);
-    }
-
-    $rolFiltrado = ADMIN_EDIT_ROL;
-    if(isset($_GET["filtrar_rol"]) && !empty($_GET["filtrar_rol"])) $rolFiltrado = $_GET["filtrar_rol"];
-
-    $permisos = $this->model->getPermisos($rolFiltrado);
-    $permisos["rol"] = $this->model->getRol($rolFiltrado);
-    $this->view->actualizarDatos($usuarios, $roles, $actions, $permisos, count($users));
+    $this->view->actualizarDatos($usuarios, $roles, count($users));
   }
   // Edita los datos del usuario
   function editar_usuario(){
     if( (isset($_GET['id'])) && (!empty($_GET['id'])) && (isset($_POST['username']))
-      && (!empty($_POST['username'])) && (isset($_POST['email'])) && (!empty($_POST['email']))
-      && (!empty($_POST['rol'])) && (isset($_POST['rol']))){
+    && (!empty($_POST['username'])) && (isset($_POST['email'])) && (!empty($_POST['email']))
+    && (!empty($_POST['rol'])) && (isset($_POST['rol']))){
 
-      $usuario["username"] = $_POST['username'];
-      $usuario["email"] = $_POST['email'];
-      $usuario["id_rol"] = $_POST['rol'];
-      $usuario['id_usuario'] = $_GET['id'];
-      $this->model->editarUsuario($usuario);
-    }
-    $this->admin_usuarios();
-  }
-  // Método utilizado para actualizar los permisos de un rol
-  function updatePermisos($rol){
-    $actions = $this->model->getActions();
-    foreach ($actions as $action) {
-      if(!isset($_POST["id_" . $action["id_accion"]])){
-        $this->model->addPermiso($rol, $action["id_accion"]);
-      }
-      elseif (isset($_POST["id_" . $action["id_accion"]]) && !empty($_POST["id_" . $action["id_accion"]])) $this->model->eliminarPermiso($rol, $action["id_accion"]);
-    }
-  }
+        $usuario["username"] = $_POST['username'];
+        $usuario["email"] = $_POST['email'];
+        $usuario["id_rol"] = $_POST['rol'];
+        $usuario['id_usuario'] = $_GET['id'];
+        $this->model->editarUsuario($usuario);
 
-  function agregar_rol(){
-    if(isset($_POST['nombre']) && !empty($_POST['nombre'])){
-      $rol = $this->model->agregarRol($_POST['nombre']);
-      $this->updatePermisos($rol["id_rol"]);
     }
     $this->admin_usuarios();
   }
 
-  function eliminar_rol(){
-    if(isset($_GET["id_rol"]) && !empty($_GET["id_rol"])) $this->model->eliminarRol($_GET["id_rol"]);
-    $this->admin_usuarios();
-  }
 }
 
 ?>

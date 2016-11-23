@@ -9,10 +9,10 @@ class CategoriasController extends Controller{
     parent::__construct();
     $this->modelo = new ModelCategorias();
     $this->view = new ViewCategorias();
+    parent::asignarPermisos();
   }
 
   function admin_categorias(){
-    $this->asignarPermisos();
     $this->view->mostrar($this->modelo->getCategorias());
   }
 

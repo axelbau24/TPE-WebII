@@ -14,6 +14,7 @@ class ComponentesController extends Controller{
     $this->view = new ViewComponentes();
     $this->model = new ModelComponentes();
     $this->modelCategorias = new ModelCategorias();
+    parent::asignarPermisos();
   }
 
   function home(){
@@ -21,20 +22,17 @@ class ComponentesController extends Controller{
     $this->view->mostrarComponentes();
   }
   function iniciar() {
-    session_start();
-    $this->asignarPermisos();
+
     $this->view->mostrarHome();
   }
 
   function admin_componentes(){
-      $this->updateData();
-      $this->asignarPermisos();
-      $this->view->mostrarAdmin();
+    $this->updateData();
+    $this->view->mostrarAdmin();
   }
 
   function mostrar_componente() {
     if(isset($_GET["id"]) && !empty($_GET["id"])){
-      $this->asignarPermisos();
       $id_componente = $_GET["id"];
       $categoria = $this->model->getCategoriaComponente($id_componente);
       $componente = $this->model->getComponente($id_componente);
@@ -54,16 +52,15 @@ class ComponentesController extends Controller{
 
   function agregar_componente(){
     $this->model->agregarComponente($this->crearComponente());
-    $this->admin_componentes();
   }
   function crearComponente(){
     $newComponente = [];
-    if(isset($_POST['nombre']) && isset($_POST['categoria']) && !empty($_POST['nombre']) && !empty($_POST['categoria'])){
-    $newComponente["nombre"] = $_POST['nombre'];
-    $newComponente["destacado"] = isset($_POST['recomendado']);
-    $newComponente["id_categoria"] = $_POST['categoria'];
-    $newComponente["imagenes"] = $this->verificarImagenes($_FILES["imagenes"]);
-  }
+    if(isset($_POST['nombre']) && isset($_POST['categoria']) && !empty($_POST['nombre']) && !empty($_POST['categoria']) && isset($_FILES["imagenes"])){
+      $newComponente["nombre"] = $_POST['nombre'];
+      $newComponente["destacado"] = isset($_POST['recomendado']);
+      $newComponente["id_categoria"] = $_POST['categoria'];
+      $newComponente["imagenes"] = $this->verificarImagenes($_FILES["imagenes"]);
+    }
     return $newComponente;
 
   }
@@ -108,6 +105,7 @@ class ComponentesController extends Controller{
   }
 
   function filtrar_categoria() {
+
     if (isset($_GET["id"]) && !empty($_GET["id"])) {
       $categoria = $this->modelCategorias->getCategoria($_GET["id"]);
       $componentes = $this->model->getComponentesByCategoria($_GET["id"]);

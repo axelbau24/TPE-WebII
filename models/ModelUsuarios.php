@@ -17,10 +17,6 @@ class ModelUsuarios extends Model{
     return $permisos->fetchAll(PDO::FETCH_COLUMN);
   }
 
-  function configurarPerfil(){
-  //  $usuario = $this->db->("SELECT usuario FROM usuario WHERE usuario.fk_id_rol = rol.id_rol ORDER BY usuario.fk_id_rol ASC");
-  }
-
   function getPermisosVisitante(){
     $permisos = $this->db->prepare(
     "SELECT
@@ -51,7 +47,6 @@ class ModelUsuarios extends Model{
     return $usuario->fetch(PDO::FETCH_ASSOC);
   }
   function crearUsuario($user){
-
     $usuario = $this->db->prepare("insert into usuario(nombre,email,password,fk_id_rol) values(?,?,?,?) ");
     $usuario->execute(array($user["usuario"],$user["email"],$user["password"],$user["rol"]));
   }
@@ -60,60 +55,20 @@ class ModelUsuarios extends Model{
     $roles->execute();
     return $roles->fetchAll(PDO::FETCH_ASSOC);
   }
-  function getRol($id){
-    $roles = $this->db->prepare("SELECT * FROM rol WHERE id_rol = ?");
-    $roles->execute(array($id));
-    return $roles->fetch(PDO::FETCH_ASSOC);
-  }
-  function getCantUsuariosEnRol($id){
-    $cantidad = $this->db->prepare("SELECT COUNT(*) FROM usuario WHERE usuario.fk_id_rol = ?");
-    $cantidad->execute(array($id));
-    return $cantidad->fetch(PDO::FETCH_NUM)[0];
-  }
-
 
   function eliminarUsuario($id_usuario){
     $sentencia = $this->db->prepare("DELETE FROM usuario WHERE id_usuario=?");
     $sentencia->execute(array($id_usuario));
   }
-
   function editarUsuario($usuario){
     $sentencia = $this->db->prepare("UPDATE usuario set nombre=? , email=?, fk_id_rol=? where id_usuario=?");
     $sentencia->execute(array($usuario["username"], $usuario["email"], $usuario["id_rol"], $usuario["id_usuario"]));
   }
-  function editarDatos($password,$email,$avatar,$id_usuario){
+  function editarDatos($usuario){
     $sentencia = $this->db->prepare("UPDATE usuario set password=? , email=?, avatar=? where id_usuario=?");
-    $sentencia->execute(array($password , $email, $avatar, $id_usuario));
-  }
-  function getActions(){
-    $permisos = $this->db->prepare("SELECT * FROM accion");
-    $permisos->execute();
-    return $permisos->fetchAll(PDO::FETCH_ASSOC);
-  }
-  function getPermisos($id_rol){
-    $permisos = $this->db->prepare("SELECT * FROM permiso WHERE fk_id_rol = ?");
-    $permisos->execute(array($id_rol));
-    return $permisos->fetchAll(PDO::FETCH_COLUMN, 1);
-  }
-  function addPermiso($idRol, $action){
-    $permisos = $this->db->prepare("INSERT INTO permiso(fk_id_accion,fk_id_rol) VALUES(?,?)");
-    $permisos->execute(array($action, $idRol));
-  }
-  function eliminarPermiso($idRol, $action){
-    $permiso = $this->db->prepare("DELETE FROM permiso WHERE fk_id_accion=? AND fk_id_rol = ?");
-    $permiso->execute(array($action, $idRol));
+    $sentencia->execute(array($usuario["password"] , $usuario["email"], $usuario["avatar"], $usuario["id_usuario"]));
   }
 
-  function eliminarRol($id){
-    $sentencia = $this->db->prepare("DELETE FROM rol WHERE id_rol=?");
-    $sentencia->execute(array($id));
-  }
-
-  function agregarRol($nombre){
-    $rol = $this->db->prepare("INSERT INTO rol(nombre) VALUES(?)");
-    $rol->execute(array($nombre));
-    return $this->getRol($this->db->lastInsertId());
-  }
 }
 
  ?>

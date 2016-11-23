@@ -52,7 +52,8 @@
           {function name="mostrarTitulo"}
              {if $showTitulo == 1} <div class="hidden">{$showTitulo++}</div> {$titulo}  {/if}
           {/function}
-
+          {if !in_array("admin_roles", $permisos)}
+          {mostrarTitulo} <li class="nav-roles"><a href="#">Roles <span class="fade">----</span></a></li> {/if}
           {if !in_array("admin_usuarios", $permisos)}
           {mostrarTitulo} <li class="nav-usuarios"><a href="#">Usuarios <span class="fade">-</span></a></li> {/if}
           {if !in_array("admin_componentes", $permisos)}
@@ -62,9 +63,9 @@
           {if !in_array("mostrar_consultas", $permisos)}
           {mostrarTitulo} <li class="nav-consultas"><a href="#">Ver consultas</a></li> {/if}
 
-
+          {if !in_array("agregar_consulta", $permisos)}
           <li class="nav-category"><strong>Contacto</strong></li>
-          <li class="nav-contacto"><a href="#">Contactanos</a></li>
+          <li class="nav-contacto"><a href="#">Contactanos</a></li> {/if}
           <li class="nav-info"><div class="hidden carga"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Cargando datos...</div><div class="m-t-xs">Web II - 2016 <br><strong>Diseñado por:</strong> Axel Bautista, Ezequiel Fazio</div></li>
         </ul>
       </nav>

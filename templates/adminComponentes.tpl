@@ -107,7 +107,7 @@
               <li class="list-group-item">{if $componente["destacado"]}<div class="glyphicon glyphicon-ok-sign destacado"></div> {/if}{$componente["nombre"]}
                 {if !in_array("eliminar_componente", $permisos)}<a class="eliminarComponente glyphicon glyphicon-trash pull-right color-white" data-id={$componente["id_componente"]}></a> {/if}<!--Boton eliminar -->
                 {if !in_array("editar_componente", $permisos)}<a class="glyphicon glyphicon-duplicate pull-right color-white space-right" data-toggle="modal" data-target=".editComp-{$componente["id_componente"]}"></a>{/if} <!--Boton editar -->
-                <button type="button" class="mostrarComponente btn btn-default btn-xs pull-right space-right" data-id={$componente["id_componente"]}>Ver mas</button>
+                {if !in_array("mostrar_componente", $permisos)}<button type="button" class="mostrarComponente btn btn-default btn-xs pull-right space-right" data-id={$componente["id_componente"]}>Ver mas</button>{/if}
               </li>
               {/if}
               {/foreach}
