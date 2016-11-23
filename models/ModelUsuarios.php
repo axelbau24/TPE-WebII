@@ -32,7 +32,7 @@ class ModelUsuarios extends Model{
   }
 
   function getUsuarios(){
-    $usuarios = $this->db->prepare("SELECT usuario.*, rol.nombre AS rol FROM rol, usuario WHERE usuario.fk_id_rol = rol.id_rol ORDER BY usuario.fk_id_rol ASC");
+    $usuarios = $this->db->prepare("SELECT usuario.*, rol.nombre AS rol FROM rol, usuario WHERE usuario.fk_id_rol = rol.id_rol");
     $usuarios->execute();
     return $usuarios->fetchAll(PDO::FETCH_ASSOC);
   }

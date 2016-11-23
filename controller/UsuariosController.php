@@ -24,7 +24,10 @@ class UsuariosController extends Controller{
 
   // Si el usuario al ingresar no marco "Mantener sesion iniciada", su sesión se cerrará luego de 5 minutos (300 segundos)
   function checkTiempoSesion(){
-    if(isset($_SESSION["tiempo"]) && time() - $_SESSION["tiempo"] > 300) $this->logout();
+    if(isset($_SESSION["tiempo"])) {
+      if(time() - $_SESSION["tiempo"] > 300) $this->logout();
+      else $_SESSION["tiempo"] = time();
+    }
   }
 
   function login(){
@@ -124,6 +127,8 @@ class UsuariosController extends Controller{
           $usuario["password"] = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
           $this->model->editarDatos($usuario);
         }
+        else $this->view->agregarError('La contraseña ingresada o la confirmación son incorrectas.');
+
       }
       if(isset($_FILES['avatar']) && !empty($_FILES['avatar'])){
         $usuario["avatar"] = $this->getAvatarPath($_FILES['avatar'], $usuario);

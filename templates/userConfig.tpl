@@ -38,7 +38,10 @@
                     <input type="password"  class="form-control" name="new_password" placeholder="Nueva contraseña" ><br>
                     <input type="password"  class="form-control" name="c_new_password" placeholder="Confirmar nueva contraseña" >
                     </div>
-
+                    {if isset($error)}
+                    <div class="panel panel-filled panel-c-danger">
+                        <div class="panel-heading">{$error}</div>
+                    </div> {/if}
                     <div class="form-group"><label>Cambiar avatar: </label><input type="file" name="avatar" value=""></div>
                   </div>
                   <div class="modal-footer">
