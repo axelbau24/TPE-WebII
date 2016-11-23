@@ -10,7 +10,7 @@
           <a class="panel-close borrarComentario" data-id="{{id_comentario}}"><i class="glyphicon glyphicon-remove error-icon"></i></a>
         </div>
 
-        <img alt="usuario_markos35" class="avatar" height="20" src="https://avatars0.githubusercontent.com/u/6765956?v=3&s=460" width="20">
+        <img alt="usuario_{{usuario}}" class="avatar" height="20" src="{{avatar}}" width="20">
         <span><i>{{usuario}}</i> comentó:</span>
       </div>
       <div class="panel-body">

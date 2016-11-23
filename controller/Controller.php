@@ -13,7 +13,7 @@ abstract class Controller{
   function asignarPermisos(){
     $permisos = [];
     $usuario = [];
-    if(isset($_SESSION["id"]) && isset($_SESSION["user"])) {
+    if(isset($_SESSION["id"]) && isset($_SESSION["user"]) && isset($_SESSION["email"])) {
       $permisos = $this->modelUsuario->getPermisosUsuario($_SESSION["id"]);
       $usuario = $this->modelUsuario->getUsuarioById($_SESSION["id"]);
     }

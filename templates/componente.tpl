@@ -1,3 +1,4 @@
+  {if in_array("eliminar_comentario", $permisos)} <link rel="stylesheet" href="css/special.css"> {/if}
 <section class="content">
   <div class="container-fluid">
     <div class="row">
@@ -85,7 +86,7 @@
                   </div>
                   <div class="form-group">
                     <label>Comentario:</label>
-                    <textarea class="form-control" rows="3" name="comentario" placeholder="Escriba un comentario..."></textarea>
+                    <textarea class="form-control" rows="3" name="comentario" required placeholder="Escriba un comentario..."></textarea>
                   </div>
                   <button type="submit" class="btn btn-default">Comentar</button>
                 </form>

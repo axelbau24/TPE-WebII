@@ -13,7 +13,7 @@ class ContactoController extends Controller{
   }
 
   function agregar_consulta(){
-    if(isset($_POST['name']) && isset($_POST['mail']) && isset($_POST['consulta'])){
+    if(isset($_POST['name']) && !empty($_POST['name']) && isset($_POST['mail']) && !empty($_POST['mail']) && isset($_POST['consulta']) && !empty($_POST['consulta'])){
       $consulta["nombre"] = $_POST['name'];
       $consulta["mail"] = $_POST['mail'];
       $consulta["consulta"] = $_POST['consulta'];

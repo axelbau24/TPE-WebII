@@ -64,7 +64,7 @@
             <div class="panel-heading">
               <h3>{$permiso["rol"]["nombre"]}
               {foreach from=$roles item=rol}
-                {if $permiso["rol"]["nombre"] == $rol["nombre"] && $rol["cantUsuarios"] == 0} {if !in_array("eliminar_rol", $permisos)}<div data-id="{$permiso["rol"]["id_rol"]}" class="pull-right glyphicon glyphicon-remove error-icon eliminarRol"></div> {/if}{/if}
+                {if $permiso["rol"]["nombre"] == $rol["nombre"] && $rol["cantUsuarios"] == 0 && $rol["id_rol"] != 4} {if !in_array("eliminar_rol", $permisos)}<div data-id="{$permiso["rol"]["id_rol"]}" class="pull-right glyphicon glyphicon-remove error-icon eliminarRol"></div> {/if}{/if}
               {/foreach}
               </h3>
             </div>

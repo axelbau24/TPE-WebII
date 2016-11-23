@@ -24,7 +24,7 @@
         <div class="modal-header text-center">
           <h4 class="modal-title">Nuevo usuario</h4>
         </div>
-        <form class="addUsuario" action="index.php?action=x" method="post">
+        <form class="addUsuario"  method="post">
           <div class="modal-body">
             <div class="form-group"><label for="componente">Nombre </label> <input type="name" class="form-control" required name="usuario" placeholder="ej. Santii35"></div>
             <div class="form-group"><label for="componente">Email </label> <input type="email" class="form-control" required name="email" placeholder="santi_i35@gmail.com"></div>
@@ -32,7 +32,7 @@
             <div class="form-group"><label for="componente">Rol</label>
               <select name="rol" class="form-control">
                 {foreach from=$roles item=rol}
-              <option value="{$rol["id_rol"]}">{$rol["nombre"]}</option>
+                <option value="{$rol["id_rol"]}">{$rol["nombre"]}</option>
                 {/foreach}
 
               </select>
@@ -79,46 +79,68 @@
 
               <div class="table-responsive">
 
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Usuario</th>
-                        <th>Email</th>
-                        <th>Rol</th>
-                        {if !in_array("eliminar_usuario", $permisos)}<th>Eliminar</th>{/if}
-                      </tr>
-                    </thead>
-                    <tbody>
-                        {foreach from=$usuarios item=usuario}
-                      <tr class="usuario">
-                        <td>
-                          <span>{$usuario["nombre"]}</span>
-                            {if !in_array("editar_usuario", $permisos)}<input type='text' name='username' value='{$usuario["nombre"]}' class='input-e form-control ' readonly='readonly'/>{/if}
-                        </td>
-                        <td>
-                          <span>{$usuario["email"]}</span>
-                          {if !in_array("editar_usuario", $permisos)}<input type='text' name='email' value='{$usuario["email"]}' class='input-e form-control' readonly='readonly'/>{/if}
-                        </td>
-                        <td>
-                          <span>{$usuario["rol"]}</span>
-                            {if !in_array("editar_usuario", $permisos)}
-                            <select name="rol" class='editable form-control-n input-e' readonly='readonly'>
-                                {foreach from=$roles item=rol}
-                              <option value="{$rol["nombre"]}" data-id="{$rol["id_rol"]}" {if $rol["id_rol"] == $usuario["fk_id_rol"]} selected {/if}>{$rol["nombre"]}</option>
-                                {/foreach}
-                            </select>
-                            {/if}
-                        </td>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Usuario</th>
+                      <th>Email</th>
+                      <th>Rol</th>
+                      {if !in_array("eliminar_usuario", $permisos)}<th>Eliminar</th>{/if}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {foreach from=$usuarios item=usuario}
+                    <tr class="usuario">
+                      <td>
+                        <span>{$usuario["nombre"]}</span>
+                        {if !in_array("editar_usuario", $permisos)}<input type='text' name='username' value='{$usuario["nombre"]}' class='input-e form-control ' readonly='readonly'/>{/if}
+                      </td>
+                      <td>
+                        <span>{$usuario["email"]}</span>
+                        {if !in_array("editar_usuario", $permisos)}<input type='text' name='email' value='{$usuario["email"]}' class='input-e form-control' readonly='readonly'/>{/if}
+                      </td>
+                      <td>
+                        <span>{$usuario["rol"]}</span>
+                        {if !in_array("editar_usuario", $permisos)}
+                        <select name="rol" class='editable form-control-n input-e' readonly='readonly'>
+                          {foreach from=$roles item=rol}
+                          <option value="{$rol["nombre"]}" data-id="{$rol["id_rol"]}" {if $rol["id_rol"] == $usuario["fk_id_rol"]} selected {/if}>{$rol["nombre"]}</option>
+                          {/foreach}
+                        </select>
+                        {/if}
+                      </td>
 
-                        {if !in_array("eliminar_usuario", $permisos)}<td><div data-id="{$usuario["id_usuario"]}" class="glyphicon glyphicon-remove eliminarUsuario error-icon"></div></td>{/if}
-                        {if !in_array("editar_usuario", $permisos)}<td><button type="button" data-id="{$usuario["id_usuario"]}" class="guardarUsuario btn btn-default">Guardar</button></td>{/if}
 
-                      </tr>
-                      {/foreach}
+                      {if !in_array("eliminar_usuario", $permisos)}<td><div data-id="{$usuario["id_usuario"]}" class="glyphicon glyphicon-remove error-icon" data-toggle="modal" data-target=".confirmarEliminar-{$usuario["id_usuario"]}"></div>                        <div class="modal fade confirmarEliminar-{$usuario["id_usuario"]}" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header text-center">
+                                <h4 class="modal-title">Eliminar usuario <br><i>{$usuario["nombre"]}</i></h4>
+                              </div>
+                              <div class="modal-body">
+                                <div class="panel panel-filled panel-c-danger">
+                                  <div class="panel-heading">
+                                    ¿Seguro que quiere eliminar a este usuario?
+                                  </div>
+                                </div>
 
-                    </tbody>
-                  </table>
-                  <button type="button" class="mostrarMas btn btn-default btn-xs pull-right space-right">Mostrar mas</button>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button type="button" data-id="{$usuario["id_usuario"]}"  class="eliminarUsuario btn btn-accent">Confirmar</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div></td>{/if}
+                      {if !in_array("editar_usuario", $permisos)}<td><button type="button" data-id="{$usuario["id_usuario"]}" class="guardarUsuario btn btn-default">Guardar</button></td>{/if}
+
+
+                    </tr>
+                    {/foreach}
+
+                  </tbody>
+                </table>
+                {if $cantUsuarios > 4}<button type="button" class="mostrarMas btn btn-default btn-xs pull-right space-right">Mostrar mas</button>{/if}
 
               </div>
             </div>
@@ -127,4 +149,7 @@
       </div>
     </div>
   </div>
+
+
+
 </section>

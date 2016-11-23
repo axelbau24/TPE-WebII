@@ -12,7 +12,8 @@ function getComentarios(){
       comentario,
       puntaje,
       DATE_FORMAT(fecha,'%d-%m-%Y %H:%i') AS fecha,
-      usuario.nombre AS usuario
+      usuario.nombre AS usuario,
+      usuario.avatar
     FROM
       comentario,
       usuario
@@ -31,7 +32,8 @@ function getComentario($id_comentario){
     comentario,
     puntaje,
     DATE_FORMAT(fecha,'%d-%m-%Y %H:%i') AS fecha,
-    usuario.nombre AS usuario
+    usuario.nombre AS usuario,
+    usuario.avatar
   FROM
     comentario,
     usuario

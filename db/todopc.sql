@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2016 a las 03:14:29
+-- Tiempo de generación: 23-11-2016 a las 05:37:53
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -110,8 +110,13 @@ INSERT INTO `comentario` (`id_comentario`, `fk_id_componente`, `fk_id_usuario`, 
 (16, 5, 4, 'Esta rinde muy bien!', 4, '2016-11-21 23:48:22'),
 (17, 3, 1, 'Muy veloz!', 4, '2016-11-21 23:50:35'),
 (18, 8, 2, 'Estaría bueno poner una foto', 3, '2016-11-21 23:51:37'),
-(19, 1, 5, 'Si, la verdad que esta mother no rinde mucho', 3, '2016-11-21 23:52:57'),
-(20, 2, 6, 'De 10!', 5, '2016-11-21 23:53:11');
+(20, 2, 6, 'De 10!', 5, '2016-11-21 23:53:11'),
+(21, 1, 2, 'No es de las mejores pero hace su trabajo!', 3, '2016-11-23 04:15:58'),
+(22, 11, 2, 'Linda', 4, '2016-11-23 04:17:09'),
+(23, 9, 3, 'Muy buena para lo barata que es!', 5, '2016-11-23 04:19:37'),
+(25, 9, 1, 'La compre y no me arrepiento de nada', 5, '2016-11-23 04:25:13'),
+(27, 1, 6, 'Funciona muy bien, aunque a veces tiene problemas.', 4, '2016-11-23 04:27:40'),
+(30, 4, 1, 'El rendimiento no es bueno..', 2, '2016-11-23 04:31:50');
 
 -- --------------------------------------------------------
 
@@ -365,9 +370,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `email`, `password`, `avatar`, `fk_id_rol`) VALUES
-(1, 'axelbau24', 'axelbau24@gmail.com', '$2y$10$yUdJQJ/cAGEnkzhKL/hpdOPHhX3Ku7UWqBeQOUcbsTnQKQcx.Ch6m', 'images/avatar/5834fb7747075_user_1.png', 1),
-(2, 'eze', 'ezefazio@gmail.com', '$2y$10$aYD9Yhg/r3B7svmTZpJ7X.C7RfTWewaSwyHv3ZvHAlFAI5fn7KTDO', 'images/avatar/default.png', 1),
-(3, 'santii35', 'santii_35@gmail.com', '$2y$10$o1cfUKVxNWgfSKB17ul39.t8CxtvBe1.nqobZzsPY6yeOoh3aG.bS', 'images/avatar/default.png', 3),
+(1, 'axelbau24', 'axelbau24@gmail.com', '$2y$10$yUdJQJ/cAGEnkzhKL/hpdOPHhX3Ku7UWqBeQOUcbsTnQKQcx.Ch6m', 'images/avatar/5835177213372_user_1.png', 1),
+(2, 'eze', 'ezefazio@gmail.com', '$2y$10$aYD9Yhg/r3B7svmTZpJ7X.C7RfTWewaSwyHv3ZvHAlFAI5fn7KTDO', 'images/avatar/5835182f9f073_user_2.png', 1),
+(3, 'santii35', 'santii_35@gmail.com', '$2y$10$o1cfUKVxNWgfSKB17ul39.t8CxtvBe1.nqobZzsPY6yeOoh3aG.bS', 'images/avatar/583518c029333_user_3.png', 3),
 (4, '93_sherman', 'sher_93@gmail.com', '$2y$10$WF20Z76Pu3fbN3AMdqCDMeurvAfUWRvJR264SqQlEKkHxv0mF6HSG', 'images/avatar/default.png', 2),
 (5, 'usuario53', 'user_53@gmail.com', '$2y$10$kR7EAKupD7irI6VIEbezb.8cKWNRjOdnDGUjgWwp6Ydec559X2LXe', 'images/avatar/default.png', 3),
 (6, 'XpedritoX', 'x_xp3drito@gmail.com', '$2y$10$R9OLyC4NYpNlcpN9jIM53uIbEfkUxK6PVQ2Ys5AzlhJ3kYRhjWLhe', 'images/avatar/default.png', 3),
@@ -436,6 +441,7 @@ ALTER TABLE `rol`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`),
+  ADD UNIQUE KEY `nombre` (`nombre`),
   ADD KEY `fk_id_rol` (`fk_id_rol`);
 
 --
@@ -456,7 +462,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT de la tabla `componente`
 --

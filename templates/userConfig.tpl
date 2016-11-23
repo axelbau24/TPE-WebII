@@ -22,8 +22,8 @@
             <div class="col-lg-6 col-xs-12">
               <div class="panel panel-filled text-center">
                         <div class="panel-heading"><h3>Usuario <i>{$usuario['nombre']}</i></h3></div>
-                        <div class="panel-body">
-                            <img class="img-thumbnail img-responsive color-transparent" src="{$usuario['avatar']}" alt="" />
+                        <div class="panel-body img-holder text-center">
+                            <img class="img-thumbnail img-responsive color-transparent" src="{$usuario['avatar']}" alt="avatar_{$usuario['nombre']}" />
                         </div>
                         <div class="panel-footer"><label>Email: <i>{$usuario['email']}</i></label></div>
                     </div>

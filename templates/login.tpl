@@ -40,7 +40,7 @@
               <input type="password"  placeholder="******" name="password" class="form-control" required autofocus>
             </div>
             <div class="form-group">
-              <div class="checkbox"><label> <input type="checkbox" name="mantenerSesion"> Mantener sesión iniciada</label></div>
+              <div class="checkbox"><label> <input type="checkbox" checked name="mantenerSesion"> Mantener sesión iniciada</label></div>
             </div>
             <div>
               <button class="btn btn-accent" type="submit">Ingresar</button>

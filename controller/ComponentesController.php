@@ -52,6 +52,7 @@ class ComponentesController extends Controller{
 
   function agregar_componente(){
     $this->model->agregarComponente($this->crearComponente());
+    $this->admin_componentes();
   }
   function crearComponente(){
     $newComponente = [];

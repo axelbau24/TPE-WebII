@@ -154,3 +154,9 @@ td input, td select {position:absolute; top:0; left:0; width:100%;}
     box-shadow: none;
     outline: none;
 }
+.img-holder{
+  width: 300px;
+  height: 300px;
+  display: block;
+  margin: 0 auto;
+}

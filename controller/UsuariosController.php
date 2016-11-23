@@ -99,7 +99,7 @@ class UsuariosController extends Controller{
       if(!empty($avatar)){
         $ruta = "images/avatar/" . uniqid() . "_user_" . $usuario["id_usuario"]  . $avatar["ext"];
         move_uploaded_file($avatar["tmp_name"], $ruta);
-        unlink($usuario["avatar"]);
+        if (!strpos($usuario["avatar"], 'default')) unlink($usuario["avatar"]);
       }
     return $ruta;
   }
@@ -116,8 +116,10 @@ class UsuariosController extends Controller{
 
       if(isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['new_password'])
       && !empty($_POST['new_password']) && isset($_POST['c_new_password']) && !empty($_POST['c_new_password'])){
-        $password = $_POST['password'];
+        $password = $_POST['password']; // Password actual
         $passwordRegistrada = $usuario['password'];
+        // Se verifican que la contraseña ingresada sea valida con la del usuario
+        // y luego se comprueba que la nueva contraseña este confirmada con el otro campo
         if(password_verify($password, $passwordRegistrada) && $_POST['new_password'] == $_POST['c_new_password']){
           $usuario["password"] = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
           $this->model->editarDatos($usuario);
