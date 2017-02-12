@@ -18,7 +18,7 @@ function getComentarios(){
       comentario,
       usuario
     WHERE
-      comentario.fk_id_usuario = usuario.id_usuario ORDER BY fecha" );
+      comentario.fk_id_usuario = usuario.id_usuario ORDER BY comentario.fecha ASC" );
   $comentarios->execute();
   return $comentarios->fetchAll(PDO::FETCH_ASSOC);
 }
